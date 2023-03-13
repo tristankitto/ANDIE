@@ -1,5 +1,3 @@
-//test
-
 package cosc202.andie;
 
 import java.awt.*;
