@@ -14,8 +14,9 @@ import java.awt.Color;
  * pixels in a surrounding neighbourhood, and can be implemented by a _____?.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
@@ -23,9 +24,10 @@ import java.awt.Color;
  * @version 1.0
  */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
-    
+
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
+     * 5x5 filter, and so forth.
      */
     private int radius;
 
@@ -43,7 +45,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * @param radius The radius of the newly constructed MedianFilter
      */
     MedianFilter(int radius) {
-        this.radius = radius;    
+        this.radius = radius;
     }
 
     /**
@@ -68,7 +70,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * 
      * <p>
      * As with many filters, the Median filter is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.  
+     * The size of the convolution kernel is specified by the {@link radius}.
      * Larger radii lead to stronger blurring.
      * </p>
      * 
@@ -77,52 +79,46 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         // Set up arrays to store nearby RGB values
-        
-        int neighboursConsidered = (int) Math.pow(2 * radius + 1, 2);
-        int[] nearbyA = new int[ neighboursConsidered];
-        int[] nearbyR = new int[ neighboursConsidered];
-        int[] nearbyG = new int[ neighboursConsidered];
-        int[] nearbyB = new int[ neighboursConsidered];
 
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);                    
-                    
+        int neighboursConsidered = (int) Math.pow(2 * radius + 1, 2);
+        int[] nearbyA = new int[neighboursConsidered];
+        int[] nearbyR = new int[neighboursConsidered];
+        int[] nearbyG = new int[neighboursConsidered];
+        int[] nearbyB = new int[neighboursConsidered];
+
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
+                input.isAlphaPremultiplied(), null);
+
         // Iterate through each pixel
         for (int y = 0; y < input.getHeight(); ++y) {
-                for (int x = 0; x < input.getWidth(); ++x) {
-                    // Declare and initialise counter for filling arrays
-                    int i = 0;
-                    // 
-                    for (int  y1 = y - radius; y1 <= y + radius; y1 ++) {
-                        for (int x1 = x - radius; x1 <= x + radius; x1 ++) {
+            for (int x = 0; x < input.getWidth(); ++x) {
+                // Declare and initialise counter for filling arrays
+                int i = 0;
+                //
+                for (int y1 = y - radius; y1 <= y + radius; y1++) {
+                    for (int x1 = x - radius; x1 <= x + radius; x1++) {
+                        
+                        //if statement to ensure x1 and y1 are pixels actually contained within the image
+                        if (x1 >= 0 && x1 < input.getWidth() && y1 >= 0 && y1 < input.getHeight()) {
                             int argb = input.getRGB(x1, y1);
-                            nearbyA[i] = (argb & 0xFF000000) >> 24;
-                            nearbyR[i] = (argb & 0x00FF0000) >> 16;
-                            nearbyG[i] = (argb & 0x0000FF00) >> 8;
-                            nearbyB[i] = (argb & 0x000000FF);
-                            i ++;
-
+                            nearbyA[i] = (argb >> 24) & 0xff;
+                            nearbyR[i] = (argb >> 16) & 0xff;
+                            nearbyG[i] = (argb >> 8) & 0xff;
+                            nearbyB[i] = argb & 0xff;
+                            i++;
                         }
                     }
-                    Arrays.sort(nearbyA);
-                    Arrays.sort(nearbyR);
-                    Arrays.sort(nearbyG);
-                    Arrays.sort(nearbyB);
+                }
+                Arrays.sort(nearbyA);
+                Arrays.sort(nearbyR);
+                Arrays.sort(nearbyG);
+                Arrays.sort(nearbyB);
 
-                    output.setRGB(x, y, new Color(nearbyR[(int) i/2], nearbyG[(int) i/2],nearbyB[(int) i/2], nearbyA[(int) i/2]).getRGB());
+                output.setRGB(x, y, new Color(nearbyR[(int) i / 2], nearbyG[(int) i / 2], nearbyB[(int) i / 2],
+                        nearbyA[(int) i / 2]).getRGB());
             }
         }
-        
-/*         int size = (2*radius+1) * (2*radius+1);
-        float [] array = new float[size];
-        Arrays.fill(array, 1.0f/size);
-
-        Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
-        ConvolveOp convOp = new ConvolveOp(kernel);
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output); */
-
         return output;
     }
-
 
 }
