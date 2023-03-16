@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
+import java.awt.Color;
 
 /**
  * <p>
@@ -18,7 +19,7 @@ import java.util.*;
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
- * @author Steven Mills
+ * @author Matthew Yi
  * @version 1.0
  */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
@@ -75,37 +76,50 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+        // Set up arrays to store nearby RGB values
         
-        
+        int neighboursConsidered = (int) Math.pow(2 * radius + 1, 2);
+        int[] nearbyA = new int[ neighboursConsidered];
+        int[] nearbyR = new int[ neighboursConsidered];
+        int[] nearbyG = new int[ neighboursConsidered];
+        int[] nearbyB = new int[ neighboursConsidered];
+
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);                    
+                    
+        // Iterate through each pixel
         for (int y = 0; y < input.getHeight(); ++y) {
-            if (y > radius && y < input.getHeight()) {
                 for (int x = 0; x < input.getWidth(); ++x) {
-                    if (x > radius && x < input.getHeight() - radius){
-                        int argb = input.getRGB(x, y);
-                        int a = (argb & 0xFF000000) >> 24;
-                        int r = (argb & 0x00FF0000) >> 16;
-                        int g = (argb & 0x0000FF00) >> 8;
-                        int b = (argb & 0x000000FF);
-        
-        
-        
-                        //int grey = (int) Math.round(0.3*r + 0.6*g + 0.1*b);
-        
-                        //argb = (a << 24) | (grey << 16) | (grey << 8) | grey;
-                        //input.setRGB(x, y, argb);
+                    // Declare and initialise counter for filling arrays
+                    int i = 0;
+                    // 
+                    for (int  y1 = y - radius; y1 <= y + radius; y1 ++) {
+                        for (int x1 = x - radius; x1 <= x + radius; x1 ++) {
+                            int argb = input.getRGB(x1, y1);
+                            nearbyA[i] = (argb & 0xFF000000) >> 24;
+                            nearbyR[i] = (argb & 0x00FF0000) >> 16;
+                            nearbyG[i] = (argb & 0x0000FF00) >> 8;
+                            nearbyB[i] = (argb & 0x000000FF);
+                            i ++;
+
+                        }
                     }
-                }
+                    Arrays.sort(nearbyA);
+                    Arrays.sort(nearbyR);
+                    Arrays.sort(nearbyG);
+                    Arrays.sort(nearbyB);
+
+                    output.setRGB(x, y, new Color(nearbyR[(int) i/2], nearbyG[(int) i/2],nearbyB[(int) i/2], nearbyA[(int) i/2]).getRGB());
             }
         }
         
-        int size = (2*radius+1) * (2*radius+1);
+/*         int size = (2*radius+1) * (2*radius+1);
         float [] array = new float[size];
         Arrays.fill(array, 1.0f/size);
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         ConvolveOp convOp = new ConvolveOp(kernel);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
+        convOp.filter(input, output); */
 
         return output;
     }
