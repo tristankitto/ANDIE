@@ -67,6 +67,7 @@ public class Andie {
         frame.add(scrollPane, BorderLayout.CENTER);
 
         createMenuBar();
+        frame.pack();
     }
 
     public static void createMenuBar() {
@@ -102,7 +103,6 @@ public class Andie {
         menuBar.add(languageActions.createMenu());
 
         frame.setJMenuBar(menuBar);
-        frame.pack();
         frame.setVisible(true);
     }
 
