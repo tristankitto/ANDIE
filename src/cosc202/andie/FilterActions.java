@@ -36,12 +36,27 @@ public class FilterActions {
      */
     public FilterActions() {
         actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("meanfilter"), null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction("Soft blur", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpen filter",
+        actions.add(
+                new MeanFilterAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("meanfilter"),
+                        null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyAMeanFilter"),
+                        Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SoftBlurAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("softBlur"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyASoftBlur"),
+                Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new SharpenFilterAction(
+                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("sharpenFilter"), null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyASharpenFilter"),
                 Integer.valueOf(KeyEvent.VK_F)));
-        actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(
+                new GaussianBlurAction(
+                        ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("gaussianBlur"), null,
+                        ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyAGaussianBlur"),
+                        Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(
+                new MedianFilterAction(
+                        ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("medianFilter"), null,
+                        ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyAMedianFilter"),
+                        Integer.valueOf(KeyEvent.VK_D)));
     }
 
     /**
@@ -52,7 +67,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("filter"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -105,7 +120,8 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner,
+                    ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("enterFilterRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -179,7 +195,8 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner,
+                    ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("enterFilterRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -233,7 +250,8 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner,
+                    ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("enterFilterRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.

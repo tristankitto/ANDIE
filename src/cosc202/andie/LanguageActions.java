@@ -36,11 +36,14 @@ public class LanguageActions {
     public LanguageActions() {
         actions = new ArrayList<Action>();
         actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("english"),
-                null, "English language", Integer.valueOf(KeyEvent.VK_E), "en"));
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("englishlanguage"),
+                Integer.valueOf(KeyEvent.VK_E), "en"));
         actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("spanish"),
-                null, "Spanish language", Integer.valueOf(KeyEvent.VK_S), "es"));
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("spanishlanguage"),
+                Integer.valueOf(KeyEvent.VK_S), "es"));
         actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("maori"),
-                null, "Maori language", Integer.valueOf(KeyEvent.VK_M), "mi"));
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("maorilanguage"),
+                Integer.valueOf(KeyEvent.VK_M), "mi"));
     }
 
     /**
@@ -51,7 +54,7 @@ public class LanguageActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Language");
+        JMenu fileMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("language"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
