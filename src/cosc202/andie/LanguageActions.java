@@ -34,13 +34,13 @@ public class LanguageActions {
      * @return The Language menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("language"));
+        JMenu languageMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("language"));
 
         for (Action action : actions) {
-            fileMenu.add(new JMenuItem(action));
+            languageMenu.add(new JMenuItem(action));
         }
 
-        return fileMenu;
+        return languageMenu;
     }
 
     /**
