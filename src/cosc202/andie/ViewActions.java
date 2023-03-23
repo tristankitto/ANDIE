@@ -47,6 +47,12 @@ public class ViewActions {
         actions.add(new ZoomFullAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomFull"),
                 null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomFull"),
                 Integer.valueOf(KeyEvent.VK_1)));
+        actions.add(new RotateAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotate"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotate"),
+                Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new FlipHorizontalAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipHorizontal"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipHorizontal"),
+                Integer.valueOf(KeyEvent.VK_H)));
     }
 
     /**
@@ -202,6 +208,40 @@ public class ViewActions {
             target.getParent().revalidate();
         }
 
+    }
+
+    /**
+     * Action to rotate an image
+     */
+    public class RotateAction extends ImageAction {
+        RotateAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new Rotate());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * Action to flip an image
+     */
+    public class FlipHorizontalAction extends ImageAction {
+        FlipHorizontalAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new Rotate());
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
 }
