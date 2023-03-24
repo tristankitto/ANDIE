@@ -47,12 +47,18 @@ public class ViewActions {
         actions.add(new ZoomFullAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomFull"),
                 null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomFull"),
                 Integer.valueOf(KeyEvent.VK_1)));
-        actions.add(new RotateAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotate"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotate"),
-                Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RotateClockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotateClockwise"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotateClockwise"),
+                Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new RotateAnticlockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotateAnticlockwise"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotateAnticlockwise"),
+                Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FlipHorizontalAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipHorizontal"),
                 null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipHorizontal"),
                 Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new FlipVerticalAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipVertical"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipVertical"),
+                Integer.valueOf(KeyEvent.VK_V)));
     }
 
     /**
@@ -211,24 +217,41 @@ public class ViewActions {
     }
 
     /**
-     * Action to rotate an image
+     * Action to rotate an image clockwise
      */
-    public class RotateAction extends ImageAction {
-        RotateAction(String name, ImageIcon icon,
+    public class RotateClockwiseAction extends ImageAction {
+        RotateClockwiseAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new Rotate());
+            target.getImage().apply(new RotateClockwise());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+        /**
+     * Action to rotate an image anticlockwise
+     */
+    public class RotateAnticlockwiseAction extends ImageAction {
+        RotateAnticlockwiseAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new RotateAnticlockwise());
             target.repaint();
             target.getParent().revalidate();
         }
     }
 
     /**
-     * Action to flip an image
+     * Action to flip an image horizontally
      */
     public class FlipHorizontalAction extends ImageAction {
         FlipHorizontalAction(String name, ImageIcon icon,
@@ -238,7 +261,24 @@ public class ViewActions {
 
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new Rotate());
+            target.getImage().apply(new FlipHorizontal());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * Action to flip an image vertically
+     */
+    public class FlipVerticalAction extends ImageAction {
+        FlipVerticalAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new FlipVertical());
             target.repaint();
             target.getParent().revalidate();
         }
