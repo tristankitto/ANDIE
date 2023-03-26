@@ -1,6 +1,9 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.io.*;
+import java.util.*;
+
 import javax.swing.*;
 import javax.imageio.*;
 
@@ -53,6 +56,14 @@ public class Andie {
      * @throws Exception if something goes wrong.
      */
     private static void createAndShowGUI() throws Exception {
+        try {
+            File file = new File("src/cosc202/andie/language_pref.txt");
+            Scanner scanner = new Scanner(file);
+            Locale.setDefault(new Locale(scanner.nextLine()));
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("Problem");
+        }
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
 
