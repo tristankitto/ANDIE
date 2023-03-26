@@ -15,14 +15,14 @@ public class LanguageActions {
      */
     public LanguageActions() {
         actions = new ArrayList<Action>();
-        actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("english"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("englishlanguage"),
+        actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("english") + " (English)",
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("englishlanguage") + " (English Language)",
                 Integer.valueOf(KeyEvent.VK_E), "en"));
-        actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("maori"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("maorilanguage"),
+        actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("maori") + " (Māori)",
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("maorilanguage") + " (Te reo Māori)",
                 Integer.valueOf(KeyEvent.VK_M), "mi"));
-        actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("spanish"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("spanishlanguage"),
+        actions.add(new LanguageChoice(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("spanish") + " (Español)",
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("spanishlanguage") + " (Lengua española)",
                 Integer.valueOf(KeyEvent.VK_S), "es"));
     }
 
