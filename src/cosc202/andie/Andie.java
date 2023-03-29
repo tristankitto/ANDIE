@@ -56,7 +56,7 @@ public class Andie {
      * @throws Exception if something goes wrong.
      */
     private static void createAndShowGUI() throws Exception {
-        File file = new File("src/cosc202/andie/language_pref.txt");
+        File file = new File("src/cosc202/andie/LanguageResources/language_pref.txt");
         Scanner scanner = new Scanner(file);
         Locale.setDefault(new Locale(scanner.nextLine()));
         scanner.close();

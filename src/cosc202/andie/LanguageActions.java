@@ -18,22 +18,49 @@ public class LanguageActions {
     public LanguageActions() {
         actions = new ArrayList<Action>();
         actions.add(new LanguageChoice(
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("english") + " (English)",
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("english")
+                        + " (English)",
                 null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("englishlanguage")
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("englishlanguage")
                         + " (English Language)",
                 Integer.valueOf(KeyEvent.VK_E), "en"));
         actions.add(new LanguageChoice(
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("maori") + " (Māori)",
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("maori")
+                        + " (Māori)",
                 null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("maorilanguage") + " (Te reo Māori)",
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("maorilanguage")
+                        + " (Te reo Māori)",
                 Integer.valueOf(KeyEvent.VK_M), "mi"));
         actions.add(new LanguageChoice(
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("spanish") + " (Español)",
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("spanish")
+                        + " (Español)",
                 null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("spanishlanguage")
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("spanishlanguage")
                         + " (Lengua española)",
                 Integer.valueOf(KeyEvent.VK_S), "es"));
+        actions.add(new LanguageChoice(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("french")
+                        + " (Français)",
+                null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                        .getString("frenchlanguage")
+                        + " (Langue française)",
+                Integer.valueOf(KeyEvent.VK_C), "fr"));
+        actions.add(new LanguageChoice(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("japanese")
+                        + " (日本語)",
+                null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("japaneselanguage")
+                        + " (日本語)",
+                Integer.valueOf(KeyEvent.VK_C), "jp"));
+        actions.add(new LanguageChoice(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("cantonese")
+                        + " (廣東話)",
+                null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                        .getString("cantoneselanguage")
+                        + " (廣東話語言)",
+                Integer.valueOf(KeyEvent.VK_C), "zh"));
     }
 
     /**
@@ -44,7 +71,8 @@ public class LanguageActions {
      * @return The Language menu UI element.
      */
     public JMenu createMenu() {
-        JMenu languageMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("language"));
+        JMenu languageMenu = new JMenu(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("language"));
 
         for (Action action : actions) {
             languageMenu.add(new JMenuItem(action));
@@ -92,60 +120,24 @@ public class LanguageActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if (this.language.equals("en")) {
-                Locale.setDefault(Locale.ENGLISH);
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/cosc202/andie/language_pref.txt"))) {
-                    try {
-                        writer.write(language);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-
-                    try {
-                        writer.close();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+            Locale.setDefault(new Locale(language));
+            try (BufferedWriter writer = new BufferedWriter(
+                    new FileWriter("src/cosc202/andie/LanguageResources/language_pref.txt"))) {
+                try {
+                    writer.write(language);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-            }
-            if (this.language.equals("es")) {
-                Locale.setDefault(new Locale("es", "ES"));
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/cosc202/andie/language_pref.txt"))) {
-                    try {
-                        writer.write(language);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
 
-                    try {
-                        writer.close();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+                try {
+                    writer.close();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
-            if (this.language.equals("mi")) {
-                Locale.setDefault(new Locale("mi", "NZ"));
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/cosc202/andie/language_pref.txt"))) {
-                    try {
-                        writer.write(language);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
 
-                    try {
-                        writer.close();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
             Andie.createMenuBar();
         }
 

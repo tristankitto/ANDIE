@@ -38,12 +38,20 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<Action>();
         actions.add(
-                new ConvertToGreyAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("greyscale"),
-                        null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("convertToGreyscale"),
+                new ConvertToGreyAction(
+                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                                .getString("greyscale"),
+                        null,
+                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                                .getString("convertToGreyscale"),
                         Integer.valueOf(KeyEvent.VK_G)));
         actions.add(
-                new InvertColourAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("inverted"),
-                        null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("invertImageColours"),
+                new InvertColourAction(
+                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                                .getString("inverted"),
+                        null,
+                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                                .getString("invertImageColours"),
                         Integer.valueOf(KeyEvent.VK_I)));
     }
 
@@ -55,7 +63,8 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("colour"));
+        JMenu fileMenu = new JMenu(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("colour"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));

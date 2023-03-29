@@ -37,25 +37,39 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(
-                new MeanFilterAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("meanFilter"),
-                        null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyAMeanFilter"),
+                new MeanFilterAction(
+                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                                .getString("meanFilter"),
+                        null,
+                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                                .getString("applyAMeanFilter"),
                         Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("softBlur"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyASoftBlur"),
+        actions.add(new SoftBlurAction(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("softBlur"),
+                null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("applyASoftBlur"),
                 Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new SharpenFilterAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("sharpenFilter"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyASharpenFilter"),
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("sharpenFilter"),
+                null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                        .getString("applyASharpenFilter"),
                 Integer.valueOf(KeyEvent.VK_F)));
         actions.add(
                 new GaussianBlurAction(
-                        ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("gaussianBlur"), null,
-                        ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyAGaussianBlur"),
+                        ResourceBundle
+                                .getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("gaussianBlur"),
+                        null,
+                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                                .getString("applyAGaussianBlur"),
                         Integer.valueOf(KeyEvent.VK_H)));
         actions.add(
                 new MedianFilterAction(
-                        ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("medianFilter"), null,
-                        ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyAMedianFilter"),
+                        ResourceBundle
+                                .getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("medianFilter"),
+                        null,
+                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                                .getString("applyAMedianFilter"),
                         Integer.valueOf(KeyEvent.VK_D)));
     }
 
@@ -67,7 +81,8 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("filter"));
+        JMenu fileMenu = new JMenu(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("filter"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -121,7 +136,8 @@ public class FilterActions {
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner,
-                    ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("enterFilterRadius"),
+                    ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                            .getString("enterFilterRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -196,7 +212,8 @@ public class FilterActions {
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner,
-                    ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("enterFilterRadius"),
+                    ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                            .getString("enterFilterRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -251,7 +268,8 @@ public class FilterActions {
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner,
-                    ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("enterFilterRadius"),
+                    ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
+                            .getString("enterFilterRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.

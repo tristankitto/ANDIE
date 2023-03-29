@@ -38,26 +38,26 @@ public class ViewActions {
      */
     public ViewActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomIn"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomIn"),
+        actions.add(new ZoomInAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomIn"), null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomIn"),
                 Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomOut"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomOut"),
+        actions.add(new ZoomOutAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomOut"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomOut"),
                 Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomFull"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("zoomFull"),
+        actions.add(new ZoomFullAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
                 Integer.valueOf(KeyEvent.VK_1)));
-        actions.add(new RotateClockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotateClockwise"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotateClockwise"),
+        actions.add(new RotateClockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateClockwise"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateClockwise"),
                 Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new RotateAnticlockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotateAnticlockwise"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("rotateAnticlockwise"),
+        actions.add(new RotateAnticlockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateAnticlockwise"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateAnticlockwise"),
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FlipHorizontalAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipHorizontal"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipHorizontal"),
+        actions.add(new FlipHorizontalAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipHorizontal"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipHorizontal"),
                 Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new FlipVerticalAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipVertical"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("flipVertical"),
+        actions.add(new FlipVerticalAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipVertical"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipVertical"),
                 Integer.valueOf(KeyEvent.VK_V)));
     }
 
@@ -69,7 +69,7 @@ public class ViewActions {
      * @return The view menu UI element.
      */
     public JMenu createMenu() {
-        JMenu viewMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("view"));
+        JMenu viewMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("view"));
 
         for (Action action : actions) {
             viewMenu.add(new JMenuItem(action));

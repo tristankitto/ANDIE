@@ -35,17 +35,21 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("open"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("openAFile"),
+        actions.add(new FileOpenAction(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("open"), null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("openAFile"),
                 Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("save"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("saveTheFile"),
+        actions.add(new FileSaveAction(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("save"), null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveTheFile"),
                 Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("saveAs"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("saveACopy"),
+        actions.add(new FileSaveAsAction(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveAs"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveACopy"),
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("exit"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("exitTheProgram"),
+        actions.add(new FileExitAction(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("exit"), null,
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("exitTheProgram"),
                 Integer.valueOf(0)));
     }
 
@@ -57,7 +61,8 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("file"));
+        JMenu fileMenu = new JMenu(
+                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("file"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
