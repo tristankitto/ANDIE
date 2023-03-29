@@ -37,7 +37,7 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(
-                new MeanFilterAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("meanfilter"),
+                new MeanFilterAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("meanFilter"),
                         null, ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("applyAMeanFilter"),
                         Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new SoftBlurAction(ResourceBundle.getBundle("cosc202.andie.LanguageBundle").getString("softBlur"),
