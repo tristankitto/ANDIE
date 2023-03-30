@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 /**
  * ImageOperation to invert an image's colour.
 */
-public class InvertColour implements ImageOperation {
+public class InvertColour implements ImageOperation, java.io.Serializable {
     
     /**
      * Create a new InvertColour operation.
