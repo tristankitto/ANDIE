@@ -34,6 +34,12 @@ public class FlipVertical implements ImageOperation {
             }
         } 
 
+        if (height % 2 == 1) {
+            for (int x = 0; x < width; ++x) {
+                output.setRGB(x, height/2, input.getRGB(x, height/2));
+            }
+        }
+
         
         return output;
     }
