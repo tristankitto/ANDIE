@@ -34,6 +34,11 @@ public class FlipHorizontal implements ImageOperation {
             }
         } 
 
+        if (width % 2 == 1) {
+            for (int y = 0; y < height; ++y) {
+                output.setRGB(y, width/2, input.getRGB(width/2, y));
+            }
+        }
         
         return output;
     }
