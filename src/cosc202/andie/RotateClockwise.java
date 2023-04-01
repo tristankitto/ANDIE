@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  * @author Matthew Yi
  * @version 1.0
  */
-public class RotateClockwise implements ImageOperation {
+public class RotateClockwise implements ImageOperation, java.io.Serializable {
     
     /**
      * <p>
