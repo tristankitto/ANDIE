@@ -3,19 +3,33 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 
 /**
+ * <p>
  * ImageOperation to rotate an image by 90 degrees clockwise.
-*/
+ * </p>
+ * 
+ * <p> 
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @author Matthew Yi
+ * @version 1.0
+ */
 public class RotateClockwise implements ImageOperation {
     
     /**
-     * Create a new RotateClockwise operation.
+     * <p>
+     * Perform a clockwise rotation of 90 degrees.
+     * </p>
+     *
      */
     RotateClockwise(){
 
     }
 
     /**
+     * <p>
      * Apply clockwise rotation to an image.
+     * </p>
      * 
      * @param input The image to be rotated clockwise
      * @return The resulting clockwise rotated image.

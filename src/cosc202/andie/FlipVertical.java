@@ -3,19 +3,38 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 
 /**
- * ImageOperation to vertically flip an image.
-*/
-public class FlipVertical implements ImageOperation {
+ * <p>
+ * ImageOperation to apply a vertical flip to an image.
+ * </p>
+ * 
+ * <p>
+ * A vertical flip mirrors an image along a horizontal axis, effectively reversing the order of its rows.
+ * </p>
+ * 
+ * <p> 
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @see java.awt.image.ConvolveOp
+ * @author Steven Mills
+ * @version 1.0
+ */
+public class FlipVertical implements ImageOperation, java.io.Serializable {
     
     /**
+     * <p>
      * Create a new FlipVertical operation.
+     * </p>
+     * 
      */
     FlipVertical(){
 
     }
 
     /**
+     * <p>
      * Apply vertical flip to an image.
+     * </p>
      * 
      * @param input The image to be flipped vertically
      * @return The resulting vertically flipped image.

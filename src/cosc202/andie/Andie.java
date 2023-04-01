@@ -23,7 +23,7 @@ import javax.imageio.*;
  * 4.0</a>
  * </p>
  * 
- * @author Steven Mills
+ * @author Steven Mills and Tristan Kitto
  * @version 1.0
  */
 public class Andie {
@@ -36,22 +36,12 @@ public class Andie {
      * </p>
      * 
      * <p>
-     * This method sets up an interface consisting of an active image (an
-     * {@code ImagePanel})
-     * and various menus which can be used to trigger operations to load, save,
-     * edit, etc.
-     * These operations are implemented {@link ImageOperation}s and triggerd via
-     * {@code ImageAction}s grouped by their general purpose into menus.
+     * This method sets up an interface with an active image (an
+     * {@code ImagePanel}).
      * </p>
      * 
      * @see ImagePanel
      * @see ImageAction
-     * @see ImageOperation
-     * @see FileActions
-     * @see EditActions
-     * @see ViewActions
-     * @see FilterActions
-     * @see ColourActions
      * 
      * @throws Exception if something goes wrong.
      */
@@ -77,6 +67,26 @@ public class Andie {
         frame.pack();
     }
 
+    /**
+     * <p>
+     *Creates the Menu bar and menu items in the GUI for the ANDIE program.
+     * </p>
+     * 
+     * <p>
+     * This method sets up various menus which can be used to trigger operations to load, save,
+     * edit, etc.
+     * These operations are implemented {@link ImageOperation}s and triggerd via
+     * {@code ImageAction}s grouped by their general purpose into menus.
+     * </p>
+     * 
+     * @see ImageOperation
+     * @see FileActions
+     * @see EditActions
+     * @see ViewActions
+     * @see FilterActions
+     * @see ColourActions
+     * 
+     */
     public static void createMenuBar() {
         frame.setJMenuBar(null);
         // Add in menus for various types of action the user may perform.
