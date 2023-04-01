@@ -71,7 +71,7 @@ public class LanguageActions {
                                 ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
                                                 .getString("frenchlanguage")
                                                 + " (Langue française)",
-                                Integer.valueOf(KeyEvent.VK_C), "fr"));
+                                Integer.valueOf(KeyEvent.VK_F), "fr"));
                 actions.add(new LanguageChoice(
                                 ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
                                                 .getString("japanese")
@@ -80,7 +80,7 @@ public class LanguageActions {
                                 ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
                                                 .getString("japaneselanguage")
                                                 + " (日本語)",
-                                Integer.valueOf(KeyEvent.VK_C), "jp"));
+                                Integer.valueOf(KeyEvent.VK_J), "jp"));
                 actions.add(new LanguageChoice(
                                 ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
                                                 .getString("cantonese")
