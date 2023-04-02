@@ -21,7 +21,6 @@ More information on this software and what it does can be found in the [COSC 202
 - Median Filter
 - Image Rotations
 - Image Flip (Horizontal and Vertical)
-- Assisted development of Brightness/Contrast Adjustment
 
 ## Shayna - UI/UX Designer
 
