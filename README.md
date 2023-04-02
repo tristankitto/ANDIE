@@ -28,6 +28,11 @@ More information on this software and what it does can be found in the [COSC 202
 
 ## Tristan - Toolsmith
 
+- Soft Blur Filter
+- Invert Colours
+- Sharpen Filter
+- Gaussian Blur Filter
+- Multilingual Support
 
 
 # Testing
@@ -39,10 +44,10 @@ Every team member was involved with testing to some degree. Team members tested 
 ![Test image](./pixilart-drawing.png)
 
 A white 100x100 pixels image was created, then black pixels were dotted around sporadically with sections of varying density of black pixels. This was used to test the following filters:
-- Mean filter: the output should have the black pixels "bleeding" outwards, expanding in a small clooud of grey as the mean of black and white pixels is grey. The expected output was observed.
+- Mean filter: the output should have the black pixels "bleeding" outwards, expanding in a small cloud of grey as the mean of black and white pixels is grey. The expected output was observed.
 - Median filter: the output should have sparse black pixels being "outvoted" and turned white, while larger clumps of black pixels remain black. The expected output was observed.
 
-## Image fip bug
+## Image flip bug
 ![Penguin Image](./transparentPenguin_test.png)
 
 Image flip and rotation operations were tested with square and rectangular images and worked without any issues, however a bug was encountered when vertically flipping the penguin image which had an odd height of pixels where a horizontal white line was created bisecting the output image. 

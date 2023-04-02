@@ -3,19 +3,37 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 
 /**
- * ImageOperation to horizontally flip an image.
-*/
-public class FlipHorizontal implements ImageOperation {
+ * <p>
+ * ImageOperation to apply a horizontal flip to an image.
+ * </p>
+ * 
+ * <p>
+ * A horizontal flip mirrors an image along a vertical axis, effectively reversing the order of its columns.
+ * </p>
+ * 
+ * <p> 
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @author Matthew Yi
+ * @version 1.0
+ */
+public class FlipHorizontal implements ImageOperation, java.io.Serializable {
     
     /**
+     * <p>
      * Create a new FlipHorizontal operation.
+     * </p>
+     * 
      */
     FlipHorizontal(){
 
     }
 
     /**
+     * <p>
      * Apply horizontal flip to an image.
+     * </p>
      * 
      * @param input The image to be flipped horizontally
      * @return The resulting horizontally flipped image.
