@@ -48,8 +48,8 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
     /**
      * <p>
      * Construct a Mean filter with the default size.
-     * </p
-     * >
+     * </p>
+     * 
      * <p>
      * By default, a Mean filter has radius 1.
      * </p>
@@ -72,7 +72,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * </p>
      * 
      * @param input The image to apply the Mean filter to.
-     * @return The resulting (blurred)) image.
+     * @return The resulting (blurred) image.
      */
     public BufferedImage apply(BufferedImage input) {
         int size = (2*radius+1) * (2*radius+1);

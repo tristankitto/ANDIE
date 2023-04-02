@@ -3,36 +3,75 @@ package cosc202.andie;
 import java.awt.image.*;
 
 /**
- * ImageOperation to apply a Gaussian blur filter.
+ * <p>
+ * ImageOperation to apply a Gaussian blur.
+ * </p>
+ * 
+ * <p>
+ * A Gaussian blur blurs an image by creating a kernel using a Gaussian formula
+ * and applying it to a buffered image.
+ * </p>
+ * 
+ * <p> 
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * </p>
+ * 
+ * @see java.awt.image.ConvolveOp
+ * @author Tristan Kitto
+ * @version 1.0
  */
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     /**
-     * The radius of the Gaussian function, in pixels.
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
 
     /**
-     * Construct a Gaussian blur filter with the given radius.
+     * <p>
+     * Construct a Gaussian blur with the given size.
+     * </p>
      * 
-     * @param radius The radius of the Gaussian function.
+     * <p>
+     * The size of the filter is the 'radius' of the convolution kernel used.
+     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
+     * Larger filters give a stronger blurring effect.
+     * </p>
+     * 
+     * @param radius The radius of the newly constructed GaussianBlur
      */
     GaussianBlur(int radius) {
         this.radius = radius;
     }
 
     /**
-     * Construct a Gaussian blur filter with default radius of 1.
+     * <p>
+     * Construct a Gaussian blur with the default size.
+     * </p>
+     * 
+     * <p>
+     * By default, a Gaussian blur has radius 1.
+     * </p>
+     * 
+     * @see GaussianBlur(int)
      */
     GaussianBlur() {
         this(1);
     }
 
     /**
-     * Apply a Gaussian blur filter to an image.
+     * <p>
+     * Apply a Gaussian blur to an image.
+     * </p>
      * 
-     * @param input The image to apply the filter to.
-     * @return The resulting blurred image.
+     * <p>
+     * As with many filters, the Gaussian blur is implemented via convolution.
+     * The size of the convolution kernel is specified by the {@link radius}.  
+     * Larger radii lead to stronger blurring.
+     * </p>
+     * 
+     * @param input The image to apply the Gaussian blur to.
+     * @return The resulting (blurred) image.
      */
     public BufferedImage apply(BufferedImage input) {
 

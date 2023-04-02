@@ -6,12 +6,12 @@ import java.awt.Color;
 
 /**
  * <p>
- * ImageOperation to apply a Median (simple blur) filter.
+ * ImageOperation to apply a Median filter.
  * </p>
  * 
  * <p>
  * A Median filter blurs an image by replacing each pixel by the median of the
- * pixels in a surrounding neighbourhood, and can be implemented by a _____?.
+ * pixels in a surrounding neighbourhood.
  * </p>
  * 
  * <p>
@@ -19,15 +19,13 @@ import java.awt.Color;
  * 4.0</a>
  * </p>
  * 
- * @see java.awt.image.ConvolveOp
  * @author Matthew Yi
  * @version 1.0
  */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
-     * 5x5 filter, and so forth.
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
 
@@ -51,8 +49,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     /**
      * <p>
      * Construct a Median filter with the default size.
-     * </p
-     * >
+     * </p>
+     * 
      * <p>
      * By default, a Median filter has radius 1.
      * </p>
@@ -68,14 +66,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * Apply a Median filter to an image.
      * </p>
      * 
-     * <p>
-     * As with many filters, the Median filter is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.
-     * Larger radii lead to stronger blurring.
-     * </p>
-     * 
      * @param input The image to apply the Median filter to.
-     * @return The resulting (blurred)) image.
+     * @return The resulting (blurred) image.
      */
     public BufferedImage apply(BufferedImage input) {
         // Set up arrays to store nearby RGB values
@@ -98,7 +90,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 for (int y1 = y - radius; y1 <= y + radius; y1++) {
                     for (int x1 = x - radius; x1 <= x + radius; x1++) {
                         
-                        //if statement to ensure x1 and y1 are pixels actually contained within the image
+                        //ensure x1 and y1 are pixels actually contained within the image
                         if (x1 >= 0 && x1 < input.getWidth() && y1 >= 0 && y1 < input.getHeight()) {
                             int argb = input.getRGB(x1, y1);
                             nearbyA[i] = (argb >> 24) & 0xff;
