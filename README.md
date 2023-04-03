@@ -9,25 +9,24 @@ More information on this software and what it does can be found in the [COSC 202
 # Individual member contributions
 
 ## Ada - Architect
-
+- Image Resizing
 
 
 ## Joshua - Developer
-
+- Exception Handling
 
 
 ## Matthew - Team Lead
-
 - Median Filter
-- Image Rotations
+- Image Rotations (Clockwise, Anticlockwise, 180)
 - Image Flip (Horizontal and Vertical)
 
 ## Shayna - UI/UX Designer
-
+- Brightness Adjustment
+- Contrast Adjustment
 
 
 ## Tristan - Toolsmith
-
 - Soft Blur Filter
 - Invert Colours
 - Sharpen Filter
