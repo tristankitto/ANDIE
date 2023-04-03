@@ -193,6 +193,45 @@ class EditableImage {
     }
 
 
+      /**
+     * <p>
+     * Save an image to file.
+     * </p>
+     * 
+     * <p>
+     * Saves an image to the file it was opened from, or the most recent file saved as.
+     * Also saves a set of operations from the file with <code>.ops</code> added.
+     * So if you save to <code>some/path/to/image.png</code>, this method will also save
+     * the current operations to <code>some/path/to/image.png.ops</code>.
+     * </p>
+     * 
+     * @throws Exception If something goes wrong.
+     */
+    public void export() throws Exception {
+        if (this.imageFilename == null) {
+            this.imageFilename = this.imageFilename + ".jpg";
+        }
+        System.out.println("file name:  " + this.imageFilename);
+        // Write image file based on file extension
+        String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
+        System.out.println("extension: " + extension);
+
+        ImageIO.write(current, "jpg", new File(imageFilename));
+        // FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
+        // ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+    
+        FileActions.saved = true;
+    
+    
+    }
+
+    public void exportImage(String imageFilename) throws Exception {
+        this.imageFilename = imageFilename + ".jpg";
+        // this.opsFilename = imageFilename + ".jpg";
+        export();
+    }
+
+
     /**
      * <p>
      * Save an image to a speficied file.
