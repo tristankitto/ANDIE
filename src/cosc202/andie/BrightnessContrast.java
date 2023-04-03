@@ -26,25 +26,27 @@ import java.awt.Color;
 public class BrightnessContrast implements ImageOperation, java.io.Serializable {
 
     /**
-     * The size of adjustment. Each value is a percentage required for each colour adjustment. 
+     * The size of adjustment. Each value is a percentage required for each colour
+     * adjustment.
      */
     private int brightness;
     private int contrast;
 
     /**
      * <p>
-     * Construct a brightness and contrast colour adjustment with 
+     * Construct a brightness and contrast colour adjustment with
      * given percentage
      * </p>
      * 
      * <p>
-     * The percentage for the adjustment is the required can be negative of positive.
-     *An input of 25 is a 25% increase in the brightness or contrast
+     * The percentage for the adjustment is the required can be negative of
+     * positive.
+     * An input of 25 is a 25% increase in the brightness or contrast
      * An input of -25 is a -25% decrease in the brightness of contrast
      * </p>
      * 
      * @param brightness The percentage to adjust brightness by
-     * @param contrast The percentage to adjust contrast by
+     * @param contrast   The percentage to adjust contrast by
      */
     BrightnessContrast(int brightness, int contrast) {
         this.brightness = brightness;
@@ -80,43 +82,52 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
      * @return The resulting adjusted image.
      */
     public BufferedImage apply(BufferedImage input) {
- 
-        
+
         int a;
         int r;
-        int g; 
+        int g;
         int b;
 
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
                 input.isAlphaPremultiplied(), null);
 
         // Iterate through each pixel
-        
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
-                            
-                            int argb = input.getRGB(x, y);
-                            a = (argb >> 24) & 0xff;
-                            r = (argb >> 16) & 0xff;
-                            g = (argb >> 8) & 0xff;
-                            b = argb & 0xff;
 
-                            /**if(a > 0 && a < 255){
-                                a = (int) ((1 + ((contrast/100)))*(a - 127.5) + (127.5 * (1 + (brightness/100))));
-                            }*/
-                            if(r > 0 && r < 255){
-                                r = (int) ((1 + ((contrast/100)))*(r - 127.5) + (127.5 * (1 + (brightness/100))));
-                            }
-                            if(g > 0 && g < 255){
-                                g = (int) ((1 + ((contrast/100)))*(g - 127.5) + (127.5 * (1 + (brightness/100))));
-                            }
-                            if(b > 0 || b < 255){
-                                b = (int) ((1 + ((contrast/100)))*(b - 127.5) + (127.5 * (1 + (brightness/100))));
-                            }
-                    
-                            
-                            output.setRGB(x, y, new Color(r,g,b,a).getRGB());
+                int argb = input.getRGB(x, y);
+                a = (argb >> 24) & 0xff;
+                r = (argb >> 16) & 0xff;
+                g = (argb >> 8) & 0xff;
+                b = argb & 0xff;
 
+                // Apply brightness and contrast adjustment to each color channel
+                r = (int) ((1 + ((contrast / 100.0))) * (r - 127.5) + (127.5 * (1 + (brightness / 100.0))));
+                if(r<0){
+                    r=0;
+                }else if(r>255){
+                    r=255;
+                }
+                g = (int) ((1 + ((contrast / 100.0))) * (g - 127.5) + (127.5 * (1 + (brightness / 100.0))));
+                if(g<0){
+                    g=0;
+                }else if(g>255){
+                    g=255;
+                }
+                b = (int) ((1 + ((contrast / 100.0))) * (b - 127.5) + (127.5 * (1 + (brightness / 100.0))));
+                if(b<0){
+                    b=0;
+                }else if(b>255){
+                    b=255;
+                }
+                if(a<0){
+                    a=0;
+                }else if (a>255){
+                    a=255;
+                }
+
+                // Set the adjusted color value to the output image
+                output.setRGB(x, y, new Color(r, g, b, a).getRGB());
             }
         }
         return output;
