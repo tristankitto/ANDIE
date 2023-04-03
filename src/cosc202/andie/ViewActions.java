@@ -26,10 +26,11 @@ import javax.swing.*;
  */
 public class ViewActions {
 
-    /**
-     * A list of actions for the View menu.
-     */
+    /** A list of actions for the View menu. */
     protected ArrayList<Action> actions;
+
+    /** ResourceBundle for multilingual support */
+    ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
 
     /**
      * <p>
@@ -38,26 +39,19 @@ public class ViewActions {
      */
     public ViewActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomIn"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomIn"),
+        actions.add(new ZoomInAction(bundle.getString("zoomIn"), null, bundle.getString("zoomIn"),
                 Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomOut"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomOut"),
+        actions.add(new ZoomOutAction(bundle.getString("zoomOut"), null, bundle.getString("zoomOut"),
                 Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
+        actions.add(new ZoomFullAction(bundle.getString("zoomFull"), null, bundle.getString("zoomFull"),
                 Integer.valueOf(KeyEvent.VK_1)));
-        actions.add(new RotateClockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateClockwise"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateClockwise"),
-                Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new RotateAnticlockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateAnticlockwise"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateAnticlockwise"),
-                Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FlipHorizontalAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipHorizontal"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipHorizontal"),
-                Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new FlipVerticalAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipVertical"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipVertical"),
+        actions.add(new RotateClockwiseAction(bundle.getString("rotateClockwise"), null,
+                bundle.getString("rotateClockwise"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new RotateAnticlockwiseAction(bundle.getString("rotateAnticlockwise"), null,
+                bundle.getString("rotateAnticlockwise"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FlipHorizontalAction(bundle.getString("flipHorizontal"), null,
+                bundle.getString("flipHorizontal"), Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new FlipVerticalAction(bundle.getString("flipVertical"), null, bundle.getString("flipVertical"),
                 Integer.valueOf(KeyEvent.VK_V)));
     }
 
@@ -69,7 +63,7 @@ public class ViewActions {
      * @return The view menu UI element.
      */
     public JMenu createMenu() {
-        JMenu viewMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("view"));
+        JMenu viewMenu = new JMenu(bundle.getString("view"));
 
         for (Action action : actions) {
             viewMenu.add(new JMenuItem(action));
@@ -233,7 +227,7 @@ public class ViewActions {
         }
     }
 
-        /**
+    /**
      * Action to rotate an image anticlockwise
      */
     public class RotateAnticlockwiseAction extends ImageAction {

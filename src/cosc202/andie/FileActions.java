@@ -28,6 +28,9 @@ public class FileActions {
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
+    /** ResourceBundle for multilingual support */
+    ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
+
     /**
      * <p>
      * Create a set of File menu actions.
@@ -35,21 +38,13 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("open"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("openAFile"),
+        actions.add(new FileOpenAction(bundle.getString("open"), null, bundle.getString("openAFile"),
                 Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("save"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveTheFile"),
+        actions.add(new FileSaveAction(bundle.getString("save"), null, bundle.getString("saveTheFile"),
                 Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveAs"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveACopy"),
+        actions.add(new FileSaveAsAction(bundle.getString("saveAs"), null, bundle.getString("saveACopy"),
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("exit"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("exitTheProgram"),
+        actions.add(new FileExitAction(bundle.getString("exit"), null, bundle.getString("exitTheProgram"),
                 Integer.valueOf(0)));
     }
 
@@ -61,8 +56,7 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("file"));
+        JMenu fileMenu = new JMenu(bundle.getString("file"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));

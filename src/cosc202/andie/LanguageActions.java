@@ -29,6 +29,9 @@ public class LanguageActions {
         /** A list of actions for the Language menu. */
         protected ArrayList<Action> actions;
 
+        /** ResourceBundle for multilingual support */
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
+
         /**
          * <p>
          * Create a set of Language menu actions.
@@ -36,60 +39,23 @@ public class LanguageActions {
          */
         public LanguageActions() {
                 actions = new ArrayList<Action>();
-                actions.add(new LanguageChoice(
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("english")
-                                                + " (English)",
-                                null,
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("englishlanguage")
-                                                + " (English Language)",
+                actions.add(new LanguageChoice(bundle.getString("english") + " (English)", null,
+                                bundle.getString("englishlanguage") + " (English Language)",
                                 Integer.valueOf(KeyEvent.VK_E), "en"));
-                actions.add(new LanguageChoice(
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("maori")
-                                                + " (Māori)",
-                                null,
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("maorilanguage")
-                                                + " (Te reo Māori)",
-                                Integer.valueOf(KeyEvent.VK_M), "mi"));
-                actions.add(new LanguageChoice(
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("spanish")
-                                                + " (Español)",
-                                null,
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("spanishlanguage")
-                                                + " (Lengua española)",
+                actions.add(new LanguageChoice(bundle.getString("maori") + " (Māori)", null,
+                                bundle.getString("maorilanguage") + " (Te reo Māori)", Integer.valueOf(KeyEvent.VK_M),
+                                "mi"));
+                actions.add(new LanguageChoice(bundle.getString("spanish") + " (Español)", null,
+                                bundle.getString("spanishlanguage") + " (Lengua española)",
                                 Integer.valueOf(KeyEvent.VK_S), "es"));
-                actions.add(new LanguageChoice(
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("french")
-                                                + " (Français)",
-                                null,
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("frenchlanguage")
-                                                + " (Langue française)",
+                actions.add(new LanguageChoice(bundle.getString("french") + " (Français)", null,
+                                bundle.getString("frenchlanguage") + " (Langue française)",
                                 Integer.valueOf(KeyEvent.VK_F), "fr"));
-                actions.add(new LanguageChoice(
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("japanese")
-                                                + " (日本語)",
-                                null,
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("japaneselanguage")
-                                                + " (日本語)",
-                                Integer.valueOf(KeyEvent.VK_J), "jp"));
-                actions.add(new LanguageChoice(
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("cantonese")
-                                                + " (廣東話)",
-                                null,
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("cantoneselanguage")
-                                                + " (廣東話語言)",
-                                Integer.valueOf(KeyEvent.VK_C), "zh"));
+                actions.add(new LanguageChoice(bundle.getString("japanese") + " (日本語)", null,
+                                bundle.getString("japaneselanguage") + " (日本語)", Integer.valueOf(KeyEvent.VK_J), "jp"));
+                actions.add(new LanguageChoice(bundle.getString("cantonese") + " (廣東話)", null,
+                                bundle.getString("cantoneselanguage") + " (廣東話語言)", Integer.valueOf(KeyEvent.VK_C),
+                                "zh"));
         }
 
         /**
@@ -100,9 +66,7 @@ public class LanguageActions {
          * @return The Language menu UI element.
          */
         public JMenu createMenu() {
-                JMenu languageMenu = new JMenu(
-                                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                                .getString("language"));
+                JMenu languageMenu = new JMenu(bundle.getString("language"));
 
                 for (Action action : actions) {
                         languageMenu.add(new JMenuItem(action));
