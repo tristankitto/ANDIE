@@ -80,8 +80,7 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
      * @return The resulting adjusted image.
      */
     public BufferedImage apply(BufferedImage input) {
-        // Set up arrays to store nearby RGB values
-
+ 
         
         int a;
         int r;
