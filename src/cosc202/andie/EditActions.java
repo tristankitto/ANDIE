@@ -29,6 +29,9 @@ public class EditActions {
     /** A list of actions for the Edit menu. */
     protected ArrayList<Action> actions;
 
+    /** ResourceBundle for multilingual support */
+    ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
+
     /**
      * <p>
      * Create a set of Edit menu actions.
@@ -36,13 +39,9 @@ public class EditActions {
      */
     public EditActions() {
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("undo"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("undo"),
+        actions.add(new UndoAction(bundle.getString("undo"), null, bundle.getString("undo"),
                 Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("redo"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("redo"),
+        actions.add(new RedoAction(bundle.getString("redo"), null, bundle.getString("redo"),
                 Integer.valueOf(KeyEvent.VK_Y)));
     }
 
@@ -54,8 +53,7 @@ public class EditActions {
      * @return The edit menu UI element.
      */
     public JMenu createMenu() {
-        JMenu editMenu = new JMenu(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("edit"));
+        JMenu editMenu = new JMenu(bundle.getString("edit"));
 
         for (Action action : actions) {
             editMenu.add(new JMenuItem(action));

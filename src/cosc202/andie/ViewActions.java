@@ -26,10 +26,11 @@ import javax.swing.*;
  */
 public class ViewActions {
 
-    /**
-     * A list of actions for the View menu.
-     */
+    /** A list of actions for the View menu. */
     protected ArrayList<Action> actions;
+
+    /** ResourceBundle for multilingual support */
+    ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
 
     /**
      * <p>
@@ -38,11 +39,9 @@ public class ViewActions {
      */
     public ViewActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomIn"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomIn"),
+        actions.add(new ZoomInAction(bundle.getString("zoomIn"), null, bundle.getString("zoomIn"),
                 Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomOut"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomOut"),
+        actions.add(new ZoomOutAction(bundle.getString("zoomOut"), null, bundle.getString("zoomOut"),
                 Integer.valueOf(KeyEvent.VK_MINUS)));
         actions.add(new ZoomFullAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
                 null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
@@ -72,7 +71,7 @@ public class ViewActions {
      * @return The view menu UI element.
      */
     public JMenu createMenu() {
-        JMenu viewMenu = new JMenu(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("view"));
+        JMenu viewMenu = new JMenu(bundle.getString("view"));
 
         for (Action action : actions) {
             viewMenu.add(new JMenuItem(action));
@@ -236,7 +235,7 @@ public class ViewActions {
         }
     }
 
-        /**
+    /**
      * Action to rotate an image anticlockwise
      */
     public class RotateAnticlockwiseAction extends ImageAction {

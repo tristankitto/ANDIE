@@ -30,6 +30,9 @@ public class ColourActions {
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
 
+    /** ResourceBundle for multilingual support */
+    ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
+
     /**
      * <p>
      * Create a set of Colour menu actions.
@@ -37,30 +40,12 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<Action>();
-        actions.add(
-                new ConvertToGreyAction(
-                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                .getString("greyscale"),
-                        null,
-                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                .getString("convertToGreyscale"),
-                        Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(
-                new InvertColourAction(
-                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                .getString("inverted"),
-                        null,
-                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                .getString("invertImageColours"),
-                        Integer.valueOf(KeyEvent.VK_I)));
-        actions.add(
-                new BrightnessContrastAction(
-                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                .getString("brightness/Contrast"),
-                        null,
-                        ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                                .getString("adjustBrightness/Contrast"),
-                        Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new ConvertToGreyAction(bundle.getString("greyscale"), null, bundle.getString("convertToGreyscale"),
+                Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new InvertColourAction(bundle.getString("inverted"), null, bundle.getString("invertImageColours"),
+                Integer.valueOf(KeyEvent.VK_I)));
+        actions.add(new BrightnessContrastAction(bundle.getString("brightness/Contrast"), null,
+                bundle.getString("adjustBrightness/Contrast"), Integer.valueOf(KeyEvent.VK_B)));
     }
 
     /**
@@ -71,8 +56,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("colour"));
+        JMenu fileMenu = new JMenu(bundle.getString("colour"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -205,16 +189,11 @@ public class ColourActions {
             SpinnerNumberModel contrastModel = new SpinnerNumberModel(0, -100, 100, 1);
             JSpinner contrastSpinner = new JSpinner(contrastModel);
 
-            int option1 = JOptionPane.showOptionDialog(null, brightnessSpinner,
-                    ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                            .getString("enterBrightness"),
+            int option1 = JOptionPane.showOptionDialog(null, brightnessSpinner, bundle.getString("enterBrightness"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-            int option2 = JOptionPane.showOptionDialog(null, contrastSpinner,
-                    ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle")
-                            .getString("enterContrast"),
+            int option2 = JOptionPane.showOptionDialog(null, contrastSpinner, bundle.getString("enterContrast"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
 
             // Check the return value from the dialog box.
             if (option1 == JOptionPane.CANCEL_OPTION) {
@@ -228,8 +207,6 @@ public class ColourActions {
             } else if (option1 == JOptionPane.OK_OPTION) {
                 contrast = contrastModel.getNumber().intValue();
             }
-            System.out.println(contrast);
-            System.out.println(brightness);
             // Create and apply the filter
             target.getImage().apply(new BrightnessContrast(brightness, contrast));
             target.repaint();

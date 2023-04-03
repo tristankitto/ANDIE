@@ -28,6 +28,11 @@ public class FileActions {
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
+    /** ResourceBundle for multilingual support */
+    ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
+
+    public static boolean saved = true;
+
     /**
      * <p>
      * Create a set of File menu actions.
@@ -35,21 +40,13 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("open"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("openAFile"),
+        actions.add(new FileOpenAction(bundle.getString("open"), null, bundle.getString("openAFile"),
                 Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("save"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveTheFile"),
+        actions.add(new FileSaveAction(bundle.getString("save"), null, bundle.getString("saveTheFile"),
                 Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveAs"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("saveACopy"),
+        actions.add(new FileSaveAsAction(bundle.getString("saveAs"), null, bundle.getString("saveACopy"),
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("exit"), null,
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("exitTheProgram"),
+        actions.add(new FileExitAction(bundle.getString("exit"), null, bundle.getString("exitTheProgram"),
                 Integer.valueOf(0)));
     }
 
@@ -61,8 +58,7 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(
-                ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("file"));
+        JMenu fileMenu = new JMenu(bundle.getString("file"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -102,25 +98,63 @@ public class FileActions {
          * <p>
          * This method is called whenever the FileOpenAction is triggered.
          * It prompts the user to select a file and opens it as an image.
+         * If a file is already open it will prompt the user to save first if
+         * their image is unsaved.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showOpenDialog(target);
+            if (saved == true) {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(target);
 
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().open(imageFilepath);
-                } catch (Exception ex) {
-                    System.exit(1);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        target.getImage().open(imageFilepath);
+                    } catch (Exception ex) {
+                        System.exit(1);
+                    }
+                }
+
+                target.repaint();
+                target.getParent().revalidate();
+            } else {
+                Object[] options = { bundle.getString("save"),
+                        bundle.getString("no"),
+                        bundle.getString("cancel") };
+                int n = JOptionPane.showOptionDialog(null, bundle.getString("unsavedImageQuestion"),
+                        bundle.getString("unsavedImage"), JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null,
+                        options, options[2]);
+                if (n == 0) {
+                    try {
+                        target.getImage().save();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                    FileActions.saved = true;
+                }
+                if (n == 1) {
+                    EditableImage.clearStacks();
+                    JFileChooser fileChooser = new JFileChooser();
+                    int result = fileChooser.showOpenDialog(target);
+
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        try {
+                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            target.getImage().open(imageFilepath);
+                        } catch (Exception ex) {
+                            System.exit(1);
+                        }
+                    }
+
+                    target.repaint();
+                    target.getParent().revalidate();
+                    saved = true;
                 }
             }
-
-            target.repaint();
-            target.getParent().revalidate();
         }
 
     }
@@ -224,9 +258,10 @@ public class FileActions {
     /**
      * <p>
      * Action to quit the ANDIE application.
+     * It will prompt the user to save if their image is unsaved.
      * </p>
      */
-    public class FileExitAction extends AbstractAction {
+    public class FileExitAction extends ImageAction {
 
         /**
          * <p>
@@ -239,9 +274,7 @@ public class FileActions {
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon);
-            putValue(SHORT_DESCRIPTION, desc);
-            putValue(MNEMONIC_KEY, mnemonic);
+            super(name, icon, desc, mnemonic);
         }
 
         /**
@@ -257,7 +290,28 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+            if (saved == true) {
+                System.exit(0);
+            } else {
+                Object[] options = { bundle.getString("save"),
+                        bundle.getString("no"),
+                        bundle.getString("cancel") };
+                int n = JOptionPane.showOptionDialog(null, bundle.getString("unsavedImageQuestion"),
+                        bundle.getString("unsavedImage"), JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null,
+                        options, options[2]);
+                if (n == 0) {
+                    try {
+                        target.getImage().save();
+                        System.exit(0);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                if (n == 1) {
+                    System.exit(0);
+                }
+            }
         }
 
     }

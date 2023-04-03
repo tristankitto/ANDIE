@@ -38,9 +38,9 @@ class EditableImage {
     /** The current image, the result of applying {@link ops} to {@link original}. */
     private BufferedImage current;
     /** The sequence of operations currently applied to the image. */
-    private Stack<ImageOperation> ops;
+    private static Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
-    private Stack<ImageOperation> redoOps;
+    private static Stack<ImageOperation> redoOps;
     /** The file where the original image is stored/ */
     private String imageFilename;
     /** The file where the operation sequence is stored. */
@@ -186,9 +186,10 @@ class EditableImage {
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-        objOut.writeObject(this.ops);
+        objOut.writeObject(EditableImage.ops);
         objOut.close();
         fileOut.close();
+        FileActions.saved = true;
     }
 
 
@@ -223,6 +224,7 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        FileActions.saved = false;
     }
 
     /**
@@ -233,6 +235,7 @@ class EditableImage {
     public void undo() {
         redoOps.push(ops.pop());
         refresh();
+        FileActions.saved = false;
     }
 
     /**
@@ -272,6 +275,21 @@ class EditableImage {
         for (ImageOperation op: ops) {
             current = op.apply(current);
         }
+    }
+
+    /**
+     * <p>
+     * Clears {@link ops} and {@link redoOps} stacks.
+     * </p>
+     * 
+     * <p>
+     * This method will remove any filters currently in the {@link ops} or {@link redoOps} stacks.
+     * This is useful for removing any edits on the stacks before opening a new image.
+     * </p>
+     */
+    public static void clearStacks(){
+        ops.clear();
+        redoOps.clear();
     }
 
 }
