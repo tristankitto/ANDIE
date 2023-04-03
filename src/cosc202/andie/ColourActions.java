@@ -228,8 +228,6 @@ public class ColourActions {
             } else if (option1 == JOptionPane.OK_OPTION) {
                 contrast = contrastModel.getNumber().intValue();
             }
-            System.out.println(contrast);
-            System.out.println(brightness);
             // Create and apply the filter
             target.getImage().apply(new BrightnessContrast(brightness, contrast));
             target.repaint();

@@ -5,12 +5,12 @@ import java.awt.Color;
 
 /**
  * <p>
- * ImageOperation to apply a Median (simple blur) filter.
+ * ImageOperation to change brightness and/or contrast of an image.
  * </p>
  * 
  * <p>
- * A Median filter blurs an image by replacing each pixel by the median of the
- * pixels in a surrounding neighbourhood, and can be implemented by a _____?.
+ * Brightness and contrast changes are made using a formula designed to edit the RGB value
+ * of each pixel of an image based on a percentage input.
  * </p>
  * 
  * <p>
@@ -18,30 +18,33 @@ import java.awt.Color;
  * 4.0</a>
  * </p>
  * 
- * @see java.awt.image.ConvolveOp
  * @author Shayna Ludwig
  * @version 1.0
  */
 public class BrightnessContrast implements ImageOperation, java.io.Serializable {
 
     /**
-     * The size of adjustment. Each value is a percentage required for each colour
+     * The size of brightness adjustment. The value is a percentage required for brightness
      * adjustment.
      */
     private int brightness;
+    /**
+     * The size of contrast adjustment. The value is a percentage required for contrast
+     * adjustment.
+     */
     private int contrast;
 
     /**
      * <p>
      * Construct a brightness and contrast colour adjustment with
-     * given percentage
+     * given percentage.
      * </p>
      * 
      * <p>
-     * The percentage for the adjustment is the required can be negative of
+     * The percentage for the adjustment can be negative or
      * positive.
      * An input of 25 is a 25% increase in the brightness or contrast
-     * An input of -25 is a -25% decrease in the brightness of contrast
+     * An input of -25 is a 25% decrease in the brightness or contrast
      * </p>
      * 
      * @param brightness The percentage to adjust brightness by
@@ -54,9 +57,9 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
 
     /**
      * <p>
-     * Construct a Brightness and Contrast adjustment with the default size
-     * </p
-     * >
+     * Construct a Brightness and Contrast adjustment with the default percentage.
+     * </p>
+     * 
      * <p>
      * By default, both brightness and contrast have a default percentage of 0.
      * </p>
@@ -64,8 +67,7 @@ public class BrightnessContrast implements ImageOperation, java.io.Serializable 
      * @see BrightnessContrast(int, int)
      */
     BrightnessContrast() {
-        this.brightness = 0;
-        this.contrast = 0;
+        this(0,0);
     }
 
     /**
