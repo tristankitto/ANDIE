@@ -189,6 +189,7 @@ class EditableImage {
         objOut.writeObject(this.ops);
         objOut.close();
         fileOut.close();
+        FileActions.saved = true;
     }
 
 
@@ -223,6 +224,7 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        FileActions.saved = false;
     }
 
     /**
