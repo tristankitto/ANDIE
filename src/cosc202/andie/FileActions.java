@@ -119,11 +119,12 @@ public class FileActions {
                 target.repaint();
                 target.getParent().revalidate();
             } else {
-                Object[] options = { "Save",
-                        "No",
-                        "Cancel" };
-                int n = JOptionPane.showOptionDialog(null, "You have an unsaved image. Would you like to save first?",
-                        "Unsaved image", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                Object[] options = { bundle.getString("save"),
+                        bundle.getString("no"),
+                        bundle.getString("cancel") };
+                int n = JOptionPane.showOptionDialog(null, bundle.getString("unsavedImageQuestion"),
+                        bundle.getString("unsavedImage"), JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null,
                         options, options[2]);
                 if (n == 0) {
                     try {
@@ -288,11 +289,12 @@ public class FileActions {
             if (saved == true) {
                 System.exit(0);
             } else {
-                Object[] options = { "Save",
-                        "No",
-                        "Cancel" };
-                int n = JOptionPane.showOptionDialog(null, "You have an unsaved image. Would you like to save first?",
-                        "Unsaved image", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                Object[] options = { bundle.getString("save"),
+                        bundle.getString("no"),
+                        bundle.getString("cancel") };
+                int n = JOptionPane.showOptionDialog(null, bundle.getString("unsavedImageQuestion"),
+                        bundle.getString("unsavedImage"), JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null,
                         options, options[2]);
                 if (n == 0) {
                     try {
