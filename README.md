@@ -33,6 +33,7 @@ More information on this software and what it does can be found in the [COSC 202
 - Sharpen Filter
 - Gaussian Blur Filter
 - Multilingual Support
+- Error Avoidance/Handling
 
 
 # Testing
@@ -62,9 +63,19 @@ Gaussian Blur on opaque images creates a black border and on transparent images,
 ## Components with no issues during testing:
  -
 
+# Exceptions Handled
+
+
+# Errors Handled
+
+## Opening and Exiting when an image is unsaved
+**ANDIE** now prompts the user to save their image before opening a new one or before exiting the program using the exit button in the file menu. The user can either save and continue, not save and continue, or cancel the action.
+
+## Filters applied to newly opened images
+When opening a new image, after already having an edited image open, the newly opened image would have the same filters now applied to it. This has been remedied and now any image that is opened will have no filters applied to it unless it has a **.ops** file.
+
 
 # User Guide
-
 
 
 # Deviations from Specifications

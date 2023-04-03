@@ -98,6 +98,8 @@ public class FileActions {
          * <p>
          * This method is called whenever the FileOpenAction is triggered.
          * It prompts the user to select a file and opens it as an image.
+         * If a file is already open it will prompt the user to save first if
+         * their image is unsaved.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -135,6 +137,7 @@ public class FileActions {
                     FileActions.saved = true;
                 }
                 if (n == 1) {
+                    EditableImage.clearStacks();
                     JFileChooser fileChooser = new JFileChooser();
                     int result = fileChooser.showOpenDialog(target);
 
@@ -255,6 +258,7 @@ public class FileActions {
     /**
      * <p>
      * Action to quit the ANDIE application.
+     * It will prompt the user to save if their image is unsaved.
      * </p>
      */
     public class FileExitAction extends ImageAction {
