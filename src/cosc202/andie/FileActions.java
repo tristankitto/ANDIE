@@ -46,10 +46,10 @@ public class FileActions {
                 Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction(bundle.getString("saveAs"), null, bundle.getString("saveACopy"),
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction(bundle.getString("exit"), null, bundle.getString("exitTheProgram"),
-                Integer.valueOf(0)));
         actions.add(new imageExportAction(bundle.getString("export"), null, bundle.getString("exportImage"),
                 Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(new FileExitAction(bundle.getString("exit"), null, bundle.getString("exitTheProgram"),
+                Integer.valueOf(0)));
     }
 
     /**
