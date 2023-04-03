@@ -46,7 +46,7 @@ public class ViewActions {
                 Integer.valueOf(KeyEvent.VK_MINUS)));
         actions.add(new ZoomFullAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
                 null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
-                Integer.valueOf(KeyEvent.VK_1)));
+                Integer.valueOf(KeyEvent.VK_F)));
         actions.add(new RotateClockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateClockwise"),
                 null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateClockwise"),
                 Integer.valueOf(KeyEvent.VK_C)));
@@ -59,6 +59,9 @@ public class ViewActions {
         actions.add(new FlipVerticalAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipVertical"),
                 null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipVertical"),
                 Integer.valueOf(KeyEvent.VK_V)));
+        actions.add(new Rotate180Action(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotate180"),
+                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotate180"),
+                Integer.valueOf(KeyEvent.VK_1)));
     }
 
     /**
@@ -279,6 +282,23 @@ public class ViewActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new FlipVertical());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * Action to rotate an image 180 degrees
+     */
+    public class Rotate180Action extends ImageAction {
+        Rotate180Action(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new Rotate180());
             target.repaint();
             target.getParent().revalidate();
         }

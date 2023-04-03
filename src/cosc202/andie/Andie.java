@@ -18,7 +18,7 @@ import javax.imageio.*;
  * image editing and processing operations.
  * </p>
  * 
- * <p>
+ * <p>exit
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
  * 4.0</a>
  * </p>
