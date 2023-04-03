@@ -18,12 +18,16 @@ More information on this software and what it does can be found in the [COSC 202
 
 ## Matthew - Team Lead
 - Median Filter
-- Image Rotations (Clockwise, Anticlockwise, 180)
-- Image Flip (Horizontal and Vertical)
+- Clockwise Rotation
+- Anticlockwise Rotation
+- 180 Degrees Rotation
+- Horizontal Flip 
+- Vertical Flip
 
 ## Shayna - UI/UX Designer
 - Brightness Adjustment
 - Contrast Adjustment
+- Image Export
 
 
 ## Tristan - Toolsmith
@@ -33,6 +37,7 @@ More information on this software and what it does can be found in the [COSC 202
 - Gaussian Blur Filter
 - Multilingual Support
 - Error Avoidance/Handling
+- Javadoc commenting
 
 
 # Testing
@@ -50,17 +55,29 @@ A white 100x100 pixels image was created, then black pixels were dotted around s
 ## Image flip bug
 ![Penguin Image](./transparentPenguin_test.png)
 
-Image flip and rotation operations were tested with square and rectangular images and worked without any issues, however a bug was encountered when vertically flipping the penguin image which had an odd height of pixels where a horizontal white line was created bisecting the output image. 
+Image flip and rotation operations were tested with square and rectangular images and worked without any issues, however a bug was encountered when vertically flipping the penguin image where a horizontal white line was created bisecting the output image. It was found that this bug occurred because the image had an odd number of pixels in its height.
 
 This bug was recreated by resizing the penguin image to also have an odd width of pixels and horizontally flipping it, which caused a vertical white line to appear down the centre. 
 
-This bug was patched with additional code that runs if width or height is odd and ensures the middle line of pixels are copied over correctly.
+This bug was patched with additional code that runs if width or height is odd and ensures the middle line of pixels is copied over correctly.
 
 ## Gaussian Blur
 Gaussian Blur on opaque images creates a black border and on transparent images, it cuts off that border. This is because the operation looks at a pixel's neighbours to determine the output colour, and pixels on the borders will not have enough of these neighbours. This bug will be handled in part 2 of this assignment. 
 
+## 4k Images
+This 3840 x 2160 image was used to test some of the more process intensive filters like Median Filter. Although they took a while to run, no issues were encountered.
+
 ## Components with no issues during testing:
- -
+ - Sharpen Filter
+ - Median Filter
+ - Brightness Adjustment
+ - Contrast Adjustment
+ - Multilingual Support
+ - Image Resize
+ - Image Rotations
+ - Image Export
+ - Exception Handling
+ - Other Error Avoidance/Handling
 
 # Exceptions Handled
 
