@@ -70,3 +70,4 @@ Gaussian Blur on opaque images creates a black border and on transparent images,
 # Deviations from Specifications
 
 ## Language Preferences
+Support for the user to save their language of choice has been implemented. This is done through writing to a text file each time a language is selected in the GUI, this file is then read every time the program is opened to check the last selected language and set the UI elements to that language by default. This allows a user to only have to change the language once upon first use of the program, as the default language is set to English on first run.
