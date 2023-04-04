@@ -116,6 +116,7 @@ public class FileActions {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
                         String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        EditableImage.clearStacks();
                         target.getImage().open(imageFilepath);
                     } catch (Exception ex) {
                         System.exit(1);
@@ -139,15 +140,29 @@ public class FileActions {
                         e1.printStackTrace();
                     }
                     FileActions.saved = true;
-                }
-                if (n == 1) {
-                    EditableImage.clearStacks();
                     JFileChooser fileChooser = new JFileChooser();
                     int result = fileChooser.showOpenDialog(target);
 
                     if (result == JFileChooser.APPROVE_OPTION) {
                         try {
                             String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            EditableImage.clearStacks();
+                            target.getImage().open(imageFilepath);
+                        } catch (Exception ex) {
+                            System.exit(1);
+                        }
+                    }
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+                if (n == 1) {
+                    JFileChooser fileChooser = new JFileChooser();
+                    int result = fileChooser.showOpenDialog(target);
+
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        try {
+                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            EditableImage.clearStacks();
                             target.getImage().open(imageFilepath);
                         } catch (Exception ex) {
                             System.exit(1);
@@ -371,7 +386,7 @@ public class FileActions {
                         if (n == 0) {
                             target.getImage().exportImage(imageFilepath);
                         }
-                    } else{
+                    } else {
                         target.getImage().exportImage(imageFilepath);
                     }
                 } catch (Exception ex) {
