@@ -43,24 +43,21 @@ public class ViewActions {
                 Integer.valueOf(KeyEvent.VK_PLUS)));
         actions.add(new ZoomOutAction(bundle.getString("zoomOut"), null, bundle.getString("zoomOut"),
                 Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("zoomFull"),
+        actions.add(new ZoomFullAction(bundle.getString("zoomFull"), null, bundle.getString("zoomFull"),
                 Integer.valueOf(KeyEvent.VK_F)));
-        actions.add(new RotateClockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateClockwise"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateClockwise"),
+        actions.add(new RotateClockwiseAction(bundle.getString("rotateClockwise"), null,
+                bundle.getString("rotateClockwise"),
                 Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new RotateAnticlockwiseAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateAnticlockwise"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotateAnticlockwise"),
+        actions.add(new RotateAnticlockwiseAction(bundle.getString("rotateAnticlockwise"), null,
+                bundle.getString("rotateAnticlockwise"),
                 Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FlipHorizontalAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipHorizontal"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipHorizontal"),
-                Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new FlipVerticalAction(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipVertical"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("flipVertical"),
-                Integer.valueOf(KeyEvent.VK_V)));
-        actions.add(new Rotate180Action(ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotate180"),
-                null, ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("rotate180"),
+        actions.add(new Rotate180Action(bundle.getString("rotate180"), null, bundle.getString("rotate180"),
                 Integer.valueOf(KeyEvent.VK_1)));
+        actions.add(
+                new FlipHorizontalAction(bundle.getString("flipHorizontal"), null, bundle.getString("flipHorizontal"),
+                        Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new FlipVerticalAction(bundle.getString("flipVertical"), null, bundle.getString("flipVertical"),
+                Integer.valueOf(KeyEvent.VK_V)));
     }
 
     /**

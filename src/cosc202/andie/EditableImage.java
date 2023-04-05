@@ -275,9 +275,13 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void apply(ImageOperation op) {
-        current = op.apply(current);
-        ops.add(op);
-        FileActions.saved = false;
+        try{
+            current = op.apply(current);
+            ops.add(op);
+            FileActions.saved = false;
+        }catch(Exception e){
+            System.out.println("Error: No image to edit.");
+        }
     }
 
     /**
@@ -286,9 +290,13 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-        redoOps.push(ops.pop());
-        refresh();
-        FileActions.saved = false;
+        try{
+            redoOps.push(ops.pop());
+            refresh();
+            FileActions.saved = false;
+        }catch(Exception e){
+            System.out.println("Error: No action to undo.");
+        }
     }
 
     /**
@@ -297,7 +305,11 @@ class EditableImage {
      * </p>
      */
     public void redo()  {
-        apply(redoOps.pop());
+        try{
+            apply(redoOps.pop());
+        }catch(Exception e){
+            System.out.println("Error: No action to redo.");
+        }
     }
 
     /**
