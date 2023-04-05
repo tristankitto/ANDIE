@@ -153,16 +153,13 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void open(String filePath) throws Exception {
-        try {
-            imageFilename = filePath;
-            opsFilename = imageFilename + ".ops";
-            File imageFile = new File(imageFilename);
+        imageFilename = filePath;
+        opsFilename = imageFilename + ".ops";
+        File imageFile = new File(imageFilename);
 
-            original = ImageIO.read(imageFile);
-            current = deepCopy(original);
-        } catch (Exception ex) {
-            Andie.errorMessage("fileOpenError");
-        }
+        original = ImageIO.read(imageFile);
+        current = deepCopy(original);
+
         try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
