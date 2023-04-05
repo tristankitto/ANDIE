@@ -219,9 +219,9 @@ class EditableImage {
             fileOut.close();
             Andie.saved = true;
         } catch (NullPointerException e) {
-            Andie.errorMessage("fileUnopenedError");
+            Andie.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
-            Andie.errorMessage("fileSaveError");
+            Andie.errorMessage(e, "fileSaveError");
         }
         saveAs = false;
     }
@@ -246,9 +246,9 @@ class EditableImage {
             ImageIO.write(current, extension, new File(imageFilename + "." + extension));
             Andie.saved = true;
         } catch (NullPointerException e) {
-            Andie.errorMessage("fileUnopenedError");
+            Andie.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
-            Andie.errorMessage("fileExportError");
+            Andie.errorMessage(e, "fileExportError");
         }
     }
 
@@ -288,7 +288,7 @@ class EditableImage {
             ops.add(op);
             Andie.saved = false;
         } catch (Exception e) {
-            Andie.errorMessage("fileApplyError");
+            Andie.errorMessage(e, "fileApplyError");
         }
     }
 
@@ -303,7 +303,7 @@ class EditableImage {
             refresh();
             Andie.saved = false;
         } catch (Exception e) {
-            Andie.errorMessage("fileUndoError");
+            Andie.errorMessage(e, "fileUndoError");
         }
     }
 
@@ -316,7 +316,7 @@ class EditableImage {
         try {
             apply(redoOps.pop());
         } catch (Exception e) {
-            Andie.errorMessage("fileRedoError");
+            Andie.errorMessage(e, "fileRedoError");
         }
     }
 

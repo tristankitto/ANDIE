@@ -119,17 +119,12 @@ public class LanguageActions {
                                         new FileWriter("src/cosc202/andie/LanguageResources/language_pref.txt"))) {
                                 try {
                                         writer.write(language);
-                                } catch (IOException e1) {
-                                        e1.printStackTrace();
-                                }
-
-                                try {
                                         writer.close();
                                 } catch (IOException e1) {
-                                        e1.printStackTrace();
+                                        Andie.errorMessage(e1, "languageError");
                                 }
                         } catch (IOException e1) {
-                                e1.printStackTrace();
+                                Andie.errorMessage(e1, "languageError");
                         }
 
                         Andie.createMenuBar();
