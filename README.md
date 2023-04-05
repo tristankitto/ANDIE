@@ -91,7 +91,7 @@ Inanimate GIFs can be edited without issue.
 ## Performing any unintended function when a file is not open
 If an image has not yet been opened in **ANDIE** then a pop-up will be displayed if the user tries to do anything that would normally effect an image. This includes applying any filter or transformation, save, export, etc.
 
-## Attempting to Undo or Redo with empy stacks
+## Attempting to Undo or Redo with empty stacks
 If the Ops stack is empty and the user tries to undo, and the same for redoOps and redo, then a pop-up will be displayed informing the user that there is no action to undo or redo.
 
 ## Opening non-supported files
