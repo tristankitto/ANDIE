@@ -18,7 +18,8 @@ import javax.imageio.*;
  * image editing and processing operations.
  * </p>
  * 
- * <p>exit
+ * <p>
+ * exit
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
  * 4.0</a>
  * </p>
@@ -29,6 +30,8 @@ import javax.imageio.*;
 public class Andie {
     protected static JMenuBar menuBar;
     protected static JFrame frame;
+    /** ResourceBundle for multilingual support */
+    static ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
 
     /**
      * <p>
@@ -69,11 +72,12 @@ public class Andie {
 
     /**
      * <p>
-     *Creates the Menu bar and menu items in the GUI for the ANDIE program.
+     * Creates the Menu bar and menu items in the GUI for the ANDIE program.
      * </p>
      * 
      * <p>
-     * This method sets up various menus which can be used to trigger operations to load, save,
+     * This method sets up various menus which can be used to trigger operations to
+     * load, save,
      * edit, etc.
      * These operations are implemented {@link ImageOperation}s and triggerd via
      * {@code ImageAction}s grouped by their general purpose into menus.
@@ -143,6 +147,15 @@ public class Andie {
                 try {
                     createAndShowGUI();
                 } catch (Exception ex) {
+                    Object[] options = { bundle.getString("ok")};
+                    int n = JOptionPane.showOptionDialog(null,
+                            bundle.getString("programUnableToLaunchMessage"),
+                            bundle.getString("programUnableToLaunch"), JOptionPane.OK_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null,
+                            options, options[0]);
+                    if (n == 0) {
+                        return;
+                    }
                     ex.printStackTrace();
                     System.exit(1);
                 }

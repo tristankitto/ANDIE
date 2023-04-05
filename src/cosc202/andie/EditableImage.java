@@ -161,8 +161,18 @@ class EditableImage {
 
             original = ImageIO.read(imageFile);
             current = deepCopy(original);
-
-            // try {
+        }catch(Exception ex){
+            Object[] options = { bundle.getString("ok") };
+            int n = JOptionPane.showOptionDialog(null,
+                    bundle.getString("fileOpenErrorMessage"),
+                    bundle.getString("fileOpenError"), JOptionPane.OK_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null,
+                    options, options[0]);
+            if (n == 0) {
+                return;
+            }
+        }
+        try{
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
@@ -180,15 +190,7 @@ class EditableImage {
             objIn.close();
             fileIn.close();
         } catch (Exception ex) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    "Error: Could not open file. Please try again or choose a different file.",
-                    "Error: Could not open file.", JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            //do nothing, image just has no .ops file
         }
         this.refresh();
     }
@@ -227,8 +229,8 @@ class EditableImage {
         } catch (NullPointerException e) {
             Object[] options = { bundle.getString("ok") };
             int n = JOptionPane.showOptionDialog(null,
-                    "Error: Cannot save when no file is open. Please open a file and try again.",
-                    "Error: Could not save file.", JOptionPane.OK_OPTION,
+                    bundle.getString("fileUnopenedErrorMessage"),
+                    bundle.getString("fileUnopenedError"), JOptionPane.OK_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null,
                     options, options[0]);
             if (n == 0) {
@@ -237,8 +239,8 @@ class EditableImage {
         } catch (Exception e) {
             Object[] options = { bundle.getString("ok") };
             int n = JOptionPane.showOptionDialog(null,
-                    "Error: File failed to save. Please open a file and try again.",
-                    "Error: Could not save file.", JOptionPane.OK_OPTION,
+                    bundle.getString("fileSaveErrorMessage"),
+                    bundle.getString("fileSaveError"), JOptionPane.OK_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null,
                     options, options[0]);
             if (n == 0) {
@@ -265,20 +267,20 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void export() throws Exception {
-            if (this.imageFilename == null) {
-                this.imageFilename = this.imageFilename + "." + getImageType();
-            }
-            System.out.println("file name:  " + this.imageFilename);
-            // Write image file based on file extension
-            String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
-            System.out.println("extension: " + extension);
+        if (this.imageFilename == null) {
+            this.imageFilename = this.imageFilename + "." + getImageType();
+        }
+        System.out.println("file name:  " + this.imageFilename);
+        // Write image file based on file extension
+        String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
+        System.out.println("extension: " + extension);
 
         ImageIO.write(current, getImageType(), new File(imageFilename));
         // FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         // ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-    
+
         FileActions.saved = true;
-    
+
     }
 
     /**
@@ -298,12 +300,20 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void exportImage(String imageFilename) throws Exception {
-        try{
-        this.imageFilename = imageFilename + "." + getImageType();
+        try {
+            this.imageFilename = imageFilename + "." + getImageType();
 
-        export();
-        }catch(Exception e){
-            System.out.println("Error: Cannot export empty file.");
+            export();
+        } catch (Exception e) {
+            Object[] options = { bundle.getString("ok") };
+            int n = JOptionPane.showOptionDialog(null,
+                    bundle.getString("fileExportErrorMessage"),
+                    bundle.getString("fileExportError"), JOptionPane.OK_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null,
+                    options, options[0]);
+            if (n == 0) {
+                return;
+            }
         }
     }
 
@@ -344,8 +354,8 @@ class EditableImage {
         } catch (Exception e) {
             Object[] options = { bundle.getString("ok") };
             int n = JOptionPane.showOptionDialog(null,
-                    "Error: Failed to apply filter to image. Please try again or open an image first.",
-                    "Error: Could not apply filter.", JOptionPane.OK_OPTION,
+                    bundle.getString("fileApplyErrorMessage"),
+                    bundle.getString("fileApplyError"), JOptionPane.OK_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null,
                     options, options[0]);
             if (n == 0) {
@@ -367,8 +377,8 @@ class EditableImage {
         } catch (Exception e) {
             Object[] options = { bundle.getString("ok") };
             int n = JOptionPane.showOptionDialog(null,
-                    "Error: No action to undo.",
-                    "Error: Could not undo action.", JOptionPane.OK_OPTION,
+                    bundle.getString("fileUndoErrorMessage"),
+                    bundle.getString("fileUndoError"), JOptionPane.OK_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null,
                     options, options[0]);
             if (n == 0) {
@@ -388,8 +398,8 @@ class EditableImage {
         } catch (Exception e) {
             Object[] options = { bundle.getString("ok") };
             int n = JOptionPane.showOptionDialog(null,
-                    "Error: No action to redo.",
-                    "Error: Could not redo action.", JOptionPane.OK_OPTION,
+            bundle.getString("fileRedoErrorMessage"),
+            bundle.getString("fileRedoError"), JOptionPane.OK_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null,
                     options, options[0]);
             if (n == 0) {
