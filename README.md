@@ -97,6 +97,9 @@ Inanimate GIFs can be edited without issue.
 ## Filters applied to newly opened images
 When opening a new image, after already having an edited image open, the newly opened image would have the same filters now applied to it. This has been remedied and now any image that is opened will have no filters applied to it unless it has a **.ops** file.
 
+## Overwriting an exisiting image
+When a user tried to export an image using the same name as an already existing image in the current directory then **ANDIE** would simply overwrite the original image. Now, **ANDIE** will prompt the user that they are trying to export an image with a name that already exists and confirm if they want to overwrite the original image or cancel the action.
+
 
 # User Guide
 

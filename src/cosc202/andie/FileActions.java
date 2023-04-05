@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.File;
+
 import javax.swing.*;
 
 /**
@@ -114,6 +116,7 @@ public class FileActions {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
                         String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        EditableImage.clearStacks();
                         target.getImage().open(imageFilepath);
                     } catch (Exception ex) {
                         System.exit(1);
@@ -123,7 +126,7 @@ public class FileActions {
                 target.repaint();
                 target.getParent().revalidate();
             } else {
-                Object[] options = { bundle.getString("save"),
+                Object[] options = { bundle.getString("yes"),
                         bundle.getString("no"),
                         bundle.getString("cancel") };
                 int n = JOptionPane.showOptionDialog(null, bundle.getString("unsavedImageQuestion"),
@@ -137,15 +140,29 @@ public class FileActions {
                         e1.printStackTrace();
                     }
                     FileActions.saved = true;
-                }
-                if (n == 1) {
-                    EditableImage.clearStacks();
                     JFileChooser fileChooser = new JFileChooser();
                     int result = fileChooser.showOpenDialog(target);
 
                     if (result == JFileChooser.APPROVE_OPTION) {
                         try {
                             String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            EditableImage.clearStacks();
+                            target.getImage().open(imageFilepath);
+                        } catch (Exception ex) {
+                            System.exit(1);
+                        }
+                    }
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+                if (n == 1) {
+                    JFileChooser fileChooser = new JFileChooser();
+                    int result = fileChooser.showOpenDialog(target);
+
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        try {
+                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            EditableImage.clearStacks();
                             target.getImage().open(imageFilepath);
                         } catch (Exception ex) {
                             System.exit(1);
@@ -295,7 +312,7 @@ public class FileActions {
             if (saved == true) {
                 System.exit(0);
             } else {
-                Object[] options = { bundle.getString("save"),
+                Object[] options = { bundle.getString("yes"),
                         bundle.getString("no"),
                         bundle.getString("cancel") };
                 int n = JOptionPane.showOptionDialog(null, bundle.getString("unsavedImageQuestion"),
@@ -317,6 +334,7 @@ public class FileActions {
         }
 
     }
+
     /**
      * <p>
      * Action to save a copy of the edited image to a new file location.
@@ -359,13 +377,23 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().exportImage(imageFilepath);
+                    File file = new File(imageFilepath + ".jpg");
+                    if (file.exists()) {
+                        Object[] options = { bundle.getString("yes"), bundle.getString("cancel") };
+                        int n = JOptionPane.showOptionDialog(null, bundle.getString("fileAlreadyExistsQuestion"),
+                                bundle.getString("fileAlreadyExists"), JOptionPane.OK_CANCEL_OPTION,
+                                JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                        if (n == 0) {
+                            target.getImage().exportImage(imageFilepath);
+                        }
+                    } else {
+                        target.getImage().exportImage(imageFilepath);
+                    }
                 } catch (Exception ex) {
                     System.exit(1);
                 }
             }
         }
-
     }
 
 }
