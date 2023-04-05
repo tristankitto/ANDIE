@@ -189,22 +189,24 @@ public class ColourActions {
             SpinnerNumberModel contrastModel = new SpinnerNumberModel(0, -100, 100, 1);
             JSpinner contrastSpinner = new JSpinner(contrastModel);
 
-            int option1 = JOptionPane.showOptionDialog(null, brightnessSpinner, bundle.getString("enterBrightness"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
 
-            int option2 = JOptionPane.showOptionDialog(null, contrastSpinner, bundle.getString("enterContrast"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option1 = JOptionPane.showOptionDialog(null, brightnessSpinner, bundle.getString("enterBrightness"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
             // Check the return value from the dialog box.
-            if (option1 == JOptionPane.CANCEL_OPTION) {
+            if (option1 == 1) {
                 return;
-            } else if (option1 == JOptionPane.OK_OPTION) {
+            } else {
                 brightness = brightnessModel.getNumber().intValue();
             }
 
-            if (option2 == JOptionPane.CANCEL_OPTION) {
+            int option2 = JOptionPane.showOptionDialog(null, contrastSpinner, bundle.getString("enterContrast"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+
+            if (option2 == 1) {
                 return;
-            } else if (option1 == JOptionPane.OK_OPTION) {
+            } else {
                 contrast = contrastModel.getNumber().intValue();
             }
             // Create and apply the filter
