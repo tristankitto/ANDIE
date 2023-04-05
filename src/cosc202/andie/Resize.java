@@ -1,6 +1,8 @@
 package cosc202.andie;
 
+
 import java.awt.image.BufferedImage;
+import java.awt.*;
 
 /**
  * <p>
@@ -44,11 +46,17 @@ public class Resize implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         int width = input.getWidth();
         int height = input.getHeight();
-        int newWidth = ((width * percentage) / 100);
-        int newHeight = ((height * percentage) / 100);
+        int newWidth = (width * percentage) / 100;
+        int newHeight = (height * percentage) / 100;
 
-        BufferedImage output = new BufferedImage(newHeight, newWidth, input.getType());
+        Image scaledImage = input.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+        BufferedImage output = new BufferedImage(newWidth, newHeight, input.getType());
+        Graphics2D g2d = output.createGraphics();
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.dispose();
 
         return output;
     }
+
 }
