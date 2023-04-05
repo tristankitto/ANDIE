@@ -34,7 +34,7 @@ More information on this software and what it does can be found in the [COSC 202
 - Sharpen Filter
 - Gaussian Blur Filter
 - Multilingual Support
-- Error Avoidance/Handling
+- Exception and Error Avoidance/Handling
 - Javadoc commenting
 
 
@@ -88,6 +88,17 @@ Inanimate GIFs can be edited without issue.
 
 # Exceptions Handled
 
+## Performing any unintended function when a file is not open
+If an image has not yet been opened in **ANDIE** then a pop-up will be displayed if the user tries to do anything that would normally effect an image. This includes applying any filter or transformation, save, export, etc.
+
+## Attempting to Undo or Redo with empy stacks
+If the Ops stack is empty and the user tries to undo, and the same for redoOps and redo, then a pop-up will be displayed informing the user that there is no action to undo or redo.
+
+## Opening non-supported files
+Attempting to open any file that is not supported by **ANDIE** will result in a pop-up displaying this exception to the user and prompting them to open a different file. This works for non-image files as well as corrupted image files.
+
+## Miscellaneous Exceptions
+Any other exceptions such as a filter failing to apply or an image failing to export for an unknown or unpredictable reason are also handled. Pop-up boxes displaying what went wrong should appear to the user if an unforseen exception is to occur to inform them that their action has not worked correctly.
 
 # Errors Handled
 
@@ -108,3 +119,8 @@ When a user tried to export an image using the same name as an already existing 
 
 ## Language Preferences
 Support for the user to save their language of choice has been implemented. This is done through writing to a text file each time a language is selected in the GUI, this file is then read every time the program is opened to check the last selected language and set the UI elements to that language by default. This allows a user to only have to change the language once upon first use of the program, as the default language is set to English on first run.
+
+# Significant Code Refactoring
+
+## createMenuBar
+In the `Andie` class parts of the `createAndShowGUI` method have been moved out into a new public method called `createMenuBar`. This has been done to let classes other than `Andie` to remake the menu bar, allowing for multilingual support to take effect as soon as the language is chosen, rather than requiring the program to be restarted entirely.
