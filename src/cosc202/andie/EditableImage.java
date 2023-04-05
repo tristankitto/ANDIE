@@ -55,6 +55,10 @@ class EditableImage {
     private String opsFilename;
     /** ResourceBundle for multilingual support */
     ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
+    /** String to store the extension of the image file, e.g. jpg, png, gif */
+    private String extension;
+    /** Boolean to check if the save as operation is being performed instead of a regular save operation */
+    private boolean saveAs;
 
     /**
      * <p>
@@ -181,6 +185,7 @@ class EditableImage {
             // do nothing, image just has no .ops file
         }
         this.refresh();
+        extension = Andie.imageFilepath.substring(1 + Andie.imageFilepath.lastIndexOf(".")).toLowerCase();
     }
 
     /**
@@ -202,11 +207,10 @@ class EditableImage {
     public void save() throws Exception {
         try {
             if (this.opsFilename == null) {
-                this.opsFilename = this.imageFilename + ".ops";
+                this.opsFilename = Andie.imageFilepath + ".ops";
             }
             // Write image file based on file extension
-            String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
-            ImageIO.write(original, extension, new File(imageFilename));
+            ImageIO.write(original, extension, new File(imageFilename + (saveAs ? ("." + extension) : "")));
             // Write operations file
             FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
@@ -219,6 +223,7 @@ class EditableImage {
         } catch (Exception e) {
             Andie.errorMessage("fileSaveError");
         }
+        saveAs = false;
     }
 
     /**
@@ -238,7 +243,6 @@ class EditableImage {
      */
     public void exportImage(String imageFilename) throws Exception {
         try {
-            String extension = Andie.imageFilepath.substring(Andie.imageFilepath.lastIndexOf(".") + 1).trim();
             ImageIO.write(current, extension, new File(imageFilename + "." + extension));
             Andie.saved = true;
         } catch (NullPointerException e) {
@@ -266,7 +270,8 @@ class EditableImage {
      */
     public void saveAs(String imageFilename) throws Exception {
         this.imageFilename = imageFilename;
-        this.opsFilename = imageFilename + ".ops";
+        this.opsFilename = imageFilename + "." + extension + ".ops";
+        saveAs = true;
         save();
     }
 
