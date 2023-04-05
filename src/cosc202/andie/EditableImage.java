@@ -161,7 +161,7 @@ class EditableImage {
 
             original = ImageIO.read(imageFile);
             current = deepCopy(original);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Object[] options = { bundle.getString("ok") };
             int n = JOptionPane.showOptionDialog(null,
                     bundle.getString("fileOpenErrorMessage"),
@@ -172,7 +172,7 @@ class EditableImage {
                 return;
             }
         }
-        try{
+        try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
@@ -190,7 +190,7 @@ class EditableImage {
             objIn.close();
             fileIn.close();
         } catch (Exception ex) {
-            //do nothing, image just has no .ops file
+            // do nothing, image just has no .ops file
         }
         this.refresh();
     }
@@ -251,59 +251,35 @@ class EditableImage {
 
     /**
      * <p>
-     * Export an image to file.
-     * </p>
-     * 
-     * <p>
-     * Saves an image to the file it was opened from, or the most recent file saved
-     * as.
-     * Does not save the set of operations. A copy of current is saved with the
-     * original file type
-     * So if you open a .jpg file, when the export function is used, it will save a
-     * copy of current
-     * to the chosen file name.jpg
-     * </p>
-     * 
-     * @throws Exception If something goes wrong.
-     */
-    public void export() throws Exception {
-        if (this.imageFilename == null) {
-            this.imageFilename = this.imageFilename + "." + getImageType();
-        }
-        System.out.println("file name:  " + this.imageFilename);
-        // Write image file based on file extension
-        String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
-        System.out.println("extension: " + extension);
-
-        ImageIO.write(current, getImageType(), new File(imageFilename));
-        // FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
-        // ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-
-        FileActions.saved = true;
-
-    }
-
-    /**
-     * <p>
      * Exports an image to chosen file
      * </p>
      * 
+     * <p>
      * Saves an image to the file it was opened from, or the most recent file saved
-     * as.
-     * Does not save the set of operations. A copy of current is saved with the
-     * original file type
-     * So if you open a .jpg file, when the export function is used, it will save a
-     * copy of current
-     * to the chosen file name.jpg
+     * as. Does not save the set of operations. A copy of current is saved with the
+     * original file type. So if you open a .jpg file, when the export function is
+     * used, it will save a copy of current to the chosen file name.jpg
+     * </p>
      * 
      * @param imageFilename The file location to save the image to.
      * @throws Exception If something goes wrong.
      */
     public void exportImage(String imageFilename) throws Exception {
         try {
-            this.imageFilename = imageFilename + "." + getImageType();
-
-            export();
+            String extension = this.imageFilename.substring(this.imageFilename.lastIndexOf(".") + 1).trim();
+            this.imageFilename = imageFilename;
+            ImageIO.write(current, extension, new File(imageFilename + "." + extension));
+            FileActions.saved = true;
+        } catch (NullPointerException e) {
+            Object[] options = { bundle.getString("ok") };
+            int n = JOptionPane.showOptionDialog(null,
+                    bundle.getString("fileExportErrorMessage"),
+                    bundle.getString("fileExportError"), JOptionPane.OK_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null,
+                    options, options[0]);
+            if (n == 0) {
+                return;
+            }
         } catch (Exception e) {
             Object[] options = { bundle.getString("ok") };
             int n = JOptionPane.showOptionDialog(null,
@@ -398,8 +374,8 @@ class EditableImage {
         } catch (Exception e) {
             Object[] options = { bundle.getString("ok") };
             int n = JOptionPane.showOptionDialog(null,
-            bundle.getString("fileRedoErrorMessage"),
-            bundle.getString("fileRedoError"), JOptionPane.OK_OPTION,
+                    bundle.getString("fileRedoErrorMessage"),
+                    bundle.getString("fileRedoError"), JOptionPane.OK_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null,
                     options, options[0]);
             if (n == 0) {
@@ -457,21 +433,4 @@ class EditableImage {
         ops.clear();
         redoOps.clear();
     }
-
-    /**
-     * <p>
-     * This method will find the type of file the input image is and return this
-     * type.
-     * 
-     * </p>
-     * 
-     * @param imageFilename The file location of the original image
-     * @throws Exception If something goes wrong.
-     * @return they type of image, eg; jpg or png
-     */
-    public String getImageType() throws Exception {
-        String result = this.imageFilename.substring(imageFilename.lastIndexOf(".") + 1).trim();
-        return result;
-    }
-
 }
