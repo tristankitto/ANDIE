@@ -5,6 +5,7 @@ import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
 
+
 /**
  * <p>
  * An image with a set of operations applied to it.
@@ -137,6 +138,7 @@ class EditableImage {
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
+        
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
         
@@ -201,14 +203,14 @@ class EditableImage {
 
       /**
      * <p>
-     * Save an image to file.
+     * Export an image to file.
      * </p>
      * 
      * <p>
      * Saves an image to the file it was opened from, or the most recent file saved as.
-     * Also saves a set of operations from the file with <code>.ops</code> added.
-     * So if you save to <code>some/path/to/image.png</code>, this method will also save
-     * the current operations to <code>some/path/to/image.png.ops</code>.
+     * Does not save the set of operations. A copy of current is saved with the original file type 
+     * So if you open a .jpg file, when the export function is used, it will save a copy of current
+     * to the chosen file name.jpg
      * </p>
      * 
      * @throws Exception If something goes wrong.
@@ -216,14 +218,14 @@ class EditableImage {
     public void export() throws Exception {
         try{
         if (this.imageFilename == null) {
-            this.imageFilename = this.imageFilename + ".jpg";
+            this.imageFilename = this.imageFilename + "." + getImageType();
         }
         System.out.println("file name:  " + this.imageFilename);
         // Write image file based on file extension
         String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
         System.out.println("extension: " + extension);
 
-        ImageIO.write(current, "jpg", new File(imageFilename));
+        ImageIO.write(current, getImageType(), new File(imageFilename));
         // FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         // ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
     
@@ -233,10 +235,22 @@ class EditableImage {
         }
     
     }
-
+    /**
+     * <p>
+     * Exports an image to chosen file
+     * </p>
+     * 
+     * Saves an image to the file it was opened from, or the most recent file saved as.
+     * Does not save the set of operations. A copy of current is saved with the original file type 
+     * So if you open a .jpg file, when the export function is used, it will save a copy of current
+     * to the chosen file name.jpg
+     * 
+     * @param imageFilename The file location to save the image to.
+     * @throws Exception If something goes wrong.
+     */
     public void exportImage(String imageFilename) throws Exception {
-        this.imageFilename = imageFilename + ".jpg";
-        // this.opsFilename = imageFilename + ".jpg";
+        this.imageFilename = imageFilename + "." + getImageType();
+      
         export();
     }
 
@@ -351,5 +365,19 @@ class EditableImage {
         ops.clear();
         redoOps.clear();
     }
+    /**
+     * <p>
+     * This method will find the type of file the input image is and return this type. 
+     * 
+     * </p>
+     * @param imageFilename The file location of the original image
+     * @throws Exception If something goes wrong.
+     * @return they type of image, eg; jpg or png
+     */
+    public String getImageType() throws Exception {
+        String result = this.imageFilename.substring(imageFilename.lastIndexOf(".") + 1).trim();
+        return result;
+    }
+
 
 }
