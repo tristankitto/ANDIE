@@ -216,7 +216,6 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void export() throws Exception {
-        try{
         if (this.imageFilename == null) {
             this.imageFilename = this.imageFilename + "." + getImageType();
         }
@@ -230,9 +229,7 @@ class EditableImage {
         // ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
     
         FileActions.saved = true;
-        }catch(Exception e){
-            System.out.println("Error: Cannot export empty file.");
-        }
+
     
     }
     /**
@@ -249,9 +246,13 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void exportImage(String imageFilename) throws Exception {
+        try{
         this.imageFilename = imageFilename + "." + getImageType();
       
         export();
+        }catch(Exception e){
+            System.out.println("Error: Cannot export empty file.");
+        }
     }
 
 
