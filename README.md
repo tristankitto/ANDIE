@@ -11,10 +11,8 @@ More information on this software and what it does can be found in the [COSC 202
 ## Ada - Architect
 - Image Resizing
 
-
 ## Joshua - Developer
 - Exception Handling
-
 
 ## Matthew - Team Lead
 - Median Filter
@@ -46,7 +44,7 @@ Cross-platform testing was performed on Windows and Mac. Testing was done concur
 Every team member was involved with testing to some degree. Team members tested their own code as it was written and after it was completed to confirm it was robust and satisfied the specifications. Team members also tested each others' code to double check integrity. After the bulk of the developing was completed, the team worked together to devise test cases and methods for a wide-scale approach.
 
 ## Test image
-![Test image](./pixilart-drawing.png)
+![Test Image](./pixilart-drawing.png)
 
 A white 100x100 pixels image was created, then black pixels were dotted around sporadically with sections of varying density of black pixels. This was used to test the following filters:
 - Mean filter: the output should have the black pixels "bleeding" outwards, expanding in a small cloud of grey as the mean of black and white pixels is grey. The expected output was observed.
@@ -65,7 +63,16 @@ This bug was patched with additional code that runs if width or height is odd an
 Gaussian Blur on opaque images creates a black border and on transparent images, it cuts off that border. This is because the operation looks at a pixel's neighbours to determine the output colour, and pixels on the borders will not have enough of these neighbours. This bug will be handled in part 2 of this assignment. 
 
 ## 4k Images
+![Cosmic Cat](./cosmic_cat.jpg)
 This 3840 x 2160 image was used to test some of the more process intensive filters like Median Filter. Although they took a while to run, no issues were encountered.
+
+## Corrupt Images
+Corrupt images fail to open in ANDIE. This has been fixed with exception handling, and an informative pop-up box will be prompted when it occurs.
+
+## GIFs
+Animated GIFs open up as mostly monochrome still images with pixels of one other colour in the top portion of the image. This image can be edited as normal, but exporting it will leave it as this strange still.
+
+Inanimate GIFs can be edited without issue.
 
 ## Components with no issues during testing:
  - Sharpen Filter
