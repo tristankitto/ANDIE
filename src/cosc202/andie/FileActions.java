@@ -54,7 +54,7 @@ public class FileActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of File actions.
+     * Create a menu containing the list of File actions.
      * </p>
      * 
      * @return The File menu UI element.
@@ -359,12 +359,12 @@ public class FileActions {
 
         /**
          * <p>
-         * Callback for when the file-save-as action is triggered.
+         * Callback for when the export action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the iageExportAction is triggered.
-         * It prompts the user to select a file and saves a copy of the image to it.
+         * This method is called whenever the imageExportAction is triggered.
+         * It prompts the user to select a file and saves a copy of the edited image to it.
          * </p>
          * 
          * @param e The event triggering this callback.

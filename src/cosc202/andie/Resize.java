@@ -6,7 +6,7 @@ import java.awt.*;
 
 /**
  * <p>
- * ImageOperation to resize an image by an amount specified by the user.
+ * ImageOperation to resize an image by a percentage amount specified by the user.
  * </p>
  * 
  * <p>
@@ -26,7 +26,7 @@ public class Resize implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * apply a resize with the given size.
+     * Apply a resize with the given percentage size.
      * </p>
      * 
      * @param percentage The percentage of the resize.
@@ -40,7 +40,7 @@ public class Resize implements ImageOperation, java.io.Serializable {
      * Resize an image.
      * </p>
      * 
-     * @param input The image to be rotated
+     * @param input The image to be resized.
      * @return The resulting resized image.
      */
     public BufferedImage apply(BufferedImage input) {

@@ -218,14 +218,38 @@ public class ViewActions {
     }
 
     /**
+     * <p>
      * Action to rotate an image clockwise
+     * </p>
      */
     public class RotateClockwiseAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new rotate clockwise action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         RotateClockwiseAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the rotate clockwise action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotateClockwiseAction is triggered.
+         * It rotates the image 90 degrees clockwise.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new RotateClockwise());
@@ -235,14 +259,38 @@ public class ViewActions {
     }
 
     /**
-     * Action to rotate an image anticlockwise
+     * <p>
+     * Action to rotate an image anti-clockwise
+     * </p>
      */
     public class RotateAnticlockwiseAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new rotate anti-clockwise action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         RotateAnticlockwiseAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the rotate anti-clockwise action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RotateAnticlockwiseAction is triggered.
+         * It rotates the image 90 degrees anti-clockwise.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new RotateAnticlockwise());
@@ -252,14 +300,38 @@ public class ViewActions {
     }
 
     /**
+     * <p>
      * Action to flip an image horizontally
+     * </p>
      */
     public class FlipHorizontalAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new flip horizontal action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         FlipHorizontalAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the flip horizontally action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the FlipHorizontalAction is triggered.
+         * It flips the image on its horizontal axis.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new FlipHorizontal());
@@ -269,14 +341,38 @@ public class ViewActions {
     }
 
     /**
+     * <p>
      * Action to flip an image vertically
+     * </p>
      */
     public class FlipVerticalAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new flip vertical action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         FlipVerticalAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the flip vertically action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the FlipVerticalAction is triggered.
+         * It flips the image on its vertical axis.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new FlipVertical());
@@ -286,14 +382,38 @@ public class ViewActions {
     }
 
     /**
+     * <p>
      * Action to rotate an image 180 degrees
+     * </p>
      */
     public class Rotate180Action extends ImageAction {
+        /**
+         * <p>
+         * Create a new rotate 180 action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         Rotate180Action(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the rotate 180 action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Rotate180Action is triggered.
+         * It rotates the image by 180 degrees by flipping along the horizontal and vertical axis.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new Rotate180());
@@ -306,8 +426,6 @@ public class ViewActions {
      * <p>
      * Action resize an image with a percentage given by the user.
      * </p>
-     * 
-     * @see Resize
      */
     public class ResizeAction extends ImageAction {
 
@@ -332,8 +450,8 @@ public class ViewActions {
          * 
          * <p>
          * This method is called whenever the ResizeAction is triggered.
-         * It prompts the user for a resize percentage, then resizes the image
-         * {@link Resize}.
+         * It prompts the user for a resize percentage, then scales the image
+         * size based on the percentage
          * </p>
          * 
          * @param e The event triggering this callback.
