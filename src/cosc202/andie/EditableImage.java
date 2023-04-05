@@ -133,13 +133,14 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void open(String filePath) throws Exception {
+        try{
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
         
-        try {
+        //try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
@@ -158,6 +159,7 @@ class EditableImage {
             fileIn.close();
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
+            System.out.println("Error: File not applicable.");
         }
         this.refresh();
     }
@@ -177,6 +179,7 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void save() throws Exception {
+        try{
         if (this.opsFilename == null) {
             this.opsFilename = this.imageFilename + ".ops";
         }
@@ -190,6 +193,9 @@ class EditableImage {
         objOut.close();
         fileOut.close();
         FileActions.saved = true;
+        }catch(Exception e){
+            System.out.println("Error: Cannot save empty file");
+        }
     }
 
 
@@ -208,6 +214,7 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void export() throws Exception {
+        try{
         if (this.imageFilename == null) {
             this.imageFilename = this.imageFilename + ".jpg";
         }
@@ -221,7 +228,9 @@ class EditableImage {
         // ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
     
         FileActions.saved = true;
-    
+        }catch(Exception e){
+            System.out.println("Error: Cannot export empty file.");
+        }
     
     }
 
