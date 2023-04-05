@@ -33,10 +33,6 @@ public class FileActions {
     /** ResourceBundle for multilingual support */
     ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
 
-    public static boolean saved = true;
-
-    public static String imageFilepath;
-
     /**
      * <p>
      * Create a set of File menu actions.
@@ -111,25 +107,17 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if (saved == true) {
+            if (Andie.saved == true) {
                 JFileChooser fileChooser = new JFileChooser();
                 int result = fileChooser.showOpenDialog(target);
 
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
-                        FileActions.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                         EditableImage.clearStacks();
-                        target.getImage().open(imageFilepath);
+                        target.getImage().open(Andie.imageFilepath);
                     } catch (Exception ex) {
-                        Object[] options = { bundle.getString("ok") };
-                        int n = JOptionPane.showOptionDialog(null,
-                                bundle.getString("fileOpenErrorMessage"),
-                                bundle.getString("fileOpenError"), JOptionPane.OK_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, null,
-                                options, options[0]);
-                        if (n == 0) {
-                            return;
-                        }
+                        Andie.errorMessage("fileOpenError");
                     }
                 }
 
@@ -148,33 +136,19 @@ public class FileActions {
                     try {
                         target.getImage().save();
                     } catch (Exception e1) {
-                        n = JOptionPane.showOptionDialog(null,
-                                bundle.getString("fileOpenErrorMessage"),
-                                bundle.getString("fileOpenError"), JOptionPane.OK_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, null,
-                                options, options[0]);
-                        if (n == 0) {
-                            return;
-                        }
+                        Andie.errorMessage("fileOpenError");
                     }
-                    FileActions.saved = true;
+                    Andie.saved = true;
                     JFileChooser fileChooser = new JFileChooser();
                     int result = fileChooser.showOpenDialog(target);
 
                     if (result == JFileChooser.APPROVE_OPTION) {
                         try {
-                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                             EditableImage.clearStacks();
-                            target.getImage().open(imageFilepath);
+                            target.getImage().open(Andie.imageFilepath);
                         } catch (Exception ex) {
-                            n = JOptionPane.showOptionDialog(null,
-                                    bundle.getString("fileOpenErrorMessage"),
-                                    bundle.getString("fileOpenError"), JOptionPane.OK_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE, null,
-                                    options, options[0]);
-                            if (n == 0) {
-                                return;
-                            }
+                            Andie.errorMessage("fileOpenError");
                         }
                     }
                     target.repaint();
@@ -186,24 +160,17 @@ public class FileActions {
 
                     if (result == JFileChooser.APPROVE_OPTION) {
                         try {
-                            String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                            Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                             EditableImage.clearStacks();
-                            target.getImage().open(imageFilepath);
+                            target.getImage().open(Andie.imageFilepath);
                         } catch (Exception ex) {
-                            n = JOptionPane.showOptionDialog(null,
-                                    bundle.getString("fileOpenErrorMessage"),
-                                    bundle.getString("fileOpenError"), JOptionPane.OK_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE, null,
-                                    options, options[0]);
-                            if (n == 0) {
-                                return;
-                            }
+                            Andie.errorMessage("fileOpenError");
                         }
                     }
 
                     target.repaint();
                     target.getParent().revalidate();
-                    saved = true;
+                    Andie.saved = true;
                 }
             }
         }
@@ -249,15 +216,7 @@ public class FileActions {
             try {
                 target.getImage().save();
             } catch (Exception ex) {
-                Object[] options = { bundle.getString("ok") };
-                int n = JOptionPane.showOptionDialog(null,
-                        bundle.getString("fileSaveErrorMessage"),
-                        bundle.getString("fileSaveError"), JOptionPane.OK_OPTION,
-                        JOptionPane.QUESTION_MESSAGE, null,
-                        options, options[0]);
-                if (n == 0) {
-                    return;
-                }
+                Andie.errorMessage("fileSaveError");
             }
         }
 
@@ -307,15 +266,7 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
                 } catch (Exception ex) {
-                    Object[] options = { bundle.getString("ok") };
-                    int n = JOptionPane.showOptionDialog(null,
-                            bundle.getString("fileSaveErrorMessage"),
-                            bundle.getString("fileSaveError"), JOptionPane.OK_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, null,
-                            options, options[0]);
-                    if (n == 0) {
-                        return;
-                    }
+                    Andie.errorMessage("fileSaveError");
                 }
             }
         }
@@ -357,7 +308,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if (saved == true) {
+            if (Andie.saved == true) {
                 System.exit(0);
             } else {
                 Object[] options = { bundle.getString("yes"),
@@ -372,14 +323,7 @@ public class FileActions {
                         target.getImage().save();
                         System.exit(0);
                     } catch (Exception e1) {
-                        n = JOptionPane.showOptionDialog(null,
-                                bundle.getString("fileSaveErrorMessage"),
-                                bundle.getString("fileSaveError"), JOptionPane.OK_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, null,
-                                options, options[0]);
-                        if (n == 0) {
-                            return;
-                        }
+                        Andie.errorMessage("fileSaveError");
                     }
                 }
                 if (n == 1) {
@@ -432,7 +376,7 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    String extension = FileActions.imageFilepath.substring(FileActions.imageFilepath.lastIndexOf(".") + 1).trim();
+                    String extension = Andie.imageFilepath.substring(Andie.imageFilepath.lastIndexOf(".") + 1).trim();
                     File file = new File(imageFilepath + "." + extension);
                     if (file.exists()) {
                         Object[] options = { bundle.getString("yes"), bundle.getString("cancel") };
@@ -446,15 +390,7 @@ public class FileActions {
                         target.getImage().exportImage(imageFilepath);
                     }
                 } catch (Exception ex) {
-                    Object[] options = { bundle.getString("ok") };
-                    int n = JOptionPane.showOptionDialog(null,
-                            bundle.getString("unknownErrorMessage"),
-                            bundle.getString("unknownError"), JOptionPane.OK_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, null,
-                            options, options[0]);
-                    if (n == 0) {
-                        return;
-                    }
+                    Andie.errorMessage("fileUnopenedError");
                 }
             }
         }

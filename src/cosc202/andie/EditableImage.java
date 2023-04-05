@@ -4,7 +4,6 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
-import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -162,15 +161,7 @@ class EditableImage {
             original = ImageIO.read(imageFile);
             current = deepCopy(original);
         } catch (Exception ex) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    bundle.getString("fileOpenErrorMessage"),
-                    bundle.getString("fileOpenError"), JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            Andie.errorMessage("fileOpenError");
         }
         try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
@@ -225,27 +216,11 @@ class EditableImage {
             objOut.writeObject(EditableImage.ops);
             objOut.close();
             fileOut.close();
-            FileActions.saved = true;
+            Andie.saved = true;
         } catch (NullPointerException e) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    bundle.getString("fileUnopenedErrorMessage"),
-                    bundle.getString("fileUnopenedError"), JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            Andie.errorMessage("fileUnopenedError");
         } catch (Exception e) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    bundle.getString("fileSaveErrorMessage"),
-                    bundle.getString("fileSaveError"), JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            Andie.errorMessage("fileSaveError");
         }
     }
 
@@ -266,30 +241,13 @@ class EditableImage {
      */
     public void exportImage(String imageFilename) throws Exception {
         try {
-            String extension = this.imageFilename.substring(this.imageFilename.lastIndexOf(".") + 1).trim();
-            this.imageFilename = imageFilename;
+            String extension = Andie.imageFilepath.substring(Andie.imageFilepath.lastIndexOf(".") + 1).trim();
             ImageIO.write(current, extension, new File(imageFilename + "." + extension));
-            FileActions.saved = true;
+            Andie.saved = true;
         } catch (NullPointerException e) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    bundle.getString("fileExportErrorMessage"),
-                    bundle.getString("fileExportError"), JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            Andie.errorMessage("fileUnopenedError");
         } catch (Exception e) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    bundle.getString("fileExportErrorMessage"),
-                    bundle.getString("fileExportError"), JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            Andie.errorMessage("fileExportError");
         }
     }
 
@@ -326,17 +284,9 @@ class EditableImage {
         try {
             current = op.apply(current);
             ops.add(op);
-            FileActions.saved = false;
+            Andie.saved = false;
         } catch (Exception e) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    bundle.getString("fileApplyErrorMessage"),
-                    bundle.getString("fileApplyError"), JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            Andie.errorMessage("fileApplyError");
         }
     }
 
@@ -349,17 +299,9 @@ class EditableImage {
         try {
             redoOps.push(ops.pop());
             refresh();
-            FileActions.saved = false;
+            Andie.saved = false;
         } catch (Exception e) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    bundle.getString("fileUndoErrorMessage"),
-                    bundle.getString("fileUndoError"), JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            Andie.errorMessage("fileUndoError");
         }
     }
 
@@ -372,15 +314,7 @@ class EditableImage {
         try {
             apply(redoOps.pop());
         } catch (Exception e) {
-            Object[] options = { bundle.getString("ok") };
-            int n = JOptionPane.showOptionDialog(null,
-                    bundle.getString("fileRedoErrorMessage"),
-                    bundle.getString("fileRedoError"), JOptionPane.OK_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null,
-                    options, options[0]);
-            if (n == 0) {
-                return;
-            }
+            Andie.errorMessage("fileRedoError");
         }
     }
 

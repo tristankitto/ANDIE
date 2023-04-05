@@ -30,8 +30,15 @@ import javax.imageio.*;
 public class Andie {
     protected static JMenuBar menuBar;
     protected static JFrame frame;
+
     /** ResourceBundle for multilingual support */
     static ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
+    
+    /** Boolean value to keep track of if an image has unsaved changes or not */
+    public static boolean saved = true;
+
+    /** String to store the file path of an image when it is first opened */
+    public static String imageFilepath;
 
     /**
      * <p>
@@ -125,6 +132,26 @@ public class Andie {
 
         frame.setJMenuBar(menuBar);
         frame.setVisible(true);
+    }
+
+    /**
+     * <p>
+     * Method to display a pop-up box with an error message when an exception in
+     * the program occurs.
+     * </p>
+     * 
+     * @param errorType The type of error to be displayed when the exception occurs
+     */
+    public static void errorMessage(String errorType){
+        Object[] options = { bundle.getString("ok") };
+                    int n = JOptionPane.showOptionDialog(null,
+                            bundle.getString(errorType + "Message"),
+                            bundle.getString(errorType), JOptionPane.OK_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null,
+                            options, options[0]);
+                    if (n == 0) {
+                        return;
+                    }
     }
 
     /**
