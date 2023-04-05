@@ -58,6 +58,8 @@ public class ViewActions {
                         Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new FlipVerticalAction(bundle.getString("flipVertical"), null, bundle.getString("flipVertical"),
                 Integer.valueOf(KeyEvent.VK_V)));
+        actions.add(new ResizeAction(bundle.getString("resize"), null, bundle.getString("resize"),
+                Integer.valueOf(KeyEvent.VK_V)));
     }
 
     /**
@@ -300,4 +302,67 @@ public class ViewActions {
         }
     }
 
+    /**
+     * <p>
+     * Action resize an image with a percentage given by the user.
+     * </p>
+     * 
+     * @see Resize
+     */
+    public class ResizeAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new resize action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the resize action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ResizeAction is triggered.
+         * It prompts the user for a resize percentage, then resizes the image
+         * {@link Resize}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the percentage - ask the user.
+            int percentage = 100;
+
+            // Pop-up dialog box to ask for the percentage value.
+            SpinnerNumberModel percentageModel = new SpinnerNumberModel(100, 1, 200, 1);
+            JSpinner percentageSpinner = new JSpinner(percentageModel);
+
+            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
+
+            int option = JOptionPane.showOptionDialog(null, percentageSpinner, bundle.getString("enterPercentage"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+
+            // Check the return value from the dialog box.
+            if (option == 1) {
+                return;
+            } else {
+                percentage = percentageModel.getNumber().intValue();
+
+                // Create and apply the filter
+                target.getImage().apply(new Resize(percentage));
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
+    }
 }
