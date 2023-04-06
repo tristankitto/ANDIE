@@ -42,7 +42,7 @@ public class LanguageActions {
                 actions.add(new LanguageChoice(bundle.getString("english") + " (English)", null,
                                 bundle.getString("englishlanguage") + " (English Language)",
                                 Integer.valueOf(KeyEvent.VK_E), "en"));
-                actions.add(new LanguageChoice(bundle.getString("maori") + " (Māori)", null,
+                actions.add(new LanguageChoice(bundle.getString("maori") + " ( Te Reo Māori)", null,
                                 bundle.getString("maorilanguage") + " (Te reo Māori)", Integer.valueOf(KeyEvent.VK_M),
                                 "mi"));
                 actions.add(new LanguageChoice(bundle.getString("spanish") + " (Español)", null,

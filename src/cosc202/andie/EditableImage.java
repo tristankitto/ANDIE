@@ -244,7 +244,6 @@ class EditableImage {
     public void exportImage(String imageFilename) throws Exception {
         try {
             ImageIO.write(current, extension, new File(imageFilename + "." + extension));
-            Andie.saved = true;
         } catch (NullPointerException e) {
             Andie.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {

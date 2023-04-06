@@ -111,8 +111,8 @@ When opening a new image, after already having an edited image open, the newly o
 ## Overwriting an exisiting image
 When a user tried to export an image using the same name as an already existing image in the current directory then **ANDIE** would simply overwrite the original image. Now, **ANDIE** will prompt the user that they are trying to export an image with a name that already exists and confirm if they want to overwrite the original image or cancel the action.
 
-
-# User Guide
+## Inputting an invalid value for a filter
+Filters with a radius or a percentage now have some slight error handling wherein the user is now informed that if they enter an invalid value then the value passed to the filter will default to a specific value instead.
 
 
 # Deviations from Specifications
@@ -124,3 +124,71 @@ Support for the user to save their language of choice has been implemented. This
 
 ## createMenuBar
 In the `Andie` class parts of the `createAndShowGUI` method have been moved out into a new public method called `createMenuBar`. This has been done to let classes other than `Andie` to remake the menu bar, allowing for multilingual support to take effect as soon as the language is chosen, rather than requiring the program to be restarted entirely.
+
+
+# **User Guide**
+**ANDIE** has many filters and functions to be used to transform and apply filters to images. A list of functions and their uses can be found below:
+
+## File
+- Open
+    - The open option brings up a menu for a user to select an image to be opened and edited in **ANDIE**. Any image that is invalid (such as corrupt images), or any non-image file, will display an error to the user and prompt them to choose a different file instead. 
+- Save
+    - This function saves the edits made to an image in a new file (imagename.ops) along side the original (undedited) image. Using the save function will not overwrite the original image with the new changes, it will only allow for the original image to be reopened inside **ANDIE** with its changes still showing and allowing the user to continue to remove or add more filters.
+- Save As
+    - This function is the same as Save but gives the user the option to save their image to a different directory with a different name. This function prompt the user to type a name for their file and choose where to save it. It will then create a copy of the original (unedited) image and give it the name inputted by the user. It will also create a .ops file with the new name entered by the user.
+- Export
+    - Export allows the user to save the changes made to their image in a permanent manner. It will create a new image in a directory of the users choice with a new name of the user's choice. This new image will have all of the filters applied in **ANDIE** showing and they will not be able to be removed. Using export does not destroy the original (unedited) image used before exporting so the user can still make changes and create a new exported image if they wish.
+- Exit
+    - Exit will exit **ANDIE**. If the user's image is unsaved then they will be prompted to save before closing, but have the option to decline.
+
+## Edit
+- Undo
+    - The undo function allows the user to undo their most recent change to the current image. If there is nothing to undo then the user will be made aware of this.
+- Redo
+    - The redo function allows the user to redo their most recently undone change to the current image. If there is nothing to redo then the user will be made aware of this.
+
+## View
+- Zoom In
+    - This function will zoom in the user's image by 10%. This does not make permanent changes to the image, it rather just changes the way the image is displayed inside of **ANDIE**.
+- Zoom Out
+    - This function will zoom out the user's image by 10%. This does not make permanent changes to the image, it rather just changes the way the image is displayed inside of **ANDIE**.
+- Zoom Full
+    - This function will change the zoom of the user's image to be at 100$ (i.e. it will be displayed in the image's true size). This does not make permanent changes to the image, it rather just changes the way the image is displayed inside of **ANDIE**.
+- Rotate Clockwise
+    - This will rotate the image clockwise by 90 degrees.
+- Rotate Anticlockwise
+    - This will rotate the image anticlockwise by 90 degrees.
+- Rotate 180 Degrees
+    - This will rotate the image by 180 degrees.
+- Flip Horizontally
+    - This will flip the image along its vertical axis, make the image be horizontally flipped.
+- Flip Vertically
+    - This will flip the image along its horizontal axis, make the image be vertically flipped.
+- Resize
+    - This function will change the size of the image. This, unlike zooming, will make a permanent change to the image (if the image is exported or saved). This function uses an input taken from the user, the minimum value allowed is 0% and the maximum is 200%.
+
+## Filter
+- Mean Filter
+    - This filter will apply a blur to the image based on the average colour of each pixel's neighbouring pixels. This filter depends on a radius input, the minimum value for the radius is 1 and the maximum is 10.
+- Soft Blur
+    - This filter will apply a soft blur that is constant for any image (i.e. it will blur any image by the same amount every time it is applied).
+- Sharpen Filter
+    - This filter will make an image appear sharper. That is, the pixels of the image will be made to have greater differences between different colours.
+- Gaussian Blur
+    - This filter will apply a blur to the image based on a Gaussian formula. This filter depends on a radius input, the minimum value for the radius is 1 and the maximum is 10.
+- Median Filter
+    - This filter will apply a blur to the image based on the median colour of each pixel's neighbouring pixels. This filter depends on a radius input, the minimum value for the radius is 1 and the maximum is 10.
+
+## Colour
+- Greyscale
+    - This filter will change the image's colours to be in greyscale instead of full colour.
+- Invert colours
+    - This filter will invert the image's colours. That is, it will take the RGB value of each pixel and set the new RGB value to 255 (the maximum value for RGB) minus the current RGB value.
+- Brightness/Contrast
+    - This filter will change the brightness and contrast of the image. The user will be prompted to input a percentage change for the brightness and then a percentage change for the contrast. The minimum percentage for both brightness and contrast is -100% and the maximum for both is 100%. 0% brightness or contrast will leave the image unchanged.
+
+## Language
+- Languages
+    - Each option in the language menu simply changes the language of each UI element of **ANDIE**. For example, changing the language to Māori will display every menu name, menu item, and pop-up box (for errors or for user inputs) in Te Reo Māori. The same goes for all languages available. Each language option displays the language name in the current language, and beside that the name in the language itself. For example, if the current language is Spanish then the option to choose the English language will display as `Inglés (English)`, or if the current language is Japanese then the option to choose French will display as `フランス語 (Français)`.
+- Language Preference
+    - Whenever a user selects a language that language is automatically saved as the user's new default language. Every time the user reopens **ANDIE** they will find the program in the last language they selected and it will stay as that language until a new language is selected.

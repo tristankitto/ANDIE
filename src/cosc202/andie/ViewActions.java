@@ -327,7 +327,7 @@ public class ViewActions {
          * 
          * <p>
          * This method is called whenever the FlipHorizontalAction is triggered.
-         * It flips the image on its horizontal axis.
+         * It flips the image on its vertical axis.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -368,7 +368,7 @@ public class ViewActions {
          * 
          * <p>
          * This method is called whenever the FlipVerticalAction is triggered.
-         * It flips the image on its vertical axis.
+         * It flips the image on its horizontal axis.
          * </p>
          * 
          * @param e The event triggering this callback.
