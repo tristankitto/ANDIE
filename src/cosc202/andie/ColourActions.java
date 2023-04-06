@@ -165,13 +165,13 @@ public class ColourActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the brightness/contrast action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the MedianFilterAction is triggered.
+         * This method is called whenever the BrightnessContrastAction is triggered.
          * It prompts the user for a filter radius, then applys an appropriately sized
-         * {@link MeanFilter}.
+         * {@link BrightnessContrast}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -183,31 +183,13 @@ public class ColourActions {
             int contrast = 0;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel brightnessModel = new SpinnerNumberModel(0, -100, 100, 1);
-            JSpinner brightnessSpinner = new JSpinner(brightnessModel);
-
-            SpinnerNumberModel contrastModel = new SpinnerNumberModel(0, -100, 100, 1);
-            JSpinner contrastSpinner = new JSpinner(contrastModel);
-
-            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
-
-            int option1 = JOptionPane.showOptionDialog(null, brightnessSpinner, bundle.getString("enterBrightness"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-
-            // Check the return value from the dialog box.
-            if (option1 == 1) {
+            brightness = Popup.getInput(0, -100, 100, 1, "enterPercentage", "enterPercentageMessage");
+            if(brightness == -1000){
                 return;
-            } else {
-                brightness = brightnessModel.getNumber().intValue();
             }
-
-            int option2 = JOptionPane.showOptionDialog(null, contrastSpinner, bundle.getString("enterContrast"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-
-            if (option2 == 1) {
+            contrast = Popup.getInput(0, -100, 100, 1, "enterPercentage", "enterPercentageMessage");
+            if(contrast == -1000){
                 return;
-            } else {
-                contrast = contrastModel.getNumber().intValue();
             }
             // Create and apply the filter
             target.getImage().apply(new BrightnessContrast(brightness, contrast));

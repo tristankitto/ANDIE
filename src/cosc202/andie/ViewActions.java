@@ -462,25 +462,15 @@ public class ViewActions {
             int percentage = 100;
 
             // Pop-up dialog box to ask for the percentage value.
-            SpinnerNumberModel percentageModel = new SpinnerNumberModel(100, 1, 200, 1);
-            JSpinner percentageSpinner = new JSpinner(percentageModel);
-
-            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
-
-            int option = JOptionPane.showOptionDialog(null, percentageSpinner, bundle.getString("enterPercentage"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-
-            // Check the return value from the dialog box.
-            if (option == 1) {
+            percentage = Popup.getInput(100, 1, 200, 1, "enterPercentage", "enterPercentageMessage");
+            if(percentage == -1000){
                 return;
-            } else {
-                percentage = percentageModel.getNumber().intValue();
+            }
 
                 // Create and apply the filter
                 target.getImage().apply(new Resize(percentage));
                 target.repaint();
                 target.getParent().revalidate();
-            }
         }
     }
 }

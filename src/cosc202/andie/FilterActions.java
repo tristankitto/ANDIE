@@ -113,16 +113,8 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("enterFilterRadius"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-
-            // Check the return value from the dialog box.
-            if (option == 0) {
-                radius = radiusModel.getNumber().intValue();
-            } else if(option == 1){
+            radius = Popup.getInput(1, 1, 10, 1, "enterFilterRadius", "enterFilterRadiusMessage");
+            if(radius == -1000){
                 return;
             }
 
@@ -262,16 +254,9 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("enterFilterRadius"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-            // Check the return value from the dialog box.
-            if (option == 1) {
+            radius = Popup.getInput(1, 1, 10, 1, "enterFilterRadius", "enterFilterRadiusMessage");
+            if(radius == -1000){
                 return;
-            } else if (option == 0) {
-                radius = radiusModel.getNumber().intValue();
             }
 
             // Create and apply the filter
@@ -323,18 +308,10 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("enterFilterRadius"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-            // Check the return value from the dialog box.
-            if (option == 1) {
+            radius = Popup.getInput(1, 1, 10, 1, "enterFilterRadius", "enterFilterRadiusMessage");
+            if(radius == -1000){
                 return;
-            } else if (option == 0) {
-                radius = radiusModel.getNumber().intValue();
             }
-
             // Create and apply the filter
             target.getImage().apply(new MedianFilter(radius));
             target.repaint();
