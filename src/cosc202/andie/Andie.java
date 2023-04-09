@@ -133,29 +133,6 @@ public class Andie {
 
     /**
      * <p>
-     * Method to display a pop-up box with an error message when an exception in
-     * the program occurs.
-     * </p>
-     * 
-     * @param e Exception thrown by try/catch method. Used to display error in the terminal.
-     * @param errorType The type of error to be displayed when the exception occurs
-     */
-    public static void errorMessage(Exception e, String errorType){
-        System.out.println("Error message: " + e);
-        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
-        Object[] options = { bundle.getString("ok") };
-                    int n = JOptionPane.showOptionDialog(null,
-                            bundle.getString(errorType + "Message"),
-                            bundle.getString(errorType), JOptionPane.OK_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, null,
-                            options, options[0]);
-                    if (n == 0) {
-                        return;
-                    }
-    }
-
-    /**
-     * <p>
      * Main entry point to the ANDIE program.
      * </p>
      * 
@@ -174,7 +151,7 @@ public class Andie {
                 try {
                     createAndShowGUI();
                 } catch (Exception ex) {
-                    errorMessage(ex, "programLaunchError");
+                    Popup.errorMessage(ex, "programLaunchError");
                     System.exit(1);
                 }
             }
