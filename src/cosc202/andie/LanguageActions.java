@@ -121,10 +121,10 @@ public class LanguageActions {
                                         writer.write(language);
                                         writer.close();
                                 } catch (IOException e1) {
-                                        Andie.errorMessage(e1, "languageError");
+                                        Popup.errorMessage(e1, "languageError");
                                 }
                         } catch (IOException e1) {
-                                Andie.errorMessage(e1, "languageError");
+                                Popup.errorMessage(e1, "languageError");
                         }
 
                         Andie.createMenuBar();

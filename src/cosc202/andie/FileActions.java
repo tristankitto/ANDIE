@@ -117,7 +117,7 @@ public class FileActions {
                         EditableImage.clearStacks();
                         target.getImage().open(Andie.imageFilepath);
                     } catch (Exception ex) {
-                        Andie.errorMessage(ex, "fileOpenError");
+                        Popup.errorMessage(ex, "fileOpenError");
                     }
                 }
 
@@ -136,7 +136,7 @@ public class FileActions {
                     try {
                         target.getImage().save();
                     } catch (Exception e1) {
-                        Andie.errorMessage(e1, "fileOpenError");
+                        Popup.errorMessage(e1, "fileOpenError");
                     }
                     Andie.saved = true;
                     JFileChooser fileChooser = new JFileChooser();
@@ -148,7 +148,7 @@ public class FileActions {
                             EditableImage.clearStacks();
                             target.getImage().open(Andie.imageFilepath);
                         } catch (Exception ex) {
-                            Andie.errorMessage(ex, "fileOpenError");
+                            Popup.errorMessage(ex, "fileOpenError");
                         }
                     }
                     target.repaint();
@@ -164,7 +164,7 @@ public class FileActions {
                             EditableImage.clearStacks();
                             target.getImage().open(Andie.imageFilepath);
                         } catch (Exception ex) {
-                            Andie.errorMessage(ex, "fileOpenError");
+                            Popup.errorMessage(ex, "fileOpenError");
                         }
                     }
 
@@ -216,7 +216,7 @@ public class FileActions {
             try {
                 target.getImage().save();
             } catch (Exception ex) {
-                Andie.errorMessage(ex, "fileSaveError");
+                Popup.errorMessage(ex, "fileSaveError");
             }
         }
 
@@ -266,7 +266,7 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
                 } catch (Exception ex) {
-                    Andie.errorMessage(ex, "fileSaveError");
+                    Popup.errorMessage(ex, "fileSaveError");
                 }
             }
         }
@@ -323,7 +323,7 @@ public class FileActions {
                         target.getImage().save();
                         System.exit(0);
                     } catch (Exception e1) {
-                        Andie.errorMessage(e1, "fileSaveError");
+                        Popup.errorMessage(e1, "fileSaveError");
                     }
                 }
                 if (n == 1) {
@@ -390,7 +390,7 @@ public class FileActions {
                         target.getImage().exportImage(imageFilepath);
                     }
                 } catch (Exception ex) {
-                    Andie.errorMessage(ex, "fileUnopenedError");
+                    Popup.errorMessage(ex, "fileUnopenedError");
                 }
             }
         }
