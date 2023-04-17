@@ -339,7 +339,7 @@ public class FileActions {
      * Action to save a copy of the edited image to a new file location.
      * </p>
      * 
-     * @see EditableImage#imageExport(String)
+     * @see EditableImage#exportImage(String)
      */
     public class imageExportAction extends ImageAction {
 
