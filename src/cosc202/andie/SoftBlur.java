@@ -43,16 +43,29 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred) image.
      */
     public BufferedImage apply(BufferedImage input) {
+
+        int radius = 1;
+
         // The values for the kernel as a 9-element array
         float[] array = { 0, 1 / 8.0f, 0,
                 1 / 8.0f, 1 / 2.0f, 1 / 8.0f,
                 0, 1 / 8.0f, 0 };
         // Make a 3x3 filter from the array
         Kernel kernel = new Kernel(3, 3, array);
+
+        // Apply the kernel with border padding
+        BufferedImage paddedInput = new BufferedImage(input.getWidth() + 2 * radius, input.getHeight() + 2 * radius,
+                input.getType());
+        for (int y = 0; y < input.getHeight(); y++) {
+            for (int x = 0; x < input.getWidth(); x++) {
+                paddedInput.setRGB(x + radius, y + radius, input.getRGB(x, y));
+            }
+        }
+
         // Apply this as a convolution - same code as in MeanFilter
-        ConvolveOp convOp = new ConvolveOp(kernel);
+        ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
+        convOp.filter(paddedInput, output);
         return output;
     }
 }
