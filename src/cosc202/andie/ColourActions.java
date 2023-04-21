@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -59,7 +60,21 @@ public class ColourActions {
         JMenu fileMenu = new JMenu(bundle.getString("colour"));
 
         for (Action action : actions) {
-            fileMenu.add(new JMenuItem(action));
+            JMenuItem item = new JMenuItem(action);
+            if (action.getValue(Action.MNEMONIC_KEY) != null) {
+                if (action instanceof ConvertToGreyAction) {
+                    KeyStroke key = KeyStroke.getKeyStroke(
+                            (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
+                            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx() | KeyEvent.SHIFT_DOWN_MASK);
+                    item.setAccelerator(key);
+                } else {
+                    KeyStroke key = KeyStroke.getKeyStroke(
+                            (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
+                            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
+                    item.setAccelerator(key);
+                }
+            }
+            fileMenu.add(item);
         }
 
         return fileMenu;

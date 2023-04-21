@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import java.io.File;
 
@@ -45,11 +46,11 @@ public class FileActions {
         actions.add(new FileSaveAction(bundle.getString("save"), null, bundle.getString("saveTheFile"),
                 Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction(bundle.getString("saveAs"), null, bundle.getString("saveACopy"),
-                Integer.valueOf(KeyEvent.VK_A)));
+                Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new imageExportAction(bundle.getString("export"), null, bundle.getString("exportImage"),
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction(bundle.getString("exit"), null, bundle.getString("exitTheProgram"),
-                Integer.valueOf(0)));
+                Integer.valueOf(KeyEvent.VK_0)));
     }
 
     /**
@@ -63,7 +64,21 @@ public class FileActions {
         JMenu fileMenu = new JMenu(bundle.getString("file"));
 
         for (Action action : actions) {
-            fileMenu.add(new JMenuItem(action));
+            JMenuItem item = new JMenuItem(action);
+            if (action.getValue(Action.MNEMONIC_KEY) != null) {
+                if (action instanceof FileSaveAsAction) {
+                    KeyStroke key = KeyStroke.getKeyStroke(
+                            (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
+                            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx() | KeyEvent.SHIFT_DOWN_MASK);
+                    item.setAccelerator(key);
+                } else {
+                    KeyStroke key = KeyStroke.getKeyStroke(
+                            (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
+                            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
+                    item.setAccelerator(key);
+                }
+            }
+            fileMenu.add(item);
         }
 
         return fileMenu;
@@ -77,6 +92,8 @@ public class FileActions {
      * @see EditableImage#open(String)
      */
     public class FileOpenAction extends ImageAction {
+
+        boolean shift;
 
         /**
          * <p>
@@ -364,7 +381,8 @@ public class FileActions {
          * 
          * <p>
          * This method is called whenever the imageExportAction is triggered.
-         * It prompts the user to select a file and saves a copy of the edited image to it.
+         * It prompts the user to select a file and saves a copy of the edited image to
+         * it.
          * </p>
          * 
          * @param e The event triggering this callback.

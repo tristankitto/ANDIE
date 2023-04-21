@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -59,7 +60,7 @@ public class ViewActions {
         actions.add(new FlipVerticalAction(bundle.getString("flipVertical"), null, bundle.getString("flipVertical"),
                 Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new ResizeAction(bundle.getString("resize"), null, bundle.getString("resize"),
-                Integer.valueOf(KeyEvent.VK_V)));
+                Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -73,7 +74,14 @@ public class ViewActions {
         JMenu viewMenu = new JMenu(bundle.getString("view"));
 
         for (Action action : actions) {
-            viewMenu.add(new JMenuItem(action));
+            JMenuItem item = new JMenuItem(action);
+            if (action.getValue(Action.MNEMONIC_KEY) != null) {
+                KeyStroke key = KeyStroke.getKeyStroke(
+                        (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
+                        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
+                item.setAccelerator(key);
+            }
+            viewMenu.add(item);
         }
 
         return viewMenu;
