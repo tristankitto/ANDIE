@@ -131,7 +131,7 @@ public class FileActions {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     try {
                         Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                        EditableImage.clearStacks();
+                        EditableImage.clearStacks(target.getImage());
                         target.getImage().open(Andie.imageFilepath);
                     } catch (Exception ex) {
                         Popup.errorMessage(ex, "fileOpenError");
@@ -162,7 +162,7 @@ public class FileActions {
                     if (result == JFileChooser.APPROVE_OPTION) {
                         try {
                             Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                            EditableImage.clearStacks();
+                            EditableImage.clearStacks(target.getImage());
                             target.getImage().open(Andie.imageFilepath);
                         } catch (Exception ex) {
                             Popup.errorMessage(ex, "fileOpenError");
@@ -178,7 +178,7 @@ public class FileActions {
                     if (result == JFileChooser.APPROVE_OPTION) {
                         try {
                             Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                            EditableImage.clearStacks();
+                            EditableImage.clearStacks(target.getImage());
                             target.getImage().open(Andie.imageFilepath);
                         } catch (Exception ex) {
                             Popup.errorMessage(ex, "fileOpenError");

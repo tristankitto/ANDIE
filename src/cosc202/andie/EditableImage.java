@@ -46,9 +46,9 @@ class EditableImage {
      */
     private BufferedImage current;
     /** The sequence of operations currently applied to the image. */
-    private static Stack<ImageOperation> ops;
+    private Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
-    private static Stack<ImageOperation> redoOps;
+    private Stack<ImageOperation> redoOps;
     /** The file where the original image is stored/ */
     private String imageFilename;
     /** The file where the operation sequence is stored. */
@@ -77,6 +77,26 @@ class EditableImage {
         redoOps = new Stack<ImageOperation>();
         imageFilename = null;
         opsFilename = null;
+    }
+
+    /**
+     * <p>
+     * Creates a copy of an EditableImage object.
+     * </p>
+     * 
+     * @param image
+     * @return The copy of the input image.
+     */
+    public static EditableImage copyImage(EditableImage image){
+        EditableImage imageCopy = new EditableImage();
+        imageCopy.original = image.original;
+        imageCopy.current = image.current;
+        imageCopy.imageFilename = image.imageFilename;
+        imageCopy.opsFilename = image.opsFilename;
+        imageCopy.ops = image.ops;
+        imageCopy.redoOps = image.redoOps;
+
+        return imageCopy;
     }
 
     /**
@@ -214,7 +234,7 @@ class EditableImage {
             // Write operations file
             FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-            objOut.writeObject(EditableImage.ops);
+            objOut.writeObject(ops);
             objOut.close();
             fileOut.close();
             Andie.saved = true;
@@ -293,6 +313,21 @@ class EditableImage {
 
     /**
      * <p>
+     * Apply a temporary {@link ImageOperation} to this image.
+     * </p>
+     * 
+     * <p>
+     * Applies image operations to an image but does not add the operation to the stack.
+     * </p>
+     * 
+     * @param op The operation to apply.
+     */
+    public void tempApply(ImageOperation op){
+            current = op.apply(current);
+    }
+
+    /**
+     * <p>
      * Undo the last {@link ImageOperation} applied to the image.
      * </p>
      */
@@ -364,8 +399,9 @@ class EditableImage {
      * image.
      * </p>
      */
-    public static void clearStacks() {
-        ops.clear();
-        redoOps.clear();
+    public static void clearStacks(EditableImage image) {
+        image.ops.clear();
+        image.redoOps.clear();
     }
+
 }

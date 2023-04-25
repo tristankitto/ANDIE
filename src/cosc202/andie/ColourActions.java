@@ -1,9 +1,11 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -124,7 +126,11 @@ public class ColourActions {
     }
 
     /**
+     * <p>
      * Action to invert an image's colour.
+     * </p>
+     * 
+     * @see InvertColour
      */
     public class InvertColourAction extends ImageAction {
 
@@ -162,7 +168,20 @@ public class ColourActions {
 
     }
 
+    /**
+     * <p>
+     * Action to change the brightness and contrast of an image.
+     * </p>
+     * 
+     * @see BrightnessContrast
+     */
     public class BrightnessContrastAction extends ImageAction {
+
+        /** The brightness selected by the user to change the brightness of the image */
+        private static int brightness;
+
+        /** The contrast selected by the user to change the contrast of the image */
+        private static int contrast;
 
         /**
          * <p>
@@ -185,31 +204,74 @@ public class ColourActions {
          * 
          * <p>
          * This method is called whenever the BrightnessContrastAction is triggered.
-         * It prompts the user for a filter radius, then applys an appropriately sized
-         * {@link BrightnessContrast}.
+         * It prompts the user with a slider for brightness and another one for contrast
+         * then applies the appropriate {@link BrightnessContrast}.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
 
-            // Determine the adjustment to brightness /contrast - ask the user.
-            int brightness = 0;
-            int contrast = 0;
+            EditableImage image = target.getImage();
 
-            // Pop-up dialog box to ask for the radius value.
-            brightness = Popup.getInput(0, -100, 100, 1, "enterPercentage", "enterPercentageMessage");
-            if(brightness == -1000){
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(350, 200));
+            panel.setLayout(new GridLayout(4, 1));
+
+            // Create a JSlider
+            JSlider sliderBrightness = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+            sliderBrightness.setMajorTickSpacing(20);
+            sliderBrightness.setPaintTicks(true);
+            sliderBrightness.setPaintLabels(true);
+            panel.add(new JLabel(bundle.getString("enterBrightness")));
+            panel.add(sliderBrightness);
+
+            JSlider sliderContrast = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+            sliderContrast.setMajorTickSpacing(20);
+            sliderContrast.setPaintTicks(true);
+            sliderContrast.setPaintLabels(true);
+            panel.add(new JLabel(bundle.getString("enterContrast")));
+            panel.add(sliderContrast);
+
+            // Add a ChangeListener to the JSlider
+            ChangeListener CL = new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    EditableImage imageCopy = EditableImage.copyImage(image);
+                    target.setImage(imageCopy);
+                    // Get the value from the JSlider
+                    brightness = sliderBrightness.getValue();
+                    contrast = sliderContrast.getValue();
+                    // Update the image with the brightness value
+                    try {
+                        target.getImage().tempApply(new BrightnessContrast(brightness, contrast));
+                    } catch (Exception ex) {
+                        Popup.errorMessage(ex, "fileApplyError");
+                    }
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            };
+
+            sliderBrightness.addChangeListener(CL);
+            sliderContrast.addChangeListener(CL);
+
+            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
+            int option = JOptionPane.showOptionDialog(null,
+                    panel, bundle.getString("brightness/Contrast"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+            // Check the return value from the dialog box.
+            if (option == 1) {
+                target.setImage(image);
+                target.repaint();
+                target.getParent().revalidate();
                 return;
+            } else if (option == 0) {
+                target.setImage(image);
+                target.getImage().apply(new BrightnessContrast(brightness, contrast));
+                target.repaint();
+                target.getParent().revalidate();
             }
-            contrast = Popup.getInput(0, -100, 100, 1, "enterPercentage", "enterPercentageMessage");
-            if(contrast == -1000){
-                return;
-            }
-            // Create and apply the filter
-            target.getImage().apply(new BrightnessContrast(brightness, contrast));
-            target.repaint();
-            target.getParent().revalidate();
         }
 
     }
