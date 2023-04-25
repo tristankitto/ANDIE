@@ -50,7 +50,7 @@ public class FileActions {
         actions.add(new imageExportAction(bundle.getString("export"), null, bundle.getString("exportImage"),
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction(bundle.getString("exit"), null, bundle.getString("exitTheProgram"),
-                Integer.valueOf(KeyEvent.VK_0)));
+                Integer.valueOf(KeyEvent.VK_Q)));
     }
 
     /**
