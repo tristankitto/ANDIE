@@ -157,7 +157,7 @@ public class ViewActions {
                 public void stateChanged(ChangeEvent e) {
                     // Get the value from the JSlider
                     zoom = slider.getValue();
-                    // Update the image with the brightness value
+                    // Update the image with the zoom value
                     target.setZoom(zoom);
                     target.repaint();
                     target.getParent().revalidate();
@@ -499,7 +499,7 @@ public class ViewActions {
                     target.setImage(imageCopy);
                     // Get the value from the JSlider
                     percentage = slider.getValue();
-                    // Update the image with the brightness value
+                    // Update the image with the percentage value
                     try {
                         target.getImage().tempApply(new Resize(percentage));
                     } catch (Exception ex) {
