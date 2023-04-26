@@ -394,18 +394,37 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    String extension = Andie.imageFilepath.substring(Andie.imageFilepath.lastIndexOf(".") + 1).trim();
-                    File file = new File(imageFilepath + "." + extension);
+                    System.out.println(imageFilepath);
+                    String extension;
+                    int dotIndex = imageFilepath.lastIndexOf(".");
+                    boolean extensionCheck = false;
+                    if (dotIndex >= 0 && dotIndex < imageFilepath.length() - 1) {
+                        extension = imageFilepath.substring(dotIndex + 1).trim();
+                        extensionCheck = true;
+                    } else {
+                        extension = Andie.imageFilepath.substring(Andie.imageFilepath.lastIndexOf(".") + 1).trim();
+                    }
+
+                    File file = extensionCheck ? new File(imageFilepath) : new File(imageFilepath + "." + extension);
+
                     if (file.exists()) {
                         Object[] options = { bundle.getString("yes"), bundle.getString("cancel") };
                         int n = JOptionPane.showOptionDialog(null, bundle.getString("fileAlreadyExistsQuestion"),
                                 bundle.getString("fileAlreadyExists"), JOptionPane.OK_CANCEL_OPTION,
                                 JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
                         if (n == 0) {
-                            target.getImage().exportImage(imageFilepath);
+                            if (extensionCheck) {
+                                target.getImage().exportImage(imageFilepath, extension);
+                            } else {
+                                target.getImage().exportImage(imageFilepath);
+                            }
                         }
                     } else {
-                        target.getImage().exportImage(imageFilepath);
+                        if (extensionCheck) {
+                            target.getImage().exportImage(imageFilepath, extension);
+                        } else {
+                            target.getImage().exportImage(imageFilepath);
+                        }
                     }
                 } catch (Exception ex) {
                     Popup.errorMessage(ex, "fileUnopenedError");

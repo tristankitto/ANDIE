@@ -57,7 +57,10 @@ class EditableImage {
     ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
     /** String to store the extension of the image file, e.g. jpg, png, gif */
     private String extension;
-    /** Boolean to check if the save as operation is being performed instead of a regular save operation */
+    /**
+     * Boolean to check if the save as operation is being performed instead of a
+     * regular save operation
+     */
     private boolean saveAs;
 
     /**
@@ -87,7 +90,7 @@ class EditableImage {
      * @param image
      * @return The copy of the input image.
      */
-    public static EditableImage copyImage(EditableImage image){
+    public static EditableImage copyImage(EditableImage image) {
         EditableImage imageCopy = new EditableImage();
         imageCopy.original = image.original;
         imageCopy.current = image.current;
@@ -252,18 +255,41 @@ class EditableImage {
      * </p>
      * 
      * <p>
-     * Saves an image to the file it was opened from, or the most recent file saved
-     * as. Does not save the set of operations. A copy of current is saved with the
-     * original file type. So if you open a .jpg file, when the export function is
-     * used, it will save a copy of current to the chosen file name.jpg
+     * Exports an image to the file location of the user's choosing. This method
+     * will save the file to the same file type as the extension inputted by the
+     * user when exporting the file.
      * </p>
      * 
-     * @param imageFilename The file location to save the image to.
+     * @param imageFilename The file location to export the image to.
+     * @param extension The file type/file extension to export the image as.
+     * @throws Exception If something goes wrong.
+     */
+    public void exportImage(String imageFilename, String extension) throws Exception {
+        try {
+            ImageIO.write(current, extension, new File(imageFilename));
+        } catch (NullPointerException e) {
+            Popup.errorMessage(e, "fileUnopenedError");
+        } catch (Exception e) {
+            Popup.errorMessage(e, "fileExportError");
+        }
+    }
+
+    /**
+     * <p>
+     * Exports an image to chosen file
+     * </p>
+     * 
+     * <p>
+     * Exports an image to the file location of the user's choosing. This method
+     * will save the file to the same file type as the original image.
+     * </p>
+     * 
+     * @param imageFilename The file location to export the image to.
      * @throws Exception If something goes wrong.
      */
     public void exportImage(String imageFilename) throws Exception {
         try {
-            ImageIO.write(current, extension, new File(imageFilename + "." + extension));
+            ImageIO.write(current, this.extension, new File(imageFilename + "." + this.extension));
         } catch (NullPointerException e) {
             Popup.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
@@ -317,13 +343,14 @@ class EditableImage {
      * </p>
      * 
      * <p>
-     * Applies image operations to an image but does not add the operation to the stack.
+     * Applies image operations to an image but does not add the operation to the
+     * stack.
      * </p>
      * 
      * @param op The operation to apply.
      */
-    public void tempApply(ImageOperation op){
-            current = op.apply(current);
+    public void tempApply(ImageOperation op) {
+        current = op.apply(current);
     }
 
     /**
