@@ -42,10 +42,8 @@ public class ViewActions {
      */
     public ViewActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(bundle.getString("zoomIn"), null, bundle.getString("zoomIn"),
-                Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(bundle.getString("zoomOut"), null, bundle.getString("zoomOut"),
-                Integer.valueOf(KeyEvent.VK_MINUS)));
+        actions.add(new ZoomAction(bundle.getString("changeZoom"), null, bundle.getString("changeZoom"),
+                Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(new ZoomFullAction(bundle.getString("zoomFull"), null, bundle.getString("zoomFull"),
                 Integer.valueOf(KeyEvent.VK_F)));
         actions.add(new RotateClockwiseAction(bundle.getString("rotateClockwise"), null,
@@ -78,10 +76,17 @@ public class ViewActions {
         for (Action action : actions) {
             JMenuItem item = new JMenuItem(action);
             if (action.getValue(Action.MNEMONIC_KEY) != null) {
-                KeyStroke key = KeyStroke.getKeyStroke(
-                        (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
-                        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
-                item.setAccelerator(key);
+                if (action instanceof ZoomAction) {
+                    KeyStroke key = KeyStroke.getKeyStroke(
+                            (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
+                            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx() | KeyEvent.SHIFT_DOWN_MASK);
+                    item.setAccelerator(key);
+                } else {
+                    KeyStroke key = KeyStroke.getKeyStroke(
+                            (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
+                            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
+                    item.setAccelerator(key);
+                }
             }
             viewMenu.add(item);
         }
@@ -91,7 +96,7 @@ public class ViewActions {
 
     /**
      * <p>
-     * Action to zoom in on an image.
+     * Action to change zoom on an image.
      * </p>
      * 
      * <p>
@@ -99,11 +104,14 @@ public class ViewActions {
      * actual contents.
      * </p>
      */
-    public class ZoomInAction extends ImageAction {
+    public class ZoomAction extends ImageAction {
+
+        /** int variable to store the change in zoom selected by the user */
+        private static int zoom;
 
         /**
          * <p>
-         * Create a new zoom-in action.
+         * Create a new zoom action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -111,72 +119,69 @@ public class ViewActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        ZoomInAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        ZoomAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         /**
          * <p>
-         * Callback for when the zoom-in action is triggered.
+         * Callback for when the zoom action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ZoomInAction is triggered.
-         * It increases the zoom level by 10%, to a maximum of 200%.
+         * This method is called whenever the ZoomAction is triggered.
+         * It changes the zoom of the image from anywhere between 0% and 200%.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.setZoom(target.getZoom() + 10);
-            target.repaint();
-            target.getParent().revalidate();
-        }
 
-    }
+            double originalZoom = target.getZoom();
 
-    /**
-     * <p>
-     * Action to zoom out of an image.
-     * </p>
-     * 
-     * <p>
-     * Note that this action only affects the way the image is displayed, not its
-     * actual contents.
-     * </p>
-     */
-    public class ZoomOutAction extends ImageAction {
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(350, 100));
+            panel.setLayout(new GridLayout(2, 1));
 
-        /**
-         * <p>
-         * Create a new zoom-out action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        ZoomOutAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
+            // Create a JSlider
+            JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 200, (int) originalZoom);
+            slider.setMajorTickSpacing(20);
+            slider.setPaintTicks(true);
+            slider.setPaintLabels(true);
+            panel.add(new JLabel(bundle.getString("changeZoomMessage")));
+            panel.add(slider);
 
-        /**
-         * <p>
-         * Callback for when the zoom-iout action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ZoomOutAction is triggered.
-         * It decreases the zoom level by 10%, to a minimum of 50%.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            target.setZoom(target.getZoom() - 10);
-            target.repaint();
-            target.getParent().revalidate();
+            // Add a ChangeListener to the JSlider
+            ChangeListener CL = new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    // Get the value from the JSlider
+                    zoom = slider.getValue();
+                    // Update the image with the brightness value
+                    target.setZoom(zoom);
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            };
+
+            slider.addChangeListener(CL);
+
+            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
+            int option = JOptionPane.showOptionDialog(null,
+                    panel, bundle.getString("changeZoom"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+            // Check the return value from the dialog box.
+            if (option == 1) {
+                target.setZoom(originalZoom);
+                target.repaint();
+                target.getParent().revalidate();
+                return;
+            } else if (option == 0) {
+                target.setZoom(zoom);
+                target.repaint();
+                target.getParent().revalidate();
+            }
+
         }
 
     }
@@ -440,6 +445,7 @@ public class ViewActions {
      */
     public class ResizeAction extends ImageAction {
 
+        /** int variable to store the size percentage change of the image to resize */
         private static int percentage;
 
         /**
