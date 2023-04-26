@@ -1,9 +1,11 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -417,7 +419,8 @@ public class ViewActions {
          * 
          * <p>
          * This method is called whenever the Rotate180Action is triggered.
-         * It rotates the image by 180 degrees by flipping along the horizontal and vertical axis.
+         * It rotates the image by 180 degrees by flipping along the horizontal and
+         * vertical axis.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -436,6 +439,8 @@ public class ViewActions {
      * </p>
      */
     public class ResizeAction extends ImageAction {
+
+        private static int percentage;
 
         /**
          * <p>
@@ -466,19 +471,57 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            // Determine the percentage - ask the user.
-            int percentage = 100;
+            EditableImage image = target.getImage();
 
-            // Pop-up dialog box to ask for the percentage value.
-            percentage = Popup.getInput(100, 1, 200, 1, "enterPercentage", "enterPercentageMessage");
-            if(percentage == -1000){
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(350, 100));
+            panel.setLayout(new GridLayout(2, 1));
+
+            // Create a JSlider
+            JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
+            slider.setMajorTickSpacing(20);
+            slider.setPaintTicks(true);
+            slider.setPaintLabels(true);
+            panel.add(new JLabel(bundle.getString("enterPercentageMessage")));
+            panel.add(slider);
+
+            // Add a ChangeListener to the JSlider
+            ChangeListener CL = new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    EditableImage imageCopy = EditableImage.copyImage(image);
+                    target.setImage(imageCopy);
+                    // Get the value from the JSlider
+                    percentage = slider.getValue();
+                    // Update the image with the brightness value
+                    try {
+                        target.getImage().tempApply(new Resize(percentage));
+                    } catch (Exception ex) {
+                        Popup.errorMessage(ex, "fileApplyError");
+                    }
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            };
+
+            slider.addChangeListener(CL);
+
+            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
+            int option = JOptionPane.showOptionDialog(null,
+                    panel, bundle.getString("enterPercentage"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+            // Check the return value from the dialog box.
+            if (option == 1) {
+                target.setImage(image);
+                target.repaint();
+                target.getParent().revalidate();
                 return;
-            }
-
-                // Create and apply the filter
+            } else if (option == 0) {
+                target.setImage(image);
                 target.getImage().apply(new Resize(percentage));
                 target.repaint();
                 target.getParent().revalidate();
+            }
         }
     }
 }
