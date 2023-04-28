@@ -66,6 +66,17 @@ public class ImagePanel extends JPanel {
 
     /**
      * <p>
+     * Set the currently displayed image.
+     * </p>
+     * 
+     * @param image The image to be set as the displayed image.
+     */
+    public void setImage(EditableImage image){
+        this.image = image;
+    }
+
+    /**
+     * <p>
      * Get the current zoom level as a percentage.
      * </p>
      * 
@@ -90,8 +101,8 @@ public class ImagePanel extends JPanel {
      * @param zoomPercent The new zoom level as a percentage.
      */
     public void setZoom(double zoomPercent) {
-        if (zoomPercent < 50) {
-            zoomPercent = 50;
+        if (zoomPercent < 0) {
+            zoomPercent = 0;
         }
         if (zoomPercent > 200) {
             zoomPercent = 200;

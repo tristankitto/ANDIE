@@ -79,10 +79,19 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         float [] array = new float[size];
         Arrays.fill(array, 1.0f/size);
 
+        // Apply the kernel with border padding
+        BufferedImage paddedInput = new BufferedImage(input.getWidth() + 2 * radius, input.getHeight() + 2 * radius,
+                input.getType());
+        for (int y = 0; y < input.getHeight(); y++) {
+            for (int x = 0; x < input.getWidth(); x++) {
+                paddedInput.setRGB(x + radius, y + radius, input.getRGB(x, y));
+            }
+        }
+
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
-        ConvolveOp convOp = new ConvolveOp(kernel);
+        ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
+        convOp.filter(paddedInput, output);
 
         return output;
     }

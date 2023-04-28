@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -43,12 +44,12 @@ public class FilterActions {
                 new MeanFilterAction(bundle.getString("meanFilter"), null, bundle.getString("applyAMeanFilter"),
                         Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new SoftBlurAction(bundle.getString("softBlur"), null, bundle.getString("applyASoftBlur"),
-                Integer.valueOf(KeyEvent.VK_B)));
+                Integer.valueOf(KeyEvent.VK_T)));
         actions.add(new SharpenFilterAction(bundle.getString("sharpenFilter"), null,
-                bundle.getString("applyASharpenFilter"), Integer.valueOf(KeyEvent.VK_F)));
+                bundle.getString("applyASharpenFilter"), Integer.valueOf(KeyEvent.VK_P)));
         actions.add(new GaussianBlurAction(
                 ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("gaussianBlur"),
-                null, bundle.getString("applyAGaussianBlur"), Integer.valueOf(KeyEvent.VK_H)));
+                null, bundle.getString("applyAGaussianBlur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new MedianFilterAction(
                 ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("medianFilter"),
                 null, bundle.getString("applyAMedianFilter"), Integer.valueOf(KeyEvent.VK_D)));
@@ -65,7 +66,14 @@ public class FilterActions {
         JMenu fileMenu = new JMenu(bundle.getString("filter"));
 
         for (Action action : actions) {
-            fileMenu.add(new JMenuItem(action));
+            JMenuItem item = new JMenuItem(action);
+            if (action.getValue(Action.MNEMONIC_KEY) != null) {
+                KeyStroke key = KeyStroke.getKeyStroke(
+                        (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
+                        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
+                item.setAccelerator(key);
+            }
+            fileMenu.add(item);
         }
 
         return fileMenu;

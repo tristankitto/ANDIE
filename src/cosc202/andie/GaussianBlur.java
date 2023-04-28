@@ -12,8 +12,9 @@ import java.awt.image.*;
  * and applying it to a buffered image.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
@@ -23,7 +24,8 @@ import java.awt.image.*;
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
+     * 5x5 filter, and so forth.
      */
     private int radius;
 
@@ -66,7 +68,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * 
      * <p>
      * As with many filters, the Gaussian blur is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.  
+     * The size of the convolution kernel is specified by the {@link radius}.
      * Larger radii lead to stronger blurring.
      * </p>
      * 
@@ -75,15 +77,16 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
 
-        float sigma = radius/3.0f;
+        float sigma = radius / 3.0f;
 
         // Create the kernel
-        int size = 2*radius+1;
+        int size = 2 * radius + 1;
         float[] array = new float[size * size];
         float sum = 0.0f;
         for (int y = -radius; y <= radius; y++) {
             for (int x = -radius; x <= radius; x++) {
-                float value = (float) ((1/(2*Math.PI*sigma*sigma))*(Math.exp(-(x * x + y * y) / (2 * sigma * sigma))));
+                float value = (float) ((1 / (2 * Math.PI * sigma * sigma))
+                        * (Math.exp(-(x * x + y * y) / (2 * sigma * sigma))));
                 array[(y + radius) * size + x + radius] = value;
                 sum += value;
             }
@@ -92,11 +95,19 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
             array[i] /= sum;
         }
 
-        // Apply the kernel
+        // Apply the kernel with border padding
+        BufferedImage paddedInput = new BufferedImage(input.getWidth() + 2 * radius, input.getHeight() + 2 * radius,
+                input.getType());
+        for (int y = 0; y < input.getHeight(); y++) {
+            for (int x = 0; x < input.getWidth(); x++) {
+                paddedInput.setRGB(x + radius, y + radius, input.getRGB(x, y));
+            }
+        }
+
         Kernel kernel = new Kernel(size, size, array);
-        ConvolveOp convolveOp = new ConvolveOp(kernel);
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-        convolveOp.filter(input, output);
+        ConvolveOp convolveOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
+        BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
+        convolveOp.filter(paddedInput, output);
 
         return output;
     }

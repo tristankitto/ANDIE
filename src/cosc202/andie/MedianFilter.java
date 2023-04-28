@@ -25,7 +25,8 @@ import java.awt.Color;
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
+     * 5x5 filter, and so forth.
      */
     private int radius;
 
@@ -81,6 +82,14 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
                 input.isAlphaPremultiplied(), null);
 
+        BufferedImage paddedInput = new BufferedImage(input.getWidth() + 2 * radius, input.getHeight() + 2 * radius,
+                input.getType());
+        for (int y = 0; y < input.getHeight(); y++) {
+            for (int x = 0; x < input.getWidth(); x++) {
+                paddedInput.setRGB(x + radius, y + radius, input.getRGB(x, y));
+            }
+        }
+
         // Iterate through each pixel
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
@@ -89,16 +98,12 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 //
                 for (int y1 = y - radius; y1 <= y + radius; y1++) {
                     for (int x1 = x - radius; x1 <= x + radius; x1++) {
-                        
-                        //ensure x1 and y1 are pixels actually contained within the image
-                        if (x1 >= 0 && x1 < input.getWidth() && y1 >= 0 && y1 < input.getHeight()) {
-                            int argb = input.getRGB(x1, y1);
-                            nearbyA[i] = (argb >> 24) & 0xff;
-                            nearbyR[i] = (argb >> 16) & 0xff;
-                            nearbyG[i] = (argb >> 8) & 0xff;
-                            nearbyB[i] = argb & 0xff;
-                            i++;
-                        }
+                        int argb = paddedInput.getRGB(x1 + radius, y1 + radius);
+                        nearbyA[i] = (argb >> 24) & 0xff;
+                        nearbyR[i] = (argb >> 16) & 0xff;
+                        nearbyG[i] = (argb >> 8) & 0xff;
+                        nearbyB[i] = argb & 0xff;
+                        i++;
                     }
                 }
                 Arrays.sort(nearbyA);
@@ -106,11 +111,10 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 Arrays.sort(nearbyG);
                 Arrays.sort(nearbyB);
 
-                output.setRGB(x, y, new Color(nearbyR[(int) i / 2], nearbyG[(int) i / 2], nearbyB[(int) i / 2],
-                        nearbyA[(int) i / 2]).getRGB());
+                output.setRGB(x, y, new Color(nearbyR[i / 2], nearbyG[i / 2], nearbyB[i / 2],
+                        nearbyA[i / 2]).getRGB());
             }
         }
         return output;
     }
-
 }

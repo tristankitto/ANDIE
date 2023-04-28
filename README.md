@@ -2,7 +2,7 @@
 
 This is __ANDIE__, __A__  <b>N</b>on <b>D</b>estructive <b>I</b>mage <b>E</b>ditor. `cosc202.andie.ANDIE`. 
 
-__ANDIE__ loads images and edits them with  operations such as colour filters, brightness/contrast adjustment, rotations and reflections etc. These operations are stored in a stack to enable undoing, allowing the changes to be __non-destructive__ ie. reversible. Undone operations are stored on another stack, enabling redo.
+__ANDIE__ loads images and edits them with operations such as colour filters, brightness/contrast adjustment, rotations and reflections etc. These operations are stored in a stack to enable undoing, allowing the changes to be __non-destructive__ ie. reversible. Undone operations are stored on another stack, enabling redo.
 
  A list of functions and their uses can be found below:
 
@@ -14,9 +14,9 @@ __ANDIE__ loads images and edits them with  operations such as colour filters, b
 - Save
     - This function saves the edits made to an image in a new file (imagename.ops) alongside the original (unedited) image. Using the save function will not overwrite the original image with the new changes, it will only allow for the original image to be reopened inside **ANDIE** with its changes still showing and allowing the user to continue to remove or add more filters.
 - Save As
-    - This function is the same as save but gives the user the option to save their image to a different directory with a different name. This function prompt the user to type a name for their file and choose where to save it. It will then create a copy of the original (unedited) image and give it the name inputted by the user. It will also create a .ops file with the new name entered by the user.
+    - This function is the same as save but gives the user the option to save their image to a different directory with a different name. This function prompts the user to type a name for their file and choose where to save it. It will then create a copy of the original (unedited) image and give it the name inputted by the user. It will also create a .ops file with the new name entered by the user.
 - Export
-    - Export allows the user to save the changes made to their image in a permanent manner. It will create a new image in a directory of the users choice with a new name of the user's choice. This new image will have all of the filters applied in **ANDIE** showing and they will not be able to be removed. Using export does not destroy the original (unedited) image used before exporting so the user can still make changes and create a new exported image if they wish.
+    - Export allows the user to save the changes made to their image in a permanent manner. It will create a new image in a directory of the user's choice with a new name of the user's choice. This new image will have all of the filters applied in **ANDIE** showing and they will not be able to be removed. Using export does not destroy the original (unedited) image used before exporting so the user can still make changes and create a new exported image if they wish.
 - Exit
     - Exit will exit **ANDIE**. If the user's image is unsaved then they will be prompted to save before closing, but have the option to decline.
 
@@ -80,7 +80,7 @@ __ANDIE__ loads images and edits them with  operations such as colour filters, b
 
 
 - Languages
-    - Each option in the language menu changes the language of each UI element of **ANDIE**. For example, changing the language to Māori will display every menu name, menu item, and pop-up box (for errors or for user inputs) in Te Reo Māori. Each language option displays the language name in the current language, and beside that the name in the language itself. For example, if the current language is Spanish then the option to choose the English language will display as `Inglés (English)`, or if the current language is Japanese then the option to choose French will display as `フランス語 (Français)`. THis allows people who only know one language to change **ANDIE** to their native language.
+    - Each option in the language menu changes the language of each UI element of **ANDIE**. For example, changing the language to Māori will display every menu name, menu item, and pop-up box (for errors or for user inputs) in Te Reo Māori. Each language option displays the language name in the current language, and beside that the name in the language itself. For example, if the current language is Spanish then the option to choose the English language will display as `Inglés (English)`, or if the current language is Japanese then the option to choose French will display as `フランス語 (Français)`. This allows people who only know one language to change **ANDIE** to their native language.
 - Language Preference
     - Whenever a user selects a language that language is automatically saved as the user's new default language. Every time the user reopens **ANDIE** they will find the program in the last language they selected and it will stay as that language until a new language is selected.
 More information on this software and what it does can be found in the [COSC 202 LabBook](https://cosc202.cspages.otago.ac.nz/lab-book/COSC202LabBook.pdf#page=124).
@@ -120,7 +120,7 @@ More information on this software and what it does can be found in the [COSC 202
 # Testing
 Cross-platform testing was performed on Windows and Mac. Testing was done concurrently with software development, then scaled upwards in the week preceding the deadline for the first lot of deliverables. 
 
-Every team member was involved with testing to some degree. Team members tested their own code as it was written and after it was completed to confirm it was robust and satisfied the specifications. Team members also tested each others' code to double check integrity. After the bulk of the developing was completed, the team worked together to devise test cases and methods for a wide-scale approach.
+Every team member was involved with testing to some degree. Team members tested their own code as it was written and after it was completed to confirm it was robust and satisfied the specifications. Team members also tested each other's code to double check integrity. After the bulk of the developing was completed, the team worked together to devise test cases and methods for a wide-scale approach.
 
 ## Test image
 <img src=./pixilart-drawing.png width = "300" height = "300">
@@ -132,7 +132,7 @@ A white 100x100 pixels image was created, then black pixels were dotted around s
 ## Image flip bug
 ![Penguin Image](./transparentPenguin_test.png)
 
-Image flip and rotation operations were tested with square and rectangular images and worked without any issues, however a bug was encountered when vertically flipping the penguin image where a horizontal white line was created bisecting the output image. It was found that this bug occurred because the image had an odd number of pixels in its height.
+Image flip and rotation operations were tested with square and rectangular images and worked without any issues, however a bug was encountered when vertically flipping the penguin image where a horizontal white line was created, bisecting the output image. It was found that this bug occurred because the image had an odd number of pixels in its height.
 
 This bug was recreated by resizing the penguin image to also have an odd width of pixels and horizontally flipping it, which caused a vertical white line to appear down the centre. 
 
@@ -168,7 +168,7 @@ Inanimate GIFs can be edited without issue.
 # Exceptions Handled
 
 ## Performing any unintended function when a file is not open
-If an image has not yet been opened in **ANDIE** then a pop-up will be displayed if the user tries to do anything that would normally effect an image. This includes applying any filter or transformation, save, export, etc.
+If an image has not yet been opened in **ANDIE** then a pop-up will be displayed if the user tries to do anything that would normally affect an image. This includes applying any filter or transformation, save, export, etc.
 
 ## Attempting to Undo or Redo with empty stacks
 If the Ops stack is empty and the user tries to undo, and the same for redoOps and redo, then a pop-up will be displayed informing the user that there is no action to undo or redo.
@@ -201,4 +201,4 @@ Support for the user to save their language of choice has been implemented. This
 # Significant Code Refactoring
 
 ## createMenuBar
-In the `Andie` class parts of the `createAndShowGUI` method have been moved out into a new public method called `createMenuBar`. This has been done to let classes other than `Andie` to remake the menu bar, allowing for multilingual support to take effect as soon as the language is chosen, rather than requiring the program to be restarted entirely.
+In the `Andie` class parts of the `createAndShowGUI` method have been moved out into a new public method called `createMenuBar`. This has been done to let classes other than `Andie` remake the menu bar, allowing for multilingual support to take effect as soon as the language is chosen, rather than requiring the program to be restarted entirely.
