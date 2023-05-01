@@ -156,41 +156,48 @@ public class Andie {
         FileActions fileActions = new FileActions();
         EditActions editActions = new EditActions();
         ViewActions viewActions = new ViewActions();
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
 
         ImageIcon open = new ImageIcon(Andie.class.getClassLoader().getResource("folder-open.png"));
         JButton button1 = new JButton();
         button1.setIcon(open);
         button1.addActionListener(fileActions.createMenu().getItem(0).getAction());
+        button1.setToolTipText(bundle.getString("open"));
         toolBar.add(button1);
 
         ImageIcon save = new ImageIcon(Andie.class.getClassLoader().getResource("disk.png"));
         JButton button2 = new JButton();
         button2.setIcon(save);
         button2.addActionListener(fileActions.createMenu().getItem(1).getAction());
+        button2.setToolTipText(bundle.getString("save"));
         toolBar.add(button2);
 
         ImageIcon undo = new ImageIcon(Andie.class.getClassLoader().getResource("undo-alt.png"));
         JButton button3 = new JButton();
         button3.setIcon(undo);
         button3.addActionListener(editActions.createMenu().getItem(0).getAction());
+        button3.setToolTipText(bundle.getString("undo"));
         toolBar.add(button3);
 
         ImageIcon redo = new ImageIcon(Andie.class.getClassLoader().getResource("redo-alt.png"));
         JButton button4 = new JButton();
         button4.setIcon(redo);
         button4.addActionListener(editActions.createMenu().getItem(1).getAction());
+        button4.setToolTipText(bundle.getString("redo"));
         toolBar.add(button4);
 
         ImageIcon zoom = new ImageIcon(Andie.class.getClassLoader().getResource("search.png"));
         JButton button5 = new JButton();
         button5.setIcon(zoom);
         button5.addActionListener(viewActions.createMenu().getItem(0).getAction());
+        button5.setToolTipText(bundle.getString("changeZoom"));
         toolBar.add(button5);
 
         ImageIcon exit= new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
         JButton button6 = new JButton();
         button6.setIcon(exit);
         button6.addActionListener(fileActions.createMenu().getItem(4).getAction());
+        button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
 
         /** 
