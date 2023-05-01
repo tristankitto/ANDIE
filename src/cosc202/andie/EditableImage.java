@@ -248,9 +248,9 @@ class EditableImage {
             fileOut.close();
             Andie.saved = true;
         } catch (NullPointerException e) {
-            Popup.errorMessage(e, "fileUnopenedError");
+            Tools.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileSaveError");
+            Tools.errorMessage(e, "fileSaveError");
         }
         saveAs = false;
     }
@@ -274,9 +274,9 @@ class EditableImage {
         try {
             ImageIO.write(current, extension, new File(imageFilename));
         } catch (NullPointerException e) {
-            Popup.errorMessage(e, "fileUnopenedError");
+            Tools.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileExportError");
+            Tools.errorMessage(e, "fileExportError");
         }
     }
 
@@ -297,9 +297,9 @@ class EditableImage {
         try {
             ImageIO.write(current, this.extension, new File(imageFilename + "." + this.extension));
         } catch (NullPointerException e) {
-            Popup.errorMessage(e, "fileUnopenedError");
+            Tools.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileExportError");
+            Tools.errorMessage(e, "fileExportError");
         }
     }
 
@@ -340,7 +340,7 @@ class EditableImage {
             if (isMacroRecording) macro.add(op);
             Andie.saved = false;
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileApplyError");
+            Tools.errorMessage(e, "fileApplyError");
         }
     }
 
@@ -371,7 +371,7 @@ class EditableImage {
             refresh();
             Andie.saved = false;
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileUndoError");
+            Tools.errorMessage(e, "fileUndoError");
         }
     }
 
@@ -384,7 +384,7 @@ class EditableImage {
         try {
             apply(redoOps.pop());
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileRedoError");
+            Tools.errorMessage(e, "fileRedoError");
         }
     }
 
@@ -468,7 +468,7 @@ class EditableImage {
             objout.close();
             fileout.close();
         } catch(Exception e) {
-            Popup.errorMessage(e, "fileMacroExportError");
+            Tools.errorMessage(e, "fileMacroExportError");
         }
 
         System.out.println("exportMacro finished");

@@ -30,7 +30,8 @@ import javax.imageio.*;
 public class Andie {
     protected static JMenuBar menuBar;
     protected static JFrame frame;
-    
+    protected static JToolBar toolBar;
+
     /** Boolean value to keep track of if an image has unsaved changes or not */
     public static boolean saved = true;
 
@@ -71,6 +72,7 @@ public class Andie {
         frame.add(scrollPane, BorderLayout.CENTER);
 
         createMenuBar();
+        createToolBar();
         frame.pack();
     }
 
@@ -133,6 +135,56 @@ public class Andie {
 
     /**
      * <p>
+     * Creates a Tool bar the ANDIE program.
+     * </p>
+     * 
+     * <p>
+     * This method sets up a tool bar with commonly used operations such as
+     * Open, save,
+     * exit, etc.
+     * These operations are implemented {@link ImageOperation}s and triggerd via
+     * {@code ImageAction}s grouped by their general purpose into menus.
+     * </p>
+     * 
+     * @see FileActions
+     * @see EditActions
+     * @see ViewActions
+     * 
+     */
+    public static void createToolBar() {
+        toolBar = new JToolBar();
+        FileActions fileActions = new FileActions();
+        EditActions editActions = new EditActions();
+        ViewActions viewActions = new ViewActions();
+
+        toolBar.add(new JButton(fileActions.createMenu().getItem(0).getAction()));
+        toolBar.add(new JButton(fileActions.createMenu().getItem(1).getAction()));
+        toolBar.add(new JButton(editActions.createMenu().getItem(0).getAction()));
+        toolBar.add(new JButton(editActions.createMenu().getItem(1).getAction()));
+        toolBar.add(new JButton(viewActions.createMenu().getItem(0).getAction()));
+        toolBar.add(new JButton(fileActions.createMenu().getItem(4).getAction()));
+        // ImageIcon open = new ImageIcon("getClass().getResource(/icon.png)");
+        // toolBar.add(new JButton(open));
+        frame.add(toolBar, BorderLayout.PAGE_START);
+        frame.setVisible(true);
+    }
+
+    /**
+     * <p>
+     * Removes a tool bar from the JFrame.
+     * </p>
+     * 
+     * <p>
+     * This method will remove the tool bar from ANDIE. The main purpose for this is
+     * to allow for the toolbar to be refreshed when the language is changed.
+     * </p>
+     */
+    public static void removeToolBar() {
+        frame.remove(toolBar);
+    }
+
+    /**
+     * <p>
      * Main entry point to the ANDIE program.
      * </p>
      * 
@@ -151,7 +203,7 @@ public class Andie {
                 try {
                     createAndShowGUI();
                 } catch (Exception ex) {
-                    Popup.errorMessage(ex, "programLaunchError");
+                    Tools.errorMessage(ex, "programLaunchError");
                     System.exit(1);
                 }
             }
