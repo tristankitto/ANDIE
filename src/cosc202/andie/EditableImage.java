@@ -492,7 +492,7 @@ class EditableImage {
             objIn.close();
             fileIn.close();
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileMacroApplyError");
+            Tools.errorMessage(e, "fileMacroApplyError");
         }
     }
 }
