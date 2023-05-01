@@ -50,7 +50,7 @@ public class FileActions {
         actions.add(new imageExportAction(bundle.getString("export"), null, bundle.getString("exportImage"),
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction(bundle.getString("exit"), null, bundle.getString("exitTheProgram"),
-                Integer.valueOf(0)));
+                Integer.valueOf(KeyEvent.VK_Q)));
         actions.add(new FileRecordMacroAction(bundle.getString("record"), null, bundle.getString("recordAMacro"),
                 Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new FileExportMacroAction(bundle.getString("exportMacro"), null, bundle.getString("exportAMacro"),
