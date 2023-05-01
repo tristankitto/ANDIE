@@ -128,6 +128,8 @@ public class LanguageActions {
                         }
 
                         Andie.createMenuBar();
+                        Andie.removeToolBar();
+                        Andie.createToolBar();
                 }
 
         }

@@ -30,7 +30,8 @@ import javax.imageio.*;
 public class Andie {
     protected static JMenuBar menuBar;
     protected static JFrame frame;
-    
+    protected static JToolBar toolBar;
+
     /** Boolean value to keep track of if an image has unsaved changes or not */
     public static boolean saved = true;
 
@@ -151,7 +152,7 @@ public class Andie {
      * 
      */
     public static void createToolBar() {
-        JToolBar toolBar = new JToolBar();
+        toolBar = new JToolBar();
         FileActions fileActions = new FileActions();
         EditActions editActions = new EditActions();
         ViewActions viewActions = new ViewActions();
@@ -162,11 +163,26 @@ public class Andie {
         toolBar.add(new JButton(editActions.createMenu().getItem(1).getAction()));
         toolBar.add(new JButton(viewActions.createMenu().getItem(0).getAction()));
         toolBar.add(new JButton(fileActions.createMenu().getItem(4).getAction()));
-        //ImageIcon open = new ImageIcon("getClass().getResource(/icon.png)");
-        //toolBar.add(new JButton(open));
+        // ImageIcon open = new ImageIcon("getClass().getResource(/icon.png)");
+        // toolBar.add(new JButton(open));
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.setVisible(true);
     }
+
+    /**
+     * <p>
+     * Removes a tool bar from the JFrame.
+     * </p>
+     * 
+     * <p>
+     * This method will remove the tool bar from ANDIE. The main purpose for this is
+     * to allow for the toolbar to be refreshed when the language is changed.
+     * </p>
+     */
+    public static void removeToolBar() {
+        frame.remove(toolBar);
+    }
+
     /**
      * <p>
      * Main entry point to the ANDIE program.
