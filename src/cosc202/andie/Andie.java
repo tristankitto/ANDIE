@@ -157,14 +157,50 @@ public class Andie {
         EditActions editActions = new EditActions();
         ViewActions viewActions = new ViewActions();
 
-        toolBar.add(new JButton(fileActions.createMenu().getItem(0).getAction()));
-        toolBar.add(new JButton(fileActions.createMenu().getItem(1).getAction()));
-        toolBar.add(new JButton(editActions.createMenu().getItem(0).getAction()));
-        toolBar.add(new JButton(editActions.createMenu().getItem(1).getAction()));
-        toolBar.add(new JButton(viewActions.createMenu().getItem(0).getAction()));
-        toolBar.add(new JButton(fileActions.createMenu().getItem(4).getAction()));
-        // ImageIcon open = new ImageIcon("getClass().getResource(/icon.png)");
-        // toolBar.add(new JButton(open));
+        ImageIcon open = new ImageIcon(Andie.class.getClassLoader().getResource("folder-open.png"));
+        JButton button1 = new JButton();
+        button1.setIcon(open);
+        button1.addActionListener(fileActions.createMenu().getItem(0).getAction());
+        toolBar.add(button1);
+
+        ImageIcon save = new ImageIcon(Andie.class.getClassLoader().getResource("disk.png"));
+        JButton button2 = new JButton();
+        button2.setIcon(save);
+        button2.addActionListener(fileActions.createMenu().getItem(1).getAction());
+        toolBar.add(button2);
+
+        ImageIcon undo = new ImageIcon(Andie.class.getClassLoader().getResource("undo-alt.png"));
+        JButton button3 = new JButton();
+        button3.setIcon(undo);
+        button3.addActionListener(editActions.createMenu().getItem(0).getAction());
+        toolBar.add(button3);
+
+        ImageIcon redo = new ImageIcon(Andie.class.getClassLoader().getResource("redo-alt.png"));
+        JButton button4 = new JButton();
+        button4.setIcon(redo);
+        button4.addActionListener(editActions.createMenu().getItem(1).getAction());
+        toolBar.add(button4);
+
+        ImageIcon zoom = new ImageIcon(Andie.class.getClassLoader().getResource("search.png"));
+        JButton button5 = new JButton();
+        button5.setIcon(zoom);
+        button5.addActionListener(viewActions.createMenu().getItem(0).getAction());
+        toolBar.add(button5);
+
+        ImageIcon exit= new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
+        JButton button6 = new JButton();
+        button6.setIcon(exit);
+        button6.addActionListener(fileActions.createMenu().getItem(4).getAction());
+        toolBar.add(button6);
+
+        /** 
+        ImageIcon crop= new ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
+        JButton button7 = new JButton();
+        button7.setIcon(crop);
+        button7.addActionListener(///.createMenu().getItem(4).getAction());
+        toolBar.add(button7);
+        */
+
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.setVisible(true);
     }
