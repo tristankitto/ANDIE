@@ -491,8 +491,8 @@ class EditableImage {
             redoOps.clear();
             objIn.close();
             fileIn.close();
-        } catch (Exception ex) {
-
+        } catch (Exception e) {
+            Popup.errorMessage(e, "fileMacroApplyError");
         }
     }
 }
