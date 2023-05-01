@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -57,13 +56,7 @@ public class EditActions {
         JMenu editMenu = new JMenu(bundle.getString("edit"));
 
         for (Action action : actions) {
-            JMenuItem item = new JMenuItem(action);
-            if (action.getValue(Action.MNEMONIC_KEY) != null) {
-                KeyStroke key = KeyStroke.getKeyStroke(
-                        (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
-                        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
-                item.setAccelerator(key);
-            }
+            JMenuItem item = Tools.createMenuItem(action, false, false);
             editMenu.add(item);
         }
 

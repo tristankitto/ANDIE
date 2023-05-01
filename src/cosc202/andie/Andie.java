@@ -203,7 +203,7 @@ public class Andie {
                 try {
                     createAndShowGUI();
                 } catch (Exception ex) {
-                    Popup.errorMessage(ex, "programLaunchError");
+                    Tools.errorMessage(ex, "programLaunchError");
                     System.exit(1);
                 }
             }

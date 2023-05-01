@@ -1,13 +1,10 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 
 /**
  * <p>
@@ -70,13 +67,7 @@ public class FilterActions {
         JMenu fileMenu = new JMenu(bundle.getString("filter"));
 
         for (Action action : actions) {
-            JMenuItem item = new JMenuItem(action);
-            if (action.getValue(Action.MNEMONIC_KEY) != null) {
-                KeyStroke key = KeyStroke.getKeyStroke(
-                        (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
-                        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
-                item.setAccelerator(key);
-            }
+            JMenuItem item = Tools.createMenuItem(action, false, false);
             fileMenu.add(item);
         }
 
@@ -149,7 +140,7 @@ public class FilterActions {
                         if(radius != 0)
                             target.getImage().tempApply(new MeanFilter(radius));
                     } catch (Exception ex) {
-                        Popup.errorMessage(ex, "fileApplyError");
+                        Tools.errorMessage(ex, "fileApplyError");
                     }
                     target.repaint();
                     target.getParent().revalidate();
@@ -332,7 +323,7 @@ public class FilterActions {
                         if(radius != 0)
                             target.getImage().tempApply(new GaussianBlur(radius));
                     } catch (Exception ex) {
-                        Popup.errorMessage(ex, "fileApplyError");
+                        Tools.errorMessage(ex, "fileApplyError");
                     }
                     target.repaint();
                     target.getParent().revalidate();
@@ -427,7 +418,7 @@ public class FilterActions {
                         if(radius != 0)
                             target.getImage().tempApply(new MedianFilter(radius));
                     } catch (Exception ex) {
-                        Popup.errorMessage(ex, "fileApplyError");
+                        Tools.errorMessage(ex, "fileApplyError");
                     }
                     target.repaint();
                     target.getParent().revalidate();
