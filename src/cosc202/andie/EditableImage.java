@@ -62,6 +62,12 @@ class EditableImage {
      * regular save operation
      */
     private boolean saveAs;
+    /** The file where the macro is scored */
+    private String macroFileName;
+    /** Boolean to check if image operations need to be added to a macro */
+    private boolean isMacroRecording;
+    /** The stack used to store a recording macro */
+    private static Stack<ImageOperation> macro;
 
     /**
      * <p>
@@ -242,9 +248,9 @@ class EditableImage {
             fileOut.close();
             Andie.saved = true;
         } catch (NullPointerException e) {
-            Popup.errorMessage(e, "fileUnopenedError");
+            Tools.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileSaveError");
+            Tools.errorMessage(e, "fileSaveError");
         }
         saveAs = false;
     }
@@ -268,9 +274,9 @@ class EditableImage {
         try {
             ImageIO.write(current, extension, new File(imageFilename));
         } catch (NullPointerException e) {
-            Popup.errorMessage(e, "fileUnopenedError");
+            Tools.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileExportError");
+            Tools.errorMessage(e, "fileExportError");
         }
     }
 
@@ -291,9 +297,9 @@ class EditableImage {
         try {
             ImageIO.write(current, this.extension, new File(imageFilename + "." + this.extension));
         } catch (NullPointerException e) {
-            Popup.errorMessage(e, "fileUnopenedError");
+            Tools.errorMessage(e, "fileUnopenedError");
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileExportError");
+            Tools.errorMessage(e, "fileExportError");
         }
     }
 
@@ -331,9 +337,10 @@ class EditableImage {
         try {
             current = op.apply(current);
             ops.add(op);
+            if (isMacroRecording) macro.add(op);
             Andie.saved = false;
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileApplyError");
+            Tools.errorMessage(e, "fileApplyError");
         }
     }
 
@@ -364,7 +371,7 @@ class EditableImage {
             refresh();
             Andie.saved = false;
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileUndoError");
+            Tools.errorMessage(e, "fileUndoError");
         }
     }
 
@@ -377,7 +384,7 @@ class EditableImage {
         try {
             apply(redoOps.pop());
         } catch (Exception e) {
-            Popup.errorMessage(e, "fileRedoError");
+            Tools.errorMessage(e, "fileRedoError");
         }
     }
 
@@ -431,4 +438,61 @@ class EditableImage {
         image.redoOps.clear();
     }
 
+    /**
+     * <p>
+     * Records a macro.
+     * <p>
+     * 
+     * <p>
+     * 
+     * <p>
+     */
+    public void recordMacro() {   
+        isMacroRecording = true;
+        macro = new Stack<ImageOperation>();
+        System.out.println("recordMacro finished");
+    }
+
+    /**
+     * <p>
+     * Export a macro.
+     * <p>
+     */
+    public void exportMacro(String macroFileName) {
+        this.macroFileName = macroFileName + ".ops";
+
+        try {           
+            FileOutputStream fileout = new FileOutputStream(this.macroFileName);
+            ObjectOutputStream objout = new ObjectOutputStream(fileout);
+            objout.writeObject(EditableImage.macro);
+            objout.close();
+            fileout.close();
+        } catch(Exception e) {
+            Tools.errorMessage(e, "fileMacroExportError");
+        }
+
+        System.out.println("exportMacro finished");
+    }
+
+    /**
+     * <p>
+     * Apply a macro.
+     * <p>
+     */
+    public void applyMacro (String macroPath) throws Exception {
+        macroFileName = macroPath;
+        try {
+            FileInputStream fileIn = new FileInputStream(this.opsFilename);
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+
+            @SuppressWarnings("unchecked")
+            Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+            ops = opsFromFile;
+            redoOps.clear();
+            objIn.close();
+            fileIn.close();
+        } catch (Exception ex) {
+
+        }
+    }
 }

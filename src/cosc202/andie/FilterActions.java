@@ -1,9 +1,10 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
 /**
  * <p>
@@ -66,13 +67,7 @@ public class FilterActions {
         JMenu fileMenu = new JMenu(bundle.getString("filter"));
 
         for (Action action : actions) {
-            JMenuItem item = new JMenuItem(action);
-            if (action.getValue(Action.MNEMONIC_KEY) != null) {
-                KeyStroke key = KeyStroke.getKeyStroke(
-                        (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
-                        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
-                item.setAccelerator(key);
-            }
+            JMenuItem item = Tools.createMenuItem(action, false, false);
             fileMenu.add(item);
         }
 
@@ -87,6 +82,8 @@ public class FilterActions {
      * @see MeanFilter
      */
     public class MeanFilterAction extends ImageAction {
+
+        private static int radius;
 
         /**
          * <p>
@@ -116,20 +113,59 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            EditableImage image = target.getImage();
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(350, 100));
+            panel.setLayout(new GridLayout(2, 1));
 
-            // Pop-up dialog box to ask for the radius value.
-            radius = Popup.getInput(1, 1, 10, 1, "enterFilterRadius", "enterFilterRadiusMessage");
-            if(radius == -1000){
+            // Create a JSlider
+            JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
+            slider.setMajorTickSpacing(1);
+            slider.setPaintTicks(true);
+            slider.setPaintLabels(true);
+            panel.add(new JLabel(bundle.getString("chooseFilterRadiusMessage")));
+            panel.add(slider);
+
+            // Add a ChangeListener to the JSlider
+            ChangeListener CL = new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    EditableImage imageCopy = EditableImage.copyImage(image);
+                    target.setImage(imageCopy);
+                    // Get the value from the JSlider
+                    radius = slider.getValue();
+                    // Update the image with the percentage value
+                    try {
+                        if(radius != 0)
+                            target.getImage().tempApply(new MeanFilter(radius));
+                    } catch (Exception ex) {
+                        Tools.errorMessage(ex, "fileApplyError");
+                    }
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            };
+
+            slider.addChangeListener(CL);
+
+            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
+            int option = JOptionPane.showOptionDialog(null,
+                    panel, bundle.getString("applyAMeanFilter"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+            // Check the return value from the dialog box.
+            if (option == 1) {
+                target.setImage(image);
+                target.repaint();
+                target.getParent().revalidate();
                 return;
+            } else if (option == 0) {
+                target.setImage(image);
+                if(radius != 0)
+                    target.getImage().apply(new MeanFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
             }
-
-            // Create and apply the filter
-            target.getImage().apply(new MeanFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
         }
 
     }
@@ -228,6 +264,8 @@ public class FilterActions {
      * @see GaussianBlur
      */
     public class GaussianBlurAction extends ImageAction {
+        private static int radius;
+
         /**
          * <p>
          * Create a new Gaussian blur action.
@@ -258,19 +296,59 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+            EditableImage image = target.getImage();
 
-            // Pop-up dialog box to ask for the radius value.
-            radius = Popup.getInput(1, 1, 10, 1, "enterFilterRadius", "enterFilterRadiusMessage");
-            if(radius == -1000){
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(350, 100));
+            panel.setLayout(new GridLayout(2, 1));
+
+            // Create a JSlider
+            JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
+            slider.setMajorTickSpacing(1);
+            slider.setPaintTicks(true);
+            slider.setPaintLabels(true);
+            panel.add(new JLabel(bundle.getString("chooseFilterRadiusMessage")));
+            panel.add(slider);
+
+            // Add a ChangeListener to the JSlider
+            ChangeListener CL = new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    EditableImage imageCopy = EditableImage.copyImage(image);
+                    target.setImage(imageCopy);
+                    // Get the value from the JSlider
+                    radius = slider.getValue();
+                    // Update the image with the percentage value
+                    try {
+                        if(radius != 0)
+                            target.getImage().tempApply(new GaussianBlur(radius));
+                    } catch (Exception ex) {
+                        Tools.errorMessage(ex, "fileApplyError");
+                    }
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            };
+
+            slider.addChangeListener(CL);
+
+            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
+            int option = JOptionPane.showOptionDialog(null,
+                    panel, bundle.getString("applyAGaussianBlur"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+            // Check the return value from the dialog box.
+            if (option == 1) {
+                target.setImage(image);
+                target.repaint();
+                target.getParent().revalidate();
                 return;
+            } else if (option == 0) {
+                target.setImage(image);
+                if(radius!= 0)
+                    target.getImage().apply(new GaussianBlur(radius));
+                target.repaint();
+                target.getParent().revalidate();
             }
-
-            // Create and apply the filter
-            target.getImage().apply(new GaussianBlur(radius));
-            target.repaint();
-            target.getParent().revalidate();
         }
     }
 
@@ -282,6 +360,7 @@ public class FilterActions {
      * @see MedianFilter
      */
     public class MedianFilterAction extends ImageAction {
+        private static int radius;
 
         /**
          * <p>
@@ -312,18 +391,59 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+            EditableImage image = target.getImage();
 
-            // Pop-up dialog box to ask for the radius value.
-            radius = Popup.getInput(1, 1, 10, 1, "enterFilterRadius", "enterFilterRadiusMessage");
-            if(radius == -1000){
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(350, 100));
+            panel.setLayout(new GridLayout(2, 1));
+
+            // Create a JSlider
+            JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 10, 0);
+            slider.setMajorTickSpacing(1);
+            slider.setPaintTicks(true);
+            slider.setPaintLabels(true);
+            panel.add(new JLabel(bundle.getString("chooseFilterRadiusMessage")));
+            panel.add(slider);
+
+            // Add a ChangeListener to the JSlider
+            ChangeListener CL = new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    EditableImage imageCopy = EditableImage.copyImage(image);
+                    target.setImage(imageCopy);
+                    // Get the value from the JSlider
+                    radius = slider.getValue();
+                    // Update the image with the percentage value
+                    try {
+                        if(radius != 0)
+                            target.getImage().tempApply(new MedianFilter(radius));
+                    } catch (Exception ex) {
+                        Tools.errorMessage(ex, "fileApplyError");
+                    }
+                    target.repaint();
+                    target.getParent().revalidate();
+                }
+            };
+
+            slider.addChangeListener(CL);
+
+            Object[] options = { bundle.getString("ok"), bundle.getString("cancel") };
+            int option = JOptionPane.showOptionDialog(null,
+                    panel, bundle.getString("applyAMedianFilter"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+            // Check the return value from the dialog box.
+            if (option == 1) {
+                target.setImage(image);
+                target.repaint();
+                target.getParent().revalidate();
                 return;
+            } else if (option == 0) {
+                target.setImage(image);
+                if(radius != 0)
+                    target.getImage().apply(new MedianFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
             }
-            // Create and apply the filter
-            target.getImage().apply(new MedianFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
         }
 
     }

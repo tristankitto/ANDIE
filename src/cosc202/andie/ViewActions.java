@@ -74,19 +74,11 @@ public class ViewActions {
         JMenu viewMenu = new JMenu(bundle.getString("view"));
 
         for (Action action : actions) {
-            JMenuItem item = new JMenuItem(action);
-            if (action.getValue(Action.MNEMONIC_KEY) != null) {
-                if (action instanceof ZoomAction) {
-                    KeyStroke key = KeyStroke.getKeyStroke(
-                            (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
-                            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx() | KeyEvent.SHIFT_DOWN_MASK);
-                    item.setAccelerator(key);
-                } else {
-                    KeyStroke key = KeyStroke.getKeyStroke(
-                            (char) ((Integer) action.getValue(Action.MNEMONIC_KEY)).intValue(),
-                            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
-                    item.setAccelerator(key);
-                }
+            JMenuItem item = new JMenuItem();
+            if(action instanceof ZoomAction){
+                item = Tools.createMenuItem(action, true, false);
+            }else{
+                item = Tools.createMenuItem(action, false, false);
             }
             viewMenu.add(item);
         }
@@ -503,7 +495,7 @@ public class ViewActions {
                     try {
                         target.getImage().tempApply(new Resize(percentage));
                     } catch (Exception ex) {
-                        Popup.errorMessage(ex, "fileApplyError");
+                        Tools.errorMessage(ex, "fileApplyError");
                     }
                     target.repaint();
                     target.getParent().revalidate();
