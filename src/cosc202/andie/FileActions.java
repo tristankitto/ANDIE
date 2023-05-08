@@ -50,7 +50,7 @@ public class FileActions {
         actions.add(new FileExitAction(bundle.getString("exit"), null, bundle.getString("exitTheProgram"),
                 Integer.valueOf(KeyEvent.VK_Q)));
         actions.add(new FileRecordMacroAction(bundle.getString("record"), null, bundle.getString("recordAMacro"),
-                Integer.valueOf(KeyEvent.VK_I)));
+                Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new FileExportMacroAction(bundle.getString("exportMacro"), null, bundle.getString("exportAMacro"),
                 Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileApplyMacroAction(bundle.getString("applyMacro"), null, bundle.getString("applyAMacro"),
@@ -71,7 +71,8 @@ public class FileActions {
             JMenuItem item = new JMenuItem();
             if (action instanceof FileSaveAsAction) {
                 item = Tools.createMenuItem(action, true, false);
-            } else if (action instanceof FileRecordMacroAction || action instanceof FileExportMacroAction) {
+            } else if (action instanceof FileRecordMacroAction || action instanceof FileExportMacroAction
+                    || action instanceof FileApplyMacroAction) {
                 item = Tools.createMenuItem(action, true, true);
             } else {
                 item = Tools.createMenuItem(action, false, false);
@@ -562,20 +563,20 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int result = fileChooser.showOpenDialog(target);
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showOpenDialog(target);
 
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        String macroPath = fileChooser.getSelectedFile().getCanonicalPath();
-                        target.getImage().applyMacro(macroPath);
-                    } catch (Exception ex) {
-                        Tools.errorMessage(ex, "fileOpenError");
-                    }
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String macroPath = fileChooser.getSelectedFile().getCanonicalPath();
+                    target.getImage().applyMacro(macroPath);
+                } catch (Exception ex) {
+                    Tools.errorMessage(ex, "fileOpenError");
                 }
+            }
 
-                target.repaint();
-                target.getParent().revalidate();
-            } 
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 }
