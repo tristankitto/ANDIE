@@ -341,7 +341,6 @@ class EditableImage {
             ops.add(op);
             if (isMacroRecording) {
                 macro.add(op);
-                System.out.println("Operation added to macro");
             }
             Andie.saved = false;
         } catch (Exception e) {
@@ -455,7 +454,6 @@ class EditableImage {
     public void recordMacro() {   
         isMacroRecording = true;
         macro = new Stack<ImageOperation>();
-        System.out.println("Macro is recording");
 
         // ImageIcon record = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
         // JButton recordButton = new JButton();
@@ -489,8 +487,6 @@ class EditableImage {
         } catch(Exception e) {
             Tools.errorMessage(e, "fileMacroExportError");
         }
-
-        System.out.println("exportMacro finished");
     }
 
     /**
