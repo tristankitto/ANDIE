@@ -193,7 +193,7 @@ public class Andie {
         button5.setToolTipText(bundle.getString("changeZoom"));
         toolBar.add(button5);
 
-        ImageIcon exit= new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
+        ImageIcon exit = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
         JButton button6 = new JButton();
         button6.setIcon(exit);
         button6.addActionListener(fileActions.createMenu().getItem(4).getAction());

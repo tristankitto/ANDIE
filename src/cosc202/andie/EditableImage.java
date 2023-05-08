@@ -5,6 +5,8 @@ import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
 
+import javax.swing.*;
+
 /**
  * <p>
  * An image with a set of operations applied to it.
@@ -337,7 +339,10 @@ class EditableImage {
         try {
             current = op.apply(current);
             ops.add(op);
-            if (isMacroRecording) macro.add(op);
+            if (isMacroRecording) {
+                macro.add(op);
+                System.out.println("Operation added to macro");
+            }
             Andie.saved = false;
         } catch (Exception e) {
             Tools.errorMessage(e, "fileApplyError");
@@ -450,7 +455,21 @@ class EditableImage {
     public void recordMacro() {   
         isMacroRecording = true;
         macro = new Stack<ImageOperation>();
-        System.out.println("recordMacro finished");
+        System.out.println("Macro is recording");
+
+        // ImageIcon record = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
+        // JButton recordButton = new JButton();
+        // recordButton.setIcon(record);
+        // recordButton.setToolTipText(bundle.getString("record"));
+        // Andie.frame.add(recordButton);
+        // Andie.frame.setVisible(true);
+
+        ImageIcon recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
+        JLabel recordLabel = new JLabel(recordIcon);
+        recordLabel.setBounds(0, 0, recordLabel.getPreferredSize().width, recordLabel.getPreferredSize().width);
+
+        Andie.frame.add(recordLabel);
+        Andie.frame.setVisible(true);
     }
 
     /**
@@ -480,15 +499,14 @@ class EditableImage {
      * <p>
      */
     public void applyMacro (String macroPath) throws Exception {
-        macroFileName = macroPath;
         try {
-            FileInputStream fileIn = new FileInputStream(this.opsFilename);
+            FileInputStream fileIn = new FileInputStream(macroPath);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
             ops = opsFromFile;
-            redoOps.clear();
+            refresh();
             objIn.close();
             fileIn.close();
         } catch (Exception e) {
