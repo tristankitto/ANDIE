@@ -54,7 +54,7 @@ public class FileActions {
         actions.add(new FileExportMacroAction(bundle.getString("exportMacro"), null, bundle.getString("exportAMacro"),
                 Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileApplyMacroAction(bundle.getString("applyMacro"), null, bundle.getString("applyAMacro"),
-                Integer.valueOf(KeyEvent.VK_P)));
+                Integer.valueOf(KeyEvent.VK_A)));
     }
 
     /**
