@@ -89,6 +89,7 @@ More information on this software and what it does can be found in the [COSC 202
 
 ## Ada - Architect
 - Image Resizing
+- Filters with negative results
 
 ## Joshua - Developer
 - Exception Handling
@@ -101,11 +102,13 @@ More information on this software and what it does can be found in the [COSC 202
 - Horizontal Flip 
 - Vertical Flip
 - README Testing Documentation
+- Macros for record and replay of operations
 
 ## Shayna - UI/UX Designer
 - Brightness Adjustment
 - Contrast Adjustment
 - Image Export
+- Toolbar for common operations
 
 ## Tristan - Toolsmith
 - Soft Blur Filter
@@ -116,6 +119,8 @@ More information on this software and what it does can be found in the [COSC 202
 - Exception and Error Avoidance/Handling
 - Javadoc commenting
 - README User Guide
+- Keyboard shortcuts
+- Extended filters
 
 # Testing
 Cross-platform testing was performed on Windows and Mac. Testing was done concurrently with software development, then scaled upwards in the week preceding the deadline for the first lot of deliverables. 
