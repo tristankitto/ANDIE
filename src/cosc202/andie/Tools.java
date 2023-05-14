@@ -46,7 +46,8 @@ public class Tools {
         int n = JOptionPane.showOptionDialog(null,
                 bundle.getString(errorType + "Message"),
                 bundle.getString(errorType), JOptionPane.OK_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null,
+                JOptionPane.QUESTION_MESSAGE, new ImageIcon(Tools.class.getClassLoader().getResource(
+                        "error_icon.png")),
                 options, options[0]);
         if (n == 0) {
             return;
