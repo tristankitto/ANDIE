@@ -155,6 +155,13 @@ public class ImagePanel extends JPanel {
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
+
+            if (ViewActions.CropAction.crop) {
+                g.drawRect(ViewActions.CropAction.startX, ViewActions.CropAction.startY,
+                        ViewActions.CropAction.endX - ViewActions.CropAction.startX,
+                        ViewActions.CropAction.endY - ViewActions.CropAction.startY);
+            }
+
             int x = Andie.x;
             int y = Andie.y;
             int x2 = Andie.x2;

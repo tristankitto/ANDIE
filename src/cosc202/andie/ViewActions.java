@@ -434,7 +434,7 @@ public class ViewActions {
 
     /**
      * <p>
-     * Action resize an image with a percentage given by the user.
+     * Action to resize an image with a percentage given by the user.
      * </p>
      */
     public class ResizeAction extends ImageAction {
@@ -525,12 +525,18 @@ public class ViewActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to crop an image with an area given by the user.
+     * </p>
+     */
     public class CropAction extends ImageAction {
 
-        int startX = 0;
-        int startY = 0;
-        int endX = target.getWidth();
-        int endY = target.getHeight();
+        static int startX = 0;
+        static int startY = 0;
+        static int endX = target.getWidth();
+        static int endY = target.getHeight();
+        static boolean crop = false;
 
         /**
          * <p>
@@ -560,6 +566,10 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
 
+            Andie.imagePanel.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+
+            crop = true;
+
             Andie.imagePanel.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     startX = e.getX();
@@ -569,6 +579,7 @@ public class ViewActions {
                 public void mouseReleased(MouseEvent e) {
                     endX = e.getX();
                     endY = e.getY();
+                    crop = false;
 
                     // Perform the crop operation
                     target.getImage().apply(new Crop(startX, startY, endX, endY));
@@ -577,6 +588,16 @@ public class ViewActions {
 
                     // Remove the mouse listeners after the crop is done
                     Andie.imagePanel.removeMouseListener(this);
+                    Andie.imagePanel.setCursor(Cursor.getDefaultCursor());
+
+                }
+            });
+
+            Andie.imagePanel.addMouseMotionListener(new MouseMotionAdapter() {
+                public void mouseDragged(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    target.repaint();
                 }
             });
         }
