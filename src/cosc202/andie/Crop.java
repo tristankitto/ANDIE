@@ -18,8 +18,10 @@ public class Crop implements ImageOperation, java.io.Serializable {
     }
 
     public BufferedImage apply(BufferedImage input) {
-        int croppedWidth = endX - startX;
-        int croppedHeight = endY - startY;
+        int croppedWidth = Math.abs(endX - startX);
+        int croppedHeight = Math.abs(endY - startY);
+        startX = Math.min(startX, endX);
+        startY = Math.min(startY, endY);
         Image croppedImage = input.getSubimage(startX, startY, croppedWidth, croppedHeight);
         BufferedImage output = new BufferedImage(croppedWidth, croppedHeight, input.getType());
         Graphics2D g2d = output.createGraphics();
