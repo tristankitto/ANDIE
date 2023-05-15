@@ -521,7 +521,7 @@ class EditableImage {
 
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-            ops = opsFromFile;
+            ops.addAll(opsFromFile);
             refresh();
             objIn.close();
             fileIn.close();
