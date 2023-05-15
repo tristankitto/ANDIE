@@ -350,6 +350,22 @@ class EditableImage {
 
     /**
      * <p>
+     * Apply a temporary {@link ImageOperation} to this image.
+     * </p>
+     * 
+     * <p>
+     * Applies image operations to an image but does not add the operation to the
+     * stack.
+     * </p>
+     * 
+     * @param op The operation to apply.
+     */
+    public void tempApply(ImageOperation op) {
+        current = op.apply(current);
+    }
+
+    /**
+     * <p>
      * Remove the last {@link ImageOperation} from this image's Ops stack.
      * </p>
      * 
