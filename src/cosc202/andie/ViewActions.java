@@ -442,6 +442,8 @@ public class ViewActions {
         /** int variable to store the size percentage change of the image to resize */
         private static int percentage;
 
+        boolean applied = false;
+
         /**
          * <p>
          * Create a new resize action.
@@ -495,7 +497,8 @@ public class ViewActions {
                     percentage = slider.getValue();
                     // Update the image with the percentage value
                     try {
-                        target.getImage().tempApply(new Resize(percentage));
+                        target.getImage().apply(new Resize(percentage));
+                        applied = true;
                     } catch (Exception ex) {
                         Tools.errorMessage(ex, "fileApplyError");
                     }
@@ -513,6 +516,10 @@ public class ViewActions {
             // Check the return value from the dialog box.
             if (option == 1) {
                 target.setImage(image);
+                if (applied) {
+                    image.removeLastAction();
+                    applied = false;
+                }
                 target.repaint();
                 target.getParent().revalidate();
                 return;

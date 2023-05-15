@@ -350,18 +350,17 @@ class EditableImage {
 
     /**
      * <p>
-     * Apply a temporary {@link ImageOperation} to this image.
+     * Remove the last {@link ImageOperation} from this image's Ops stack.
      * </p>
      * 
      * <p>
-     * Applies image operations to an image but does not add the operation to the
-     * stack.
+     * Pops the most recently applied action from the ops stack. Used for temporary
+     * actions.
      * </p>
      * 
-     * @param op The operation to apply.
      */
-    public void tempApply(ImageOperation op) {
-        current = op.apply(current);
+    public void removeLastAction() {
+        ops.pop();
     }
 
     /**

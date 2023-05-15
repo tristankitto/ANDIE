@@ -63,9 +63,9 @@ public class ColourActions {
 
         for (Action action : actions) {
             JMenuItem item = new JMenuItem();
-            if(action instanceof ConvertToGreyAction){
+            if (action instanceof ConvertToGreyAction) {
                 item = Tools.createMenuItem(action, true, false);
-            }else{
+            } else {
                 item = Tools.createMenuItem(action, false, false);
             }
             fileMenu.add(item);
@@ -175,6 +175,8 @@ public class ColourActions {
         /** The contrast selected by the user to change the contrast of the image */
         private static int contrast;
 
+        boolean applied = false;
+
         /**
          * <p>
          * Create a new brightness/contrast adjustment
@@ -236,7 +238,8 @@ public class ColourActions {
                     contrast = sliderContrast.getValue();
                     // Update the image with the brightness value
                     try {
-                        target.getImage().tempApply(new BrightnessContrast(brightness, contrast));
+                        target.getImage().apply(new BrightnessContrast(brightness, contrast));
+                        applied = true;
                     } catch (Exception ex) {
                         Tools.errorMessage(ex, "fileApplyError");
                     }
@@ -255,6 +258,10 @@ public class ColourActions {
             // Check the return value from the dialog box.
             if (option == 1) {
                 target.setImage(image);
+                if (applied) {
+                    image.removeLastAction();
+                    applied = false;
+                }
                 target.repaint();
                 target.getParent().revalidate();
                 return;
