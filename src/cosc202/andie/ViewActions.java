@@ -566,11 +566,16 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            Andie.imagePanel.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            startX = 0;
+            startY = 0;
+            endX = target.getWidth();
+            endY = target.getHeight();
+
+            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
             crop = true;
 
-            Andie.imagePanel.addMouseListener(new MouseAdapter() {
+            target.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     startX = e.getX();
                     startY = e.getY();
@@ -587,13 +592,13 @@ public class ViewActions {
                     target.getParent().revalidate();
 
                     // Remove the mouse listeners after the crop is done
-                    Andie.imagePanel.removeMouseListener(this);
-                    Andie.imagePanel.setCursor(Cursor.getDefaultCursor());
+                    target.removeMouseListener(this);
+                    target.setCursor(Cursor.getDefaultCursor());
 
                 }
             });
 
-            Andie.imagePanel.addMouseMotionListener(new MouseMotionAdapter() {
+            target.addMouseMotionListener(new MouseMotionAdapter() {
                 public void mouseDragged(MouseEvent e) {
                     endX = e.getX();
                     endY = e.getY();

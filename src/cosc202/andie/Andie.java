@@ -44,9 +44,6 @@ public class Andie {
     /** String to store the file path of an image when it is first opened */
     public static String imageFilepath;
 
-    /** Panel that holds the image within ANDIE's frame */
-    public static ImagePanel imagePanel;
-
     public static int x;
     public static int y;
     public static int x2;
@@ -83,7 +80,7 @@ public class Andie {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        imagePanel = new ImagePanel();
+        ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
