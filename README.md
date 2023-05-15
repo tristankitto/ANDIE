@@ -207,3 +207,7 @@ Support for the user to save their language of choice has been implemented. This
 
 ## createMenuBar
 In the `Andie` class parts of the `createAndShowGUI` method have been moved out into a new public method called `createMenuBar`. This has been done to let classes other than `Andie` remake the menu bar, allowing for multilingual support to take effect as soon as the language is chosen, rather than requiring the program to be restarted entirely.
+
+## Acknowlegements 
+'Andie'  uses open source code library FlatLaf version 3.1.1 by FormDev Software GmbH
+ https://www.formdev.com/flatlaf/
