@@ -1,18 +1,22 @@
 package cosc202.andie;
+
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+
 /**
  * <p>
- * Actions proided by the theme menu 
+ * Actions proided by the theme menu
  * </p>
  * 
- * The Theme menu contains actions that change the 'theme' of Andie from light mode to dark mode
+ * The Theme menu contains actions that change the 'theme' of Andie from light
+ * mode to dark mode
  * application.
- * These actions do not affect the contents of the imported image, just the rest of the
- * program. 
+ * These actions do not affect the contents of the imported image, just the rest
+ * of the
+ * program.
  * 
  * <p>
  * exit
@@ -20,16 +24,16 @@ import com.formdev.flatlaf.FlatLightLaf;
  * 4.0</a>
  * </p>
  * 
- *@author Shayna Ludwig
+ * @author Shayna Ludwig
  * @version 1.0
-*/
+ */
 public class ThemeActions {
 
     protected ArrayList<Action> actions;
-    
+
     /** ResourceBundle for multilingual support */
     ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
-    
+
     /**
      * <p>
      * Create a set of theme menu actions.
@@ -43,7 +47,7 @@ public class ThemeActions {
                 Integer.valueOf(KeyEvent.VK_D)));
     }
 
-     /**
+    /**
      * <p>
      * Create a menu containing the list of theme actions.
      * </p>
@@ -54,7 +58,12 @@ public class ThemeActions {
         JMenu themeMenu = new JMenu(bundle.getString("theme"));
 
         for (Action action : actions) {
-            JMenuItem item = Tools.createMenuItem(action, false, false);
+            JMenuItem item;
+            if (action instanceof LightModeAction || action instanceof DarkModeAction) {
+                item = Tools.createMenuItem(action, true, false);
+            } else {
+                item = Tools.createMenuItem(action, false, false);
+            }
             themeMenu.add(item);
         }
 
@@ -68,14 +77,14 @@ public class ThemeActions {
      * 
      * @see EditableImage#saveAs(String)
      */
-    public class DarkModeAction extends ImageAction{
-        
+    public class DarkModeAction extends ImageAction {
+
         public DarkModeAction(String name, ImageIcon icon, String tooltip, Integer mnemonic) {
             super(name, icon, tooltip, mnemonic);
         }
-        
+
         public void actionPerformed(ActionEvent e) {
-          
+
             try {
                 UIManager.setLookAndFeel(new FlatDarkLaf());
                 SwingUtilities.updateComponentTreeUI(Andie.frame);
@@ -84,7 +93,7 @@ public class ThemeActions {
             }
         }
     }
-    
+
     /**
      * <p>
      * Action to change theme to light mode
@@ -92,12 +101,12 @@ public class ThemeActions {
      * 
      * 
      */
-    public class LightModeAction extends ImageAction{
-        
+    public class LightModeAction extends ImageAction {
+
         public LightModeAction(String name, ImageIcon icon, String tooltip, Integer mnemonic) {
             super(name, icon, tooltip, mnemonic);
         }
-        
+
         public void actionPerformed(ActionEvent e) {
             try {
                 UIManager.setLookAndFeel(new FlatLightLaf());
@@ -108,12 +117,3 @@ public class ThemeActions {
         }
     }
 }
-
-
-
-
-    
-
-
-
-
