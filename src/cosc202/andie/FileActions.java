@@ -391,7 +391,6 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    System.out.println(imageFilepath);
                     String extension;
                     int dotIndex = imageFilepath.lastIndexOf(".");
                     boolean extensionCheck = false;
@@ -517,7 +516,20 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().exportMacro(imageFilepath);
+
+                    File file = new File(imageFilepath + ".ops");
+
+                    if (file.exists()) {
+                        Object[] options = { bundle.getString("yes"), bundle.getString("cancel") };
+                        int n = JOptionPane.showOptionDialog(null, bundle.getString("fileAlreadyExistsQuestion"),
+                                bundle.getString("fileAlreadyExists"), JOptionPane.OK_CANCEL_OPTION,
+                                JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                        if (n == 0) {
+                            target.getImage().exportMacro(imageFilepath);
+                        }
+                    } else {
+                        target.getImage().exportMacro(imageFilepath);
+                    }
                 } catch (Exception ex) {
                     Tools.errorMessage(ex, "fileSaveError");
                 }
