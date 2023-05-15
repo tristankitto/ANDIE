@@ -6,6 +6,8 @@ import java.util.*;
 
 import javax.swing.*;
 import javax.imageio.*;
+import com.formdev.flatlaf.FlatLightLaf;
+
 
 /**
  * <p>
@@ -23,6 +25,9 @@ import javax.imageio.*;
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
  * 4.0</a>
  * </p>
+ * 
+ * Andie  uses FlatLaf version 3.1.1 by FormDev Software GmbH
+ *  https://www.formdev.com/flatlaf/
  * 
  * @author Steven Mills and Tristan Kitto
  * @version 1.0
@@ -59,6 +64,8 @@ public class Andie {
         Locale.setDefault(new Locale(scanner.nextLine()));
         scanner.close();
         // Set up the main GUI frame
+        FlatLightLaf.setup(); 
+        
         frame = new JFrame("ANDIE");
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
@@ -124,6 +131,10 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
+
+        // Actions that change the language of ANDIE
+        ThemeActions ThemeActions = new ThemeActions();
+        menuBar.add(ThemeActions.createMenu());
 
         // Actions that change the language of ANDIE
         LanguageActions languageActions = new LanguageActions();
