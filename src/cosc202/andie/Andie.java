@@ -84,6 +84,9 @@ public class Andie {
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
+        
+        /** ResourceBundle for multilingual support */
+         ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
 
         createMenuBar();
         createToolBar();
@@ -127,6 +130,7 @@ public class Andie {
      * 
      */
     public static void createMenuBar() {
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
         frame.setJMenuBar(null);
         // Add in menus for various types of action the user may perform.
         menuBar = new JMenuBar();
@@ -154,13 +158,14 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
-        // Actions that change the language of ANDIE
-        ThemeActions ThemeActions = new ThemeActions();
-        menuBar.add(ThemeActions.createMenu());
-
-        // Actions that change the language of ANDIE
+        //Settings menu which contains the menus for theme and language 
+        JMenu settingsMenu = new JMenu(bundle.getString("settings"));
+        ThemeActions themeActions = new ThemeActions();
         LanguageActions languageActions = new LanguageActions();
-        menuBar.add(languageActions.createMenu());
+        settingsMenu.add(themeActions.createMenu());
+        settingsMenu.add(languageActions.createMenu());
+        menuBar.add(settingsMenu);
+
 
         frame.setJMenuBar(menuBar);
         frame.setVisible(true);
