@@ -38,9 +38,9 @@ public class ThemeActions {
     public ThemeActions() {
         actions = new ArrayList<Action>();
         actions.add(new LightModeAction(bundle.getString("lightMode"), null, bundle.getString("lightMode"),
-                Integer.valueOf(KeyEvent.VK_Z)));
+                Integer.valueOf(KeyEvent.VK_L)));
         actions.add(new DarkModeAction(bundle.getString("darkMode"), null, bundle.getString("darkMode"),
-                Integer.valueOf(KeyEvent.VK_Y)));
+                Integer.valueOf(KeyEvent.VK_D)));
     }
 
      /**
