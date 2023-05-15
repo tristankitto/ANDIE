@@ -61,6 +61,8 @@ public class ViewActions {
                 Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new ResizeAction(bundle.getString("resize"), null, bundle.getString("resize"),
                 Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new CropAction(bundle.getString("crop"), null, bundle.getString("cropImage"),
+                Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -75,9 +77,9 @@ public class ViewActions {
 
         for (Action action : actions) {
             JMenuItem item = new JMenuItem();
-            if(action instanceof ZoomAction){
+            if (action instanceof ZoomAction || action instanceof CropAction) {
                 item = Tools.createMenuItem(action, true, false);
-            }else{
+            } else {
                 item = Tools.createMenuItem(action, false, false);
             }
             viewMenu.add(item);
@@ -521,5 +523,63 @@ public class ViewActions {
                 target.getParent().revalidate();
             }
         }
+    }
+
+    public class CropAction extends ImageAction {
+
+        int startX = 0;
+        int startY = 0;
+        int endX = target.getWidth();
+        int endY = target.getHeight();
+
+        /**
+         * <p>
+         * Create a new crop action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the crop action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CropAction is triggered.
+         * It prompts the user for a crop area, then crops the image based on the area.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            Andie.imagePanel.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    startX = e.getX();
+                    startY = e.getY();
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+
+                    // Perform the crop operation
+                    target.getImage().apply(new Crop(startX, startY, endX, endY));
+                    target.repaint();
+                    target.getParent().revalidate();
+
+                    // Remove the mouse listeners after the crop is done
+                    Andie.imagePanel.removeMouseListener(this);
+                }
+            });
+        }
+
     }
 }

@@ -6,7 +6,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.imageio.*;
-import javax.swing.JFrame;  
+import javax.swing.JFrame;
 
 /**
  * <p>
@@ -38,11 +38,16 @@ public class Andie {
 
     /** String to store the file path of an image when it is first opened */
     public static String imageFilepath;
+
+    /** Panel that holds the image within ANDIE's frame */
+    public static ImagePanel imagePanel;
+
     public static int x;
     public static int y;
     public static int x2;
     public static int y2;
     public static boolean repaint;
+
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -71,7 +76,7 @@ public class Andie {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        ImagePanel imagePanel = new ImagePanel();
+        imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
@@ -80,19 +85,20 @@ public class Andie {
         createToolBar();
         frame.pack();
         imagePanel.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent me) {  
+            public void mousePressed(MouseEvent me) {
                 x = me.getX() - 10;
                 y = me.getY() - 10;
                 System.out.println(x + " " + y);
             }
-            public void mouseReleased(MouseEvent me) {  
+
+            public void mouseReleased(MouseEvent me) {
                 x2 = me.getX() - 10;
                 y2 = me.getY() - 10;
                 System.out.println(x2 + " " + y2);
                 imagePanel.repaint();
             }
         });
-        
+
     }
 
     /**
@@ -219,13 +225,14 @@ public class Andie {
         button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
 
-        /** 
-        ImageIcon crop= new ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
-        JButton button7 = new JButton();
-        button7.setIcon(crop);
-        button7.addActionListener(///.createMenu().getItem(4).getAction());
-        toolBar.add(button7);
-        */
+        /**
+         * ImageIcon crop= new
+         * ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
+         * JButton button7 = new JButton();
+         * button7.setIcon(crop);
+         * button7.addActionListener(///.createMenu().getItem(4).getAction());
+         * toolBar.add(button7);
+         */
 
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.setVisible(true);
@@ -270,6 +277,6 @@ public class Andie {
                 }
             }
         });
-        
+
     }
 }
