@@ -269,7 +269,7 @@ class EditableImage {
      * </p>
      * 
      * @param imageFilename The file location to export the image to.
-     * @param extension The file type/file extension to export the image as.
+     * @param extension     The file type/file extension to export the image as.
      * @throws Exception If something goes wrong.
      */
     public void exportImage(String imageFilename, String extension) throws Exception {
@@ -374,8 +374,10 @@ class EditableImage {
             redoOps.push(ops.pop());
             refresh();
             Andie.saved = false;
-        } catch (Exception e) {
-            Tools.errorMessage(e, "fileUndoError");
+        } catch (EmptyStackException e) {
+            System.out.println("Failed to undo or nothing to undo: " + e);
+        } catch (Exception ex) {
+            Tools.errorMessage(ex, "fileUndoError");
         }
     }
 
@@ -387,8 +389,10 @@ class EditableImage {
     public void redo() {
         try {
             apply(redoOps.pop());
-        } catch (Exception e) {
-            Tools.errorMessage(e, "fileRedoError");
+        } catch (EmptyStackException e) {
+            System.out.println("Failed to redo or nothing to redo: " + e);
+        } catch (Exception ex) {
+            Tools.errorMessage(ex, "fileRedoError");
         }
     }
 
@@ -451,11 +455,12 @@ class EditableImage {
      * 
      * <p>
      */
-    public void recordMacro() {   
+    public void recordMacro() {
         isMacroRecording = true;
         macro = new Stack<ImageOperation>();
 
-        // ImageIcon record = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
+        // ImageIcon record = new
+        // ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
         // JButton recordButton = new JButton();
         // recordButton.setIcon(record);
         // recordButton.setToolTipText(bundle.getString("record"));
@@ -478,13 +483,13 @@ class EditableImage {
     public void exportMacro(String macroFileName) {
         this.macroFileName = macroFileName + ".ops";
 
-        try {           
+        try {
             FileOutputStream fileout = new FileOutputStream(this.macroFileName);
             ObjectOutputStream objout = new ObjectOutputStream(fileout);
             objout.writeObject(EditableImage.macro);
             objout.close();
             fileout.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             Tools.errorMessage(e, "fileMacroExportError");
         }
     }
@@ -494,7 +499,7 @@ class EditableImage {
      * Apply a macro.
      * <p>
      */
-    public void applyMacro (String macroPath) throws Exception {
+    public void applyMacro(String macroPath) throws Exception {
         try {
             FileInputStream fileIn = new FileInputStream(macroPath);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);

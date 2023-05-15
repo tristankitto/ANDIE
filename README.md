@@ -93,6 +93,8 @@ More information on this software and what it does can be found in the [COSC 202
 
 ## Joshua - Developer
 - Exception Handling
+- Mouse selection of rectangular regions
+- Drawing functions
 
 ## Matthew - Team Lead
 - Median Filter
@@ -121,6 +123,7 @@ More information on this software and what it does can be found in the [COSC 202
 - README User Guide
 - Keyboard shortcuts
 - Extended filters
+- Crop to selection
 
 # Testing
 Cross-platform testing was performed on Windows and Mac. Testing was done concurrently with software development, then scaled upwards in the week preceding the deadline for the first lot of deliverables. 
@@ -169,6 +172,9 @@ Inanimate GIFs can be edited without issue.
  - Image Export
  - Exception Handling
  - Other Error Avoidance/Handling
+ - Keyboard shortcuts
+ - Toolbar
+ - Extended Filters
 
 # Exceptions Handled
 
@@ -176,7 +182,7 @@ Inanimate GIFs can be edited without issue.
 If an image has not yet been opened in **ANDIE** then a pop-up will be displayed if the user tries to do anything that would normally affect an image. This includes applying any filter or transformation, save, export, etc.
 
 ## Attempting to Undo or Redo with empty stacks
-If the Ops stack is empty and the user tries to undo, and the same for redoOps and redo, then a pop-up will be displayed informing the user that there is no action to undo or redo.
+This error was handled and a popup was shown to the user explaining that the undo or redo failed. After testing we decided that the popup was not user friendly and is not something that is commonly used when an undo or redo fails due to an empty stack. Because of this the popup was removed for empty stack exceptions while the error was still handled. A popup will still occur if undo or redo fails for reasons other than an empty stack.
 
 ## Opening non-supported files
 Attempting to open any file that is not supported by **ANDIE** will result in a pop-up displaying this exception to the user and prompting them to open a different file. This works for non-image files as well as corrupted image files.
@@ -192,11 +198,11 @@ Any other exceptions such as a filter failing to apply or an image failing to ex
 ## Filters applied to newly opened images
 When opening a new image, after already having an edited image open, the newly opened image would have the same filters now applied to it. This has been remedied and now any image that is opened will have no filters applied to it unless it has a **.ops** file.
 
-## Overwriting an exisiting image
-When a user tried to export an image using the same name as an already existing image in the current directory then **ANDIE** would simply overwrite the original image. Now, **ANDIE** will prompt the user that they are trying to export an image with a name that already exists and confirm if they want to overwrite the original image or cancel the action.
+## Overwriting an exisiting image/file
+When a user tried to export an image or save a macro using the same name as an already existing file in the current directory then **ANDIE** would simply overwrite the original file. Now, **ANDIE** will prompt the user that they are trying to export a file with a name that already exists and confirm if they want to overwrite the original file or cancel the action.
 
 ## Inputting an invalid value for a filter
-Filters with a radius or a percentage now have some slight error handling wherein the user is now informed that if they enter an invalid value then the value passed to the filter will default to a specific value instead.
+Filters with a radius or a percentage now use a slider for selection. This slider allows for a user to easily choose a value within the allotted range without any worry of misinput that could cause errors.
 
 # Deviations from Specifications
 
