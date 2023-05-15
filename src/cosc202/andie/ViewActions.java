@@ -541,6 +541,8 @@ public class ViewActions {
 
         static int startX = 0;
         static int startY = 0;
+        static int x = 0;
+        static int y = 0;
         static int endX = target.getWidth();
         static int endY = target.getHeight();
         static boolean crop = false;
@@ -573,6 +575,17 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
 
+            EditableImage image = target.getImage();
+            EditableImage imageCopy = EditableImage.copyImage(image);
+
+            double scale = target.getZoom() / 100;
+
+            imageCopy.apply(new BrightnessContrast(-50, 0));
+            target.setImage(imageCopy);
+
+            target.repaint();
+            target.getImage().removeLastAction();
+
             startX = 0;
             startY = 0;
             endX = target.getWidth();
@@ -580,10 +593,9 @@ public class ViewActions {
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
-            crop = true;
-
             target.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
+                    crop = true;
                     startX = e.getX();
                     startY = e.getY();
                 }
@@ -594,7 +606,9 @@ public class ViewActions {
                     crop = false;
 
                     // Perform the crop operation
-                    target.getImage().apply(new Crop(startX, startY, endX, endY));
+                    image.apply(new Crop((int) (startX / scale), (int) (startY / scale),
+                            (int) (endX / scale), (int) (endY / scale)));
+                    target.setImage(image);
                     target.repaint();
                     target.getParent().revalidate();
 

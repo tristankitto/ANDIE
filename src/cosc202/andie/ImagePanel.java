@@ -161,23 +161,25 @@ public class ImagePanel extends JPanel {
                 int height = Math.abs(ViewActions.CropAction.endY - ViewActions.CropAction.startY);
                 int startX = Math.min(ViewActions.CropAction.startX, ViewActions.CropAction.endX);
                 int startY = Math.min(ViewActions.CropAction.startY, ViewActions.CropAction.endY);
-                g.drawRect(startX, startY, width, height);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setColor(new Color(255, 255, 255, 128));
+                g2d.fillRect(startX, startY, width, height);
             }
 
-            int x = Andie.x;
-            int y = Andie.y;
-            int x2 = Andie.x2;
-            int y2 = Andie.y2;
-            if (x > x2 && y > y2) {
-                g.drawRect(x2 + 10, y2 + 10, x - x2, y - y2);
-            }
-            if (x < x2 && y > y2) {
-                g.drawRect(x + 10, y2 + 10, x2 - x, y - y2);
-            }
-            if (x > x2 && y < y2) {
-                g.drawRect(x2 + 10, y + 10, x - x2, y2 - y);
-            }
-            g.drawRect(x + 10, y + 10, x2 - x, y2 - y);
+            // int x = Andie.x;
+            // int y = Andie.y;
+            // int x2 = Andie.x2;
+            // int y2 = Andie.y2;
+            // if (x > x2 && y > y2) {
+            // g.drawRect(x2 + 10, y2 + 10, x - x2, y - y2);
+            // }
+            // if (x < x2 && y > y2) {
+            // g.drawRect(x + 10, y2 + 10, x2 - x, y - y2);
+            // }
+            // if (x > x2 && y < y2) {
+            // g.drawRect(x2 + 10, y + 10, x - x2, y2 - y);
+            // }
+            // g.drawRect(x + 10, y + 10, x2 - x, y2 - y);
 
         }
 
