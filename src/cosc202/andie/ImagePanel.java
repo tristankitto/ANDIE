@@ -145,8 +145,24 @@ public class ImagePanel extends JPanel {
         if (image.hasImage()) {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
-            g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
+            
         }
+        int x = Andie.x;
+        int y = Andie.y;
+        int x2 = Andie.x2;
+        int y2 = Andie.y2;
+        if(x > x2 && y > y2){
+            g.drawRect(x2 + 10, y2 + 10,x-x2, y-y2);
+        }
+        if(x < x2 && y > y2){
+            g.drawRect(x + 10, y2 + 10,x2-x, y-y2);
+        }
+        if(x > x2 && y < y2){
+            g.drawRect(x2 + 10, y + 10,x-x2, y2-y);
+        }
+        g.drawRect(x+10, y+10,x2-x, y2-y);
     }
+
+    
 }

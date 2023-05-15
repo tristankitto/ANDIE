@@ -3,9 +3,10 @@ package cosc202.andie;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
-
+import java.awt.event.*;
 import javax.swing.*;
 import javax.imageio.*;
+import javax.swing.JFrame;  
 
 /**
  * <p>
@@ -37,7 +38,11 @@ public class Andie {
 
     /** String to store the file path of an image when it is first opened */
     public static String imageFilepath;
-
+    public static int x;
+    public static int y;
+    public static int x2;
+    public static int y2;
+    public static boolean repaint;
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -74,6 +79,20 @@ public class Andie {
         createMenuBar();
         createToolBar();
         frame.pack();
+        imagePanel.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {  
+                x = me.getX() - 10;
+                y = me.getY() - 10;
+                System.out.println(x + " " + y);
+            }
+            public void mouseReleased(MouseEvent me) {  
+                x2 = me.getX() - 10;
+                y2 = me.getY() - 10;
+                System.out.println(x2 + " " + y2);
+                imagePanel.repaint();
+            }
+        });
+        
     }
 
     /**
@@ -251,5 +270,6 @@ public class Andie {
                 }
             }
         });
+        
     }
 }
