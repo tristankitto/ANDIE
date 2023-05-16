@@ -61,6 +61,8 @@ public class ViewActions {
                 Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new ResizeAction(bundle.getString("resize"), null, bundle.getString("resize"),
                 Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new CropAction(bundle.getString("crop"), null, bundle.getString("cropImage"),
+                Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -75,9 +77,9 @@ public class ViewActions {
 
         for (Action action : actions) {
             JMenuItem item = new JMenuItem();
-            if(action instanceof ZoomAction){
+            if (action instanceof ZoomAction || action instanceof CropAction) {
                 item = Tools.createMenuItem(action, true, false);
-            }else{
+            } else {
                 item = Tools.createMenuItem(action, false, false);
             }
             viewMenu.add(item);
@@ -432,13 +434,15 @@ public class ViewActions {
 
     /**
      * <p>
-     * Action resize an image with a percentage given by the user.
+     * Action to resize an image with a percentage given by the user.
      * </p>
      */
     public class ResizeAction extends ImageAction {
 
         /** int variable to store the size percentage change of the image to resize */
         private static int percentage;
+
+        boolean applied = false;
 
         /**
          * <p>
@@ -521,5 +525,103 @@ public class ViewActions {
                 target.getParent().revalidate();
             }
         }
+    }
+
+    /**
+     * <p>
+     * Action to crop an image with an area given by the user.
+     * </p>
+     */
+    public class CropAction extends ImageAction {
+
+        static int startX = 0;
+        static int startY = 0;
+        static int x = 0;
+        static int y = 0;
+        static int endX = target.getWidth();
+        static int endY = target.getHeight();
+        static boolean crop = false;
+
+        /**
+         * <p>
+         * Create a new crop action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the crop action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CropAction is triggered.
+         * It prompts the user for a crop area, then crops the image based on the area.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            EditableImage image = target.getImage();
+            EditableImage imageCopy = EditableImage.copyImage(image);
+
+            double scale = target.getZoom() / 100;
+
+            imageCopy.apply(new BrightnessContrast(-50, 0));
+            target.setImage(imageCopy);
+
+            target.repaint();
+            target.getImage().removeLastAction();
+
+            startX = 0;
+            startY = 0;
+            endX = target.getWidth();
+            endY = target.getHeight();
+
+            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+
+            target.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    crop = true;
+                    startX = e.getX();
+                    startY = e.getY();
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    crop = false;
+
+                    // Perform the crop operation
+                    image.apply(new Crop((int) (startX / scale), (int) (startY / scale),
+                            (int) (endX / scale), (int) (endY / scale)));
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+
+                    // Remove the mouse listeners after the crop is done
+                    target.removeMouseListener(this);
+                    target.setCursor(Cursor.getDefaultCursor());
+
+                }
+            });
+
+            target.addMouseMotionListener(new MouseMotionAdapter() {
+                public void mouseDragged(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    target.repaint();
+                }
+            });
+        }
+
     }
 }

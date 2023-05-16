@@ -67,9 +67,11 @@ class EditableImage {
     /** The file where the macro is scored */
     private String macroFileName;
     /** Boolean to check if image operations need to be added to a macro */
-    private boolean isMacroRecording;
+    private boolean isMacroRecording = false;
     /** The stack used to store a recording macro */
-    private static Stack<ImageOperation> macro;
+    private static Stack<ImageOperation> macro = new Stack<ImageOperation>();
+    /** The label containing the recording icon for macros */
+    private static JLabel recordLabel;
 
     /**
      * <p>
@@ -269,7 +271,7 @@ class EditableImage {
      * </p>
      * 
      * @param imageFilename The file location to export the image to.
-     * @param extension The file type/file extension to export the image as.
+     * @param extension     The file type/file extension to export the image as.
      * @throws Exception If something goes wrong.
      */
     public void exportImage(String imageFilename, String extension) throws Exception {
@@ -366,6 +368,21 @@ class EditableImage {
 
     /**
      * <p>
+     * Remove the last {@link ImageOperation} from this image's Ops stack.
+     * </p>
+     * 
+     * <p>
+     * Pops the most recently applied action from the ops stack. Used for temporary
+     * actions.
+     * </p>
+     * 
+     */
+    public void removeLastAction() {
+        ops.pop();
+    }
+
+    /**
+     * <p>
      * Undo the last {@link ImageOperation} applied to the image.
      * </p>
      */
@@ -374,8 +391,13 @@ class EditableImage {
             redoOps.push(ops.pop());
             refresh();
             Andie.saved = false;
-        } catch (Exception e) {
-            Tools.errorMessage(e, "fileUndoError");
+            if (isMacroRecording) {
+                macro.pop();
+            }
+        } catch (EmptyStackException e) {
+            System.out.println("Failed to undo or nothing to undo: " + e);
+        } catch (Exception ex) {
+            Tools.errorMessage(ex, "fileUndoError");
         }
     }
 
@@ -387,8 +409,10 @@ class EditableImage {
     public void redo() {
         try {
             apply(redoOps.pop());
-        } catch (Exception e) {
-            Tools.errorMessage(e, "fileRedoError");
+        } catch (EmptyStackException e) {
+            System.out.println("Failed to redo or nothing to redo: " + e);
+        } catch (Exception ex) {
+            Tools.errorMessage(ex, "fileRedoError");
         }
     }
 
@@ -451,23 +475,23 @@ class EditableImage {
      * 
      * <p>
      */
-    public void recordMacro() {   
-        isMacroRecording = true;
-        macro = new Stack<ImageOperation>();
-
-        // ImageIcon record = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
-        // JButton recordButton = new JButton();
-        // recordButton.setIcon(record);
-        // recordButton.setToolTipText(bundle.getString("record"));
-        // Andie.frame.add(recordButton);
-        // Andie.frame.setVisible(true);
+    public void recordMacro() {
+        isMacroRecording = !isMacroRecording;
 
         ImageIcon recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
-        JLabel recordLabel = new JLabel(recordIcon);
-        recordLabel.setBounds(0, 0, recordLabel.getPreferredSize().width, recordLabel.getPreferredSize().width);
+        recordLabel = new JLabel(recordIcon);
 
-        Andie.frame.add(recordLabel);
-        Andie.frame.setVisible(true);
+        if (isMacroRecording) {
+            // add recording icon to tool bar
+            Andie.toolBar.add(recordLabel);
+            Andie.frame.setVisible(true);
+        } else {
+            // remove recording icon from tool bar
+            Andie.toolBar.remove(recordLabel);
+            Andie.createToolBar();
+            Andie.frame.setVisible(true);
+        }
+
     }
 
     /**
@@ -478,13 +502,19 @@ class EditableImage {
     public void exportMacro(String macroFileName) {
         this.macroFileName = macroFileName + ".ops";
 
-        try {           
+        try {
             FileOutputStream fileout = new FileOutputStream(this.macroFileName);
             ObjectOutputStream objout = new ObjectOutputStream(fileout);
             objout.writeObject(EditableImage.macro);
             objout.close();
             fileout.close();
-        } catch(Exception e) {
+
+            // stop recording macros
+            isMacroRecording = false;
+            Andie.toolBar.remove(recordLabel);
+            Andie.createToolBar();
+            Andie.frame.setVisible(true);
+        } catch (Exception e) {
             Tools.errorMessage(e, "fileMacroExportError");
         }
     }
@@ -494,19 +524,28 @@ class EditableImage {
      * Apply a macro.
      * <p>
      */
-    public void applyMacro (String macroPath) throws Exception {
+    public void applyMacro(String macroPath) throws Exception {
         try {
             FileInputStream fileIn = new FileInputStream(macroPath);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-            ops = opsFromFile;
+            ops.addAll(opsFromFile);
             refresh();
             objIn.close();
             fileIn.close();
         } catch (Exception e) {
             Tools.errorMessage(e, "fileMacroApplyError");
+        }
+    }
+
+    public void resetMacro() {
+        try {
+
+            macro.clear();
+        } catch (Exception e) {
+            Tools.errorMessage(e, "resetMacroError");
         }
     }
 }

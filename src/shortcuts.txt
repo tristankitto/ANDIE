@@ -24,3 +24,5 @@ Ctrl + V = Vertical Flip
 Ctrl + Y = Redo
 Ctrl + Z = Undo
 Ctrl + Shift + Z = Change Zoom
+Ctrl + Shift + L = Light Mode
+Ctrl + Shift + D = Dark Mode

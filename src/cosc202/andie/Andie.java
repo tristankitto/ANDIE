@@ -3,9 +3,12 @@ package cosc202.andie;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
-
+import java.awt.event.*;
 import javax.swing.*;
 import javax.imageio.*;
+import com.formdev.flatlaf.FlatLightLaf;
+
+import javax.swing.JFrame;
 
 /**
  * <p>
@@ -24,6 +27,9 @@ import javax.imageio.*;
  * 4.0</a>
  * </p>
  * 
+ * Andie uses FlatLaf version 3.1.1 by FormDev Software GmbH
+ * https://www.formdev.com/flatlaf/
+ * 
  * @author Steven Mills and Tristan Kitto
  * @version 1.0
  */
@@ -37,6 +43,12 @@ public class Andie {
 
     /** String to store the file path of an image when it is first opened */
     public static String imageFilepath;
+
+    public static int x;
+    public static int y;
+    public static int x2;
+    public static int y2;
+    public static boolean repaint;
 
     /**
      * <p>
@@ -59,6 +71,8 @@ public class Andie {
         Locale.setDefault(new Locale(scanner.nextLine()));
         scanner.close();
         // Set up the main GUI frame
+        FlatLightLaf.setup();
+
         frame = new JFrame("ANDIE");
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
@@ -74,6 +88,21 @@ public class Andie {
         createMenuBar();
         createToolBar();
         frame.pack();
+        imagePanel.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                x = me.getX() - 10;
+                y = me.getY() - 10;
+                System.out.println(x + " " + y);
+            }
+
+            public void mouseReleased(MouseEvent me) {
+                x2 = me.getX() - 10;
+                y2 = me.getY() - 10;
+                System.out.println(x2 + " " + y2);
+                imagePanel.repaint();
+            }
+        });
+
     }
 
     /**
@@ -98,6 +127,7 @@ public class Andie {
      * 
      */
     public static void createMenuBar() {
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
         frame.setJMenuBar(null);
         // Add in menus for various types of action the user may perform.
         menuBar = new JMenuBar();
@@ -125,9 +155,13 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
-        // Actions that change the language of ANDIE
+        // Settings menu which contains the menus for theme and language
+        JMenu settingsMenu = new JMenu(bundle.getString("settings"));
+        ThemeActions themeActions = new ThemeActions();
         LanguageActions languageActions = new LanguageActions();
-        menuBar.add(languageActions.createMenu());
+        settingsMenu.add(themeActions.createMenu());
+        settingsMenu.add(languageActions.createMenu());
+        menuBar.add(settingsMenu);
 
         frame.setJMenuBar(menuBar);
         frame.setVisible(true);
@@ -196,20 +230,43 @@ public class Andie {
         ImageIcon exit = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
         JButton button6 = new JButton();
         button6.setIcon(exit);
-        button6.addActionListener(fileActions.createMenu().getItem(4).getAction());
+        button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
         button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
 
-        /** 
-        ImageIcon crop= new ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
+        ImageIcon language = new ImageIcon(Andie.class.getClassLoader().getResource("language_icon.png"));
         JButton button7 = new JButton();
-        button7.setIcon(crop);
-        button7.addActionListener(///.createMenu().getItem(4).getAction());
+        button7.setIcon(language);
+        button7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                languagePopupMenu(button7);
+            }
+        });
+        button7.setToolTipText(bundle.getString("language"));
         toolBar.add(button7);
-        */
+
+        /**
+         * ImageIcon crop= new
+         * ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
+         * JButton button7 = new JButton();
+         * button7.setIcon(crop);
+         * button7.addActionListener(///.createMenu().getItem(4).getAction());
+         * toolBar.add(button7);
+         */
 
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.setVisible(true);
+    }
+
+    private static void languagePopupMenu(JButton button) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        LanguageActions languageAction = new LanguageActions();
+        for (Action language : languageAction.actions) {
+            popupMenu.add(language);
+        }
+        // Show the popup menu relative to the button
+        popupMenu.show(button, 0, button.getHeight());
     }
 
     /**
@@ -251,5 +308,6 @@ public class Andie {
                 }
             }
         });
+
     }
 }
