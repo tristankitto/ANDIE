@@ -67,9 +67,11 @@ class EditableImage {
     /** The file where the macro is scored */
     private String macroFileName;
     /** Boolean to check if image operations need to be added to a macro */
-    private boolean isMacroRecording;
+    private boolean isMacroRecording = false;
     /** The stack used to store a recording macro */
-    private static Stack<ImageOperation> macro;
+    private static Stack<ImageOperation> macro = new Stack<ImageOperation>();
+    /** The label containing the recording icon for macros */
+    private static JLabel recordLabel;
 
     /**
      * <p>
@@ -389,6 +391,9 @@ class EditableImage {
             redoOps.push(ops.pop());
             refresh();
             Andie.saved = false;
+            if (isMacroRecording) {
+                macro.pop();
+            }
         } catch (EmptyStackException e) {
             System.out.println("Failed to undo or nothing to undo: " + e);
         } catch (Exception ex) {
@@ -471,23 +476,22 @@ class EditableImage {
      * <p>
      */
     public void recordMacro() {
-        isMacroRecording = true;
-        macro = new Stack<ImageOperation>();
-
-        // ImageIcon record = new
-        // ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
-        // JButton recordButton = new JButton();
-        // recordButton.setIcon(record);
-        // recordButton.setToolTipText(bundle.getString("record"));
-        // Andie.frame.add(recordButton);
-        // Andie.frame.setVisible(true);
+        isMacroRecording = !isMacroRecording;
 
         ImageIcon recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
-        JLabel recordLabel = new JLabel(recordIcon);
-        recordLabel.setBounds(0, 0, recordLabel.getPreferredSize().width, recordLabel.getPreferredSize().width);
+        recordLabel = new JLabel(recordIcon);
 
-        Andie.frame.add(recordLabel);
-        Andie.frame.setVisible(true);
+        if (isMacroRecording) {
+            // add recording icon to tool bar
+            Andie.toolBar.add(recordLabel);
+            Andie.frame.setVisible(true);
+        } else {
+            // remove recording icon from tool bar
+            Andie.toolBar.remove(recordLabel);
+            Andie.createToolBar();
+            Andie.frame.setVisible(true);
+        }
+
     }
 
     /**
@@ -504,6 +508,12 @@ class EditableImage {
             objout.writeObject(EditableImage.macro);
             objout.close();
             fileout.close();
+
+            // stop recording macros
+            isMacroRecording = false;
+            Andie.toolBar.remove(recordLabel);
+            Andie.createToolBar();
+            Andie.frame.setVisible(true);
         } catch (Exception e) {
             Tools.errorMessage(e, "fileMacroExportError");
         }
@@ -527,6 +537,15 @@ class EditableImage {
             fileIn.close();
         } catch (Exception e) {
             Tools.errorMessage(e, "fileMacroApplyError");
+        }
+    }
+
+    public void resetMacro() {
+        try {
+
+            macro.clear();
+        } catch (Exception e) {
+            Tools.errorMessage(e, "resetMacroError");
         }
     }
 }
