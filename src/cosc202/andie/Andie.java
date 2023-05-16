@@ -155,14 +155,13 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
-        //Settings menu which contains the menus for theme and language 
+        // Settings menu which contains the menus for theme and language
         JMenu settingsMenu = new JMenu(bundle.getString("settings"));
         ThemeActions themeActions = new ThemeActions();
         LanguageActions languageActions = new LanguageActions();
         settingsMenu.add(themeActions.createMenu());
         settingsMenu.add(languageActions.createMenu());
         menuBar.add(settingsMenu);
-
 
         frame.setJMenuBar(menuBar);
         frame.setVisible(true);
@@ -235,6 +234,18 @@ public class Andie {
         button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
 
+        ImageIcon language = new ImageIcon(Andie.class.getClassLoader().getResource("language_icon.png"));
+        JButton button7 = new JButton();
+        button7.setIcon(language);
+        button7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                languagePopupMenu(button7);
+            }
+        });
+        button7.setToolTipText(bundle.getString("language"));
+        toolBar.add(button7);
+
         /**
          * ImageIcon crop= new
          * ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
@@ -246,6 +257,16 @@ public class Andie {
 
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.setVisible(true);
+    }
+
+    private static void languagePopupMenu(JButton button) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        LanguageActions languageAction = new LanguageActions();
+        for (Action language : languageAction.actions) {
+            popupMenu.add(language);
+        }
+        // Show the popup menu relative to the button
+        popupMenu.show(button, 0, button.getHeight());
     }
 
     /**
