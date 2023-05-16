@@ -230,7 +230,7 @@ public class Andie {
         ImageIcon exit = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
         JButton button6 = new JButton();
         button6.setIcon(exit);
-        button6.addActionListener(fileActions.createMenu().getItem(4).getAction());
+        button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
         button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
 
