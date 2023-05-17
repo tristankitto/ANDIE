@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.io.*;
+import java.awt.Cursor;
 import java.awt.image.*;
 import javax.imageio.*;
 
@@ -341,6 +342,7 @@ class EditableImage {
      */
     public void apply(ImageOperation op) {
         try {
+            Andie.frame.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             current = op.apply(current);
             ops.add(op);
             if (isMacroRecording) {
@@ -348,6 +350,7 @@ class EditableImage {
             }
             Andie.saved = false;
             redoOps.clear();
+            Andie.frame.setCursor(Cursor.getDefaultCursor());
         } catch (Exception e) {
             Tools.errorMessage(e, "fileApplyError");
         }
@@ -366,9 +369,11 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void tempApply(ImageOperation op) {
+        Andie.frame.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         current = op.apply(current);
         redoOps.clear();
         lastOp = op;
+        Andie.frame.setCursor(Cursor.getDefaultCursor());
     }
 
     public void addLastOp() {
