@@ -541,6 +541,8 @@ public class ViewActions {
         static int endX = target.getWidth();
         static int endY = target.getHeight();
         static boolean crop = false;
+        static boolean isCropping = false;
+        EditableImage image = target.getImage();
 
         /**
          * <p>
@@ -569,8 +571,10 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            EditableImage image = target.getImage();
+            if (isCropping) {
+                return;
+            }
+            isCropping = true;
             EditableImage imageCopy = EditableImage.copyImage(image);
 
             double scale = target.getZoom() / 100;
@@ -597,6 +601,7 @@ public class ViewActions {
                     endX = e.getX();
                     endY = e.getY();
                     crop = false;
+                    isCropping = false;
 
                     // Perform the crop operation
                     image.apply(new Crop((int) (startX / scale), (int) (startY / scale),
