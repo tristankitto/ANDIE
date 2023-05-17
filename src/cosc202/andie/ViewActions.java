@@ -586,8 +586,7 @@ public class ViewActions {
             endY = target.getHeight();
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-
-            target.addMouseListener(new MouseAdapter() {
+            MouseListener mouseListener = new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     crop = true;
                     startX = e.getX();
@@ -611,15 +610,35 @@ public class ViewActions {
                     target.setCursor(Cursor.getDefaultCursor());
 
                 }
-            });
+            };
 
-            target.addMouseMotionListener(new MouseMotionAdapter() {
+            target.addMouseListener(mouseListener);
+
+            MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
                 public void mouseDragged(MouseEvent e) {
                     endX = e.getX();
                     endY = e.getY();
                     target.repaint();
                 }
-            });
+            };
+
+            target.addMouseMotionListener(mouseMotionListener);
+
+            Action keyAction = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    target.removeMouseListener(mouseListener);
+                    target.removeMouseMotionListener(mouseMotionListener);
+                    target.setCursor(Cursor.getDefaultCursor());
+                    return;
+                }
+            };
+            KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
+            Andie.imagePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "keyAction");
+            Andie.imagePanel.getActionMap().put("keyAction", keyAction);
         }
 
     }

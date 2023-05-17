@@ -37,6 +37,7 @@ public class Andie {
     protected static JMenuBar menuBar;
     protected static JFrame frame;
     protected static JToolBar toolBar;
+    protected static ImagePanel imagePanel;
 
     /** Boolean value to keep track of if an image has unsaved changes or not */
     public static boolean saved = true;
@@ -80,7 +81,7 @@ public class Andie {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        ImagePanel imagePanel = new ImagePanel();
+        imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
