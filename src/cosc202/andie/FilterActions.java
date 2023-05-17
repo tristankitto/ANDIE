@@ -84,7 +84,6 @@ public class FilterActions {
     public class MeanFilterAction extends ImageAction {
 
         private static int radius;
-        boolean applied = false;
 
         /**
          * <p>
@@ -143,8 +142,7 @@ public class FilterActions {
                         try {
                             if (radius != 0) {
                                 source.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                                target.getImage().apply(new MeanFilter(radius));
-                                applied = true;
+                                target.getImage().tempApply(new MeanFilter(radius));
                                 source.setCursor(Cursor.getDefaultCursor());
                             }
                         } catch (Exception ex) {
@@ -165,14 +163,11 @@ public class FilterActions {
             // Check the return value from the dialog box.
             if (option == 1) {
                 target.setImage(image);
-                if (applied) {
-                    image.removeLastAction();
-                    applied = false;
-                }
                 target.repaint();
                 target.getParent().revalidate();
                 return;
             } else if (option == 0) {
+                target.getImage().addLastOp();
                 target.repaint();
                 target.getParent().revalidate();
             }
@@ -275,7 +270,6 @@ public class FilterActions {
      */
     public class GaussianBlurAction extends ImageAction {
         private static int radius;
-        boolean applied = false;
 
         /**
          * <p>
@@ -336,8 +330,7 @@ public class FilterActions {
                         try {
                             if (radius != 0) {
                                 source.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                                target.getImage().apply(new GaussianBlur(radius));
-                                applied = true;
+                                target.getImage().tempApply(new GaussianBlur(radius));
                                 source.setCursor(Cursor.getDefaultCursor());
                             }
                         } catch (Exception ex) {
@@ -358,20 +351,11 @@ public class FilterActions {
             // Check the return value from the dialog box.
             if (option == 1) {
                 target.setImage(image);
-                if (applied) {
-                    image.removeLastAction();
-                    applied = false;
-                }
                 target.repaint();
                 target.getParent().revalidate();
                 return;
             } else if (option == 0) {
-                target.setImage(image);
-                if (radius != 0) {
-                    target.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                    target.getImage().apply(new GaussianBlur(radius));
-                    target.setCursor(Cursor.getDefaultCursor());
-                }
+                target.getImage().addLastOp();
                 target.repaint();
                 target.getParent().revalidate();
             }
@@ -387,7 +371,6 @@ public class FilterActions {
      */
     public class MedianFilterAction extends ImageAction {
         private static int radius;
-        boolean applied = false;
 
         /**
          * <p>
@@ -447,8 +430,7 @@ public class FilterActions {
                         try {
                             if (radius != 0) {
                                 source.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                                target.getImage().apply(new MedianFilter(radius));
-                                applied = true;
+                                target.getImage().tempApply(new MedianFilter(radius));
                                 source.setCursor(Cursor.getDefaultCursor());
                             }
                         } catch (Exception ex) {
@@ -469,20 +451,11 @@ public class FilterActions {
             // Check the return value from the dialog box.
             if (option == 1) {
                 target.setImage(image);
-                if (applied) {
-                    image.removeLastAction();
-                    applied = false;
-                }
                 target.repaint();
                 target.getParent().revalidate();
                 return;
             } else if (option == 0) {
-                target.setImage(image);
-                if (radius != 0) {
-                    target.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                    target.getImage().apply(new MedianFilter(radius));
-                    target.setCursor(Cursor.getDefaultCursor());
-                }
+                target.getImage().addLastOp();
                 target.repaint();
                 target.getParent().revalidate();
             }

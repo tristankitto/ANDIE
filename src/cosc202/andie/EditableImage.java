@@ -72,6 +72,8 @@ class EditableImage {
     private static Stack<ImageOperation> macro = new Stack<ImageOperation>();
     /** The label containing the recording icon for macros */
     private static JLabel recordLabel;
+    /** */
+    private static ImageOperation lastOp;
 
     /**
      * <p>
@@ -364,21 +366,11 @@ class EditableImage {
      */
     public void tempApply(ImageOperation op) {
         current = op.apply(current);
+        lastOp = op;
     }
 
-    /**
-     * <p>
-     * Remove the last {@link ImageOperation} from this image's Ops stack.
-     * </p>
-     * 
-     * <p>
-     * Pops the most recently applied action from the ops stack. Used for temporary
-     * actions.
-     * </p>
-     * 
-     */
-    public void removeLastAction() {
-        ops.pop();
+    public void addLastOp() {
+        ops.add(lastOp);
     }
 
     /**

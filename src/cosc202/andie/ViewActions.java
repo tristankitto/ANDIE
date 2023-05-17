@@ -575,11 +575,10 @@ public class ViewActions {
 
             double scale = target.getZoom() / 100;
 
-            imageCopy.apply(new BrightnessContrast(-50, 0));
+            imageCopy.tempApply(new BrightnessContrast(-50, 0));
             target.setImage(imageCopy);
 
             target.repaint();
-            target.getImage().removeLastAction();
 
             startX = 0;
             startY = 0;
