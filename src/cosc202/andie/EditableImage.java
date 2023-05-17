@@ -347,6 +347,7 @@ class EditableImage {
                 macro.add(op);
             }
             Andie.saved = false;
+            redoOps.clear();
         } catch (Exception e) {
             Tools.errorMessage(e, "fileApplyError");
         }
@@ -366,6 +367,7 @@ class EditableImage {
      */
     public void tempApply(ImageOperation op) {
         current = op.apply(current);
+        redoOps.clear();
         lastOp = op;
     }
 
