@@ -572,7 +572,7 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if (isCropping) {
+            if (isCropping || image.getCurrentImage() == null) {
                 return;
             }
             isCropping = true;
