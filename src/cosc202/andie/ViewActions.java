@@ -638,6 +638,7 @@ public class ViewActions {
                     target.removeMouseListener(mouseListener);
                     target.removeMouseMotionListener(mouseMotionListener);
                     target.setCursor(Cursor.getDefaultCursor());
+                    isCropping = false;
                     return;
                 }
             };
