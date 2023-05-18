@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.imageio.*;
 import com.formdev.flatlaf.FlatLightLaf;
 
+import cosc202.andie.FileActions.FileExitAction;
+
 import javax.swing.JFrame;
 
 /**
@@ -78,7 +80,15 @@ public class Andie {
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                FileActions fileActions = new FileActions();
+                FileExitAction fileExitAction = fileActions.new FileExitAction("Exit", null, "Exit the application",
+                        null);
+                fileExitAction.actionPerformed(null);
+            }
+        });
 
         // The main content area is an ImagePanel
         imagePanel = new ImagePanel();

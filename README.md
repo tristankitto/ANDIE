@@ -194,7 +194,7 @@ Any other exceptions such as a filter failing to apply or an image failing to ex
 # Errors Handled
 
 ## Opening and Exiting when an image is unsaved
-**ANDIE** now prompts the user to save their image before opening a new one or before exiting the program using the exit button in the file menu. The user can either save and continue, not save and continue, or cancel the action.
+**ANDIE** now prompts the user to save their image before opening a new one or before exiting the program using the exit button in the file menu or the JFrame's exit button. The user can either save and continue, not save and continue, or cancel the action.
 
 ## Filters applied to newly opened images
 When opening a new image, after already having an edited image open, the newly opened image would have the same filters now applied to it. This has been remedied and now any image that is opened will have no filters applied to it unless it has a **.ops** file.
