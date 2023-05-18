@@ -238,13 +238,6 @@ public class Andie {
         button5.setToolTipText(bundle.getString("changeZoom"));
         toolBar.add(button5);
 
-        ImageIcon exit = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
-        JButton button6 = new JButton();
-        button6.setIcon(exit);
-        button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
-        button6.setToolTipText(bundle.getString("exit"));
-        toolBar.add(button6);
-
         ImageIcon language = new ImageIcon(Andie.class.getClassLoader().getResource("language_icon.png"));
         JButton button7 = new JButton();
         button7.setIcon(language);
@@ -256,7 +249,13 @@ public class Andie {
         });
         button7.setToolTipText(bundle.getString("language"));
         toolBar.add(button7);
-
+       
+        ImageIcon exit = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
+        JButton button6 = new JButton();
+        button6.setIcon(exit);
+        button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
+        button6.setToolTipText(bundle.getString("exit"));
+        toolBar.add(button6);
         /**
          * ImageIcon crop= new
          * ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
