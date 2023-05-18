@@ -165,7 +165,7 @@ public class ViewActions {
                     panel, bundle.getString("changeZoom"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
             // Check the return value from the dialog box.
-            if (option == 1) {
+            if (option == 1 || option == JOptionPane.CLOSED_OPTION) {
                 target.setZoom(originalZoom);
                 target.repaint();
                 target.getParent().revalidate();
@@ -513,7 +513,7 @@ public class ViewActions {
                     panel, bundle.getString("enterPercentage"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
             // Check the return value from the dialog box.
-            if (option == 1) {
+            if (option == 1 || option == JOptionPane.CLOSED_OPTION) {
                 target.setImage(image);
                 target.repaint();
                 target.getParent().revalidate();
