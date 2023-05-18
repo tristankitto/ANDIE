@@ -147,6 +147,7 @@ public class FilterActions {
                             }
                         } catch (Exception ex) {
                             Tools.errorMessage(ex, "fileApplyError");
+                            source.setCursor(Cursor.getDefaultCursor());
                         }
                         target.repaint();
                         target.getParent().revalidate();
@@ -334,6 +335,7 @@ public class FilterActions {
                             }
                         } catch (Exception ex) {
                             Tools.errorMessage(ex, "fileApplyError");
+                            source.setCursor(Cursor.getDefaultCursor());
                         }
                         target.repaint();
                         target.getParent().revalidate();
@@ -434,6 +436,7 @@ public class FilterActions {
                             }
                         } catch (Exception ex) {
                             Tools.errorMessage(ex, "fileApplyError");
+                            source.setCursor(Cursor.getDefaultCursor());
                         }
                         target.repaint();
                         target.getParent().revalidate();

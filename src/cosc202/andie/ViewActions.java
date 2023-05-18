@@ -500,6 +500,7 @@ public class ViewActions {
                         target.getImage().tempApply(new Resize(percentage));
                     } catch (Exception ex) {
                         Tools.errorMessage(ex, "fileApplyError");
+                        Andie.frame.setCursor(Cursor.getDefaultCursor());
                     }
                     target.repaint();
                     target.getParent().revalidate();

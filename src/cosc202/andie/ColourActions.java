@@ -239,6 +239,7 @@ public class ColourActions {
                         target.getImage().tempApply(new BrightnessContrast(brightness, contrast));
                     } catch (Exception ex) {
                         Tools.errorMessage(ex, "fileApplyError");
+                        Andie.frame.setCursor(Cursor.getDefaultCursor());
                     }
                     target.repaint();
                     target.getParent().revalidate();
