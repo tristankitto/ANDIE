@@ -68,7 +68,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -95,7 +95,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -122,7 +122,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -149,7 +149,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -176,7 +176,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -203,7 +203,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -230,7 +230,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -257,7 +257,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -284,7 +284,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
@@ -311,7 +311,7 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
+                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                         return test;
                 }
         }
