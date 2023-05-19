@@ -48,6 +48,7 @@ public class EmbossClasses {
 
         public class Emboss1 implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -68,13 +69,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class Emboss2 implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -95,13 +97,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class Emboss3 implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -122,13 +125,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class Emboss4 implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -149,13 +153,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class Emboss5 implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -176,13 +181,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class Emboss6 implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -203,13 +209,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class Emboss7 implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -230,13 +237,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class Emboss8 implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -257,13 +265,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class SobelHorizontal implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -284,13 +293,14 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
         public class SobelVertical implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
+                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -311,8 +321,8 @@ public class EmbossClasses {
                                 }
                         }
 
-                        BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
-                        return test;
+                        BufferedImage output = NegativeFilter.apply(paddedInput, kernel);
+                        return output;
                 }
         }
 
