@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 
 /**
@@ -55,9 +54,9 @@ public class EmbossTest implements ImageOperation, java.io.Serializable {
                 int radius = 1;
 
                 // The values for the kernel as a 9-element array
-                float[] array = { -1 / 2f, 0, 1 / 2f,
-                                -1, 0, 1,
-                                -1 / 2f, 0, 1 / 2f };
+                float[] array = { 0, 0, 0,
+                                1, 0, -1,
+                                0, 0, 0 };
                 // Make a 3x3 filter from the array
                 Kernel kernel = new Kernel(3, 3, array);
 
@@ -71,13 +70,7 @@ public class EmbossTest implements ImageOperation, java.io.Serializable {
                         }
                 }
 
-                BufferedImage test = NegativeFilter.apply(paddedInput, kernel, 0);
-
-                // Apply this as a convolution - same code as in MeanFilter
-                ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-                BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
-                                input.isAlphaPremultiplied(), null);
-                convOp.filter(paddedInput, test);
+                BufferedImage test = NegativeFilter.apply(paddedInput, kernel);
                 return test;
         }
 }
