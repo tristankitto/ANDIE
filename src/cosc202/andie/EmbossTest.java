@@ -55,9 +55,9 @@ public class EmbossTest implements ImageOperation, java.io.Serializable {
                 int radius = 1;
 
                 // The values for the kernel as a 9-element array
-                float[] array = { 0, 0, 0,
-                                1, 0, -1,
-                                0, 0, 0 };
+                float[] array = { -1 / 2f, 0, 1 / 2f,
+                                -1, 0, 1,
+                                -1 / 2f, 0, 1 / 2f };
                 // Make a 3x3 filter from the array
                 Kernel kernel = new Kernel(3, 3, array);
 
