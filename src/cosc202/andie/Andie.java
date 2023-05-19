@@ -157,10 +157,8 @@ public class Andie {
 
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
-        FilterActions filterActions = new FilterActions();
-        JMenu filterMenu = new JMenu(bundle.getString("filter"));
+        JMenu filterMenu = new FilterActions().createMenu();
         EmbossActions embossActions = new EmbossActions();
-        filterMenu.add(filterActions.createMenu());
         filterMenu.add(embossActions.createMenu());
         menuBar.add(filterMenu);
 
@@ -170,7 +168,6 @@ public class Andie {
 
         // Settings menu which contains the menus for theme and language
         JMenu settingsMenu = new JMenu(bundle.getString("settings"));
-        
 
         LanguageActions languageActions = new LanguageActions();
         ThemeActions themeActions = new ThemeActions();
@@ -201,87 +198,87 @@ public class Andie {
      * 
      */
     public static void createToolBar() {
-            toolBar = new JToolBar();
-            FileActions fileActions = new FileActions();
-            EditActions editActions = new EditActions();
-            ViewActions viewActions = new ViewActions();
-            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
-        
-            LookAndFeel currentTheme = UIManager.getLookAndFeel();
+        toolBar = new JToolBar();
+        FileActions fileActions = new FileActions();
+        EditActions editActions = new EditActions();
+        ViewActions viewActions = new ViewActions();
+        ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
 
-            // select the appropriate icons for the current theme
-            ImageIcon openIcon;
-            ImageIcon saveIcon;
-            ImageIcon undoIcon;
-            ImageIcon redoIcon;
-            ImageIcon zoomIcon;
-            ImageIcon languageIcon;
-            ImageIcon exitIcon;
+        LookAndFeel currentTheme = UIManager.getLookAndFeel();
 
-            if (currentTheme.getName().equals("FlatLaf Light")) {
-                openIcon = new ImageIcon(Andie.class.getClassLoader().getResource("folder-open.png"));
-                saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("disk.png"));
-                undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("undo-alt.png"));
-                redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("redo-alt.png"));
-                zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("search.png"));
-                languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("language_icon.png"));
-                exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
-            } else {
-                openIcon = new ImageIcon(Andie.class.getClassLoader().getResource("folder-openINVERT.png"));
-                saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("diskINVERT.png"));
-                undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("undo-altINVERT.png"));
-                redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("redo-altINVERT.png"));
-                zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("searchINVERT.png"));
-                languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("language_iconINVERT.png"));
-                exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("exitINVERT.png"));
+        // select the appropriate icons for the current theme
+        ImageIcon openIcon;
+        ImageIcon saveIcon;
+        ImageIcon undoIcon;
+        ImageIcon redoIcon;
+        ImageIcon zoomIcon;
+        ImageIcon languageIcon;
+        ImageIcon exitIcon;
+
+        if (currentTheme.getName().equals("FlatLaf Light")) {
+            openIcon = new ImageIcon(Andie.class.getClassLoader().getResource("folder-open.png"));
+            saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("disk.png"));
+            undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("undo-alt.png"));
+            redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("redo-alt.png"));
+            zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("search.png"));
+            languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("language_icon.png"));
+            exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
+        } else {
+            openIcon = new ImageIcon(Andie.class.getClassLoader().getResource("folder-openINVERT.png"));
+            saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("diskINVERT.png"));
+            undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("undo-altINVERT.png"));
+            redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("redo-altINVERT.png"));
+            zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("searchINVERT.png"));
+            languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("language_iconINVERT.png"));
+            exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("exitINVERT.png"));
+        }
+
+        JButton button1 = new JButton();
+        button1.setIcon(openIcon);
+        button1.addActionListener(fileActions.createMenu().getItem(0).getAction());
+        button1.setToolTipText(bundle.getString("open"));
+        toolBar.add(button1);
+
+        JButton button2 = new JButton();
+        button2.setIcon(saveIcon);
+        button2.addActionListener(fileActions.createMenu().getItem(1).getAction());
+        button2.setToolTipText(bundle.getString("save"));
+        toolBar.add(button2);
+
+        JButton button3 = new JButton();
+        button3.setIcon(undoIcon);
+        button3.addActionListener(editActions.createMenu().getItem(0).getAction());
+        button3.setToolTipText(bundle.getString("undo"));
+        toolBar.add(button3);
+
+        JButton button4 = new JButton();
+        button4.setIcon(redoIcon);
+        button4.addActionListener(editActions.createMenu().getItem(1).getAction());
+        button4.setToolTipText(bundle.getString("redo"));
+        toolBar.add(button4);
+
+        JButton button5 = new JButton();
+        button5.setIcon(zoomIcon);
+        button5.addActionListener(viewActions.createMenu().getItem(0).getAction());
+        button5.setToolTipText(bundle.getString("changeZoom"));
+        toolBar.add(button5);
+
+        JButton button7 = new JButton();
+        button7.setIcon(languageIcon);
+        button7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                languagePopupMenu(button7);
             }
-        
-            JButton button1 = new JButton();
-            button1.setIcon(openIcon);
-            button1.addActionListener(fileActions.createMenu().getItem(0).getAction());
-            button1.setToolTipText(bundle.getString("open"));
-            toolBar.add(button1);
-        
-            JButton button2 = new JButton();
-            button2.setIcon(saveIcon);
-            button2.addActionListener(fileActions.createMenu().getItem(1).getAction());
-            button2.setToolTipText(bundle.getString("save"));
-            toolBar.add(button2);
-        
-            JButton button3 = new JButton();
-            button3.setIcon(undoIcon);
-            button3.addActionListener(editActions.createMenu().getItem(0).getAction());
-            button3.setToolTipText(bundle.getString("undo"));
-            toolBar.add(button3);
-        
-            JButton button4 = new JButton();
-            button4.setIcon(redoIcon);
-            button4.addActionListener(editActions.createMenu().getItem(1).getAction());
-            button4.setToolTipText(bundle.getString("redo"));
-            toolBar.add(button4);
-        
-            JButton button5 = new JButton();
-            button5.setIcon(zoomIcon);
-            button5.addActionListener(viewActions.createMenu().getItem(0).getAction());
-            button5.setToolTipText(bundle.getString("changeZoom"));
-            toolBar.add(button5);
-        
-            JButton button7 = new JButton();
-            button7.setIcon(languageIcon);
-            button7.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    languagePopupMenu(button7);
-                }
-            });
-            button7.setToolTipText(bundle.getString("language"));
-            toolBar.add(button7);
-        
-            JButton button6 = new JButton();
-            button6.setIcon(exitIcon);
-            button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
-            button6.setToolTipText(bundle.getString("exit"));
-            toolBar.add(button6);       
+        });
+        button7.setToolTipText(bundle.getString("language"));
+        toolBar.add(button7);
+
+        JButton button6 = new JButton();
+        button6.setIcon(exitIcon);
+        button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
+        button6.setToolTipText(bundle.getString("exit"));
+        toolBar.add(button6);
         /**
          * ImageIcon crop= new
          * ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
