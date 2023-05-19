@@ -160,7 +160,11 @@ public class Andie {
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
         FilterActions filterActions = new FilterActions();
-        menuBar.add(filterActions.createMenu());
+        JMenu filterMenu = new JMenu(bundle.getString("filter"));
+        EmbossActions embossActions = new EmbossActions();
+        filterMenu.add(filterActions.createMenu());
+        filterMenu.add(embossActions.createMenu());
+        menuBar.add(filterMenu);
 
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
@@ -249,7 +253,7 @@ public class Andie {
         });
         button7.setToolTipText(bundle.getString("language"));
         toolBar.add(button7);
-       
+
         ImageIcon exit = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
         JButton button6 = new JButton();
         button6.setIcon(exit);

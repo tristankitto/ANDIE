@@ -54,7 +54,6 @@ public class FilterActions {
         actions.add(new MedianFilterAction(
                 ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle").getString("medianFilter"),
                 null, bundle.getString("applyAMedianFilter"), Integer.valueOf(KeyEvent.VK_D)));
-        actions.add(new EmbossTestAction("Emboss", null, "Emboss", Integer.valueOf(KeyEvent.VK_E)));
     }
 
     /**
@@ -464,41 +463,5 @@ public class FilterActions {
             }
         }
 
-    }
-
-    public class EmbossTestAction extends ImageAction {
-        /**
-         * <p>
-         * Create a new soft blur action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        EmbossTestAction(String name, ImageIcon icon,
-                String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the soft blur action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            target.getImage().apply(new EmbossTest());
-            target.repaint();
-            target.getParent().revalidate();
-        }
     }
 }

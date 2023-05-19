@@ -13,7 +13,7 @@ import java.awt.image.Kernel;
  * They detect edges
  * using sobel filter which have kernels for vertical and horizontal edge
  * stection. these kernels are
- * used to apply the emboss filters to an inmage.
+ * used to apply the emboss filters to an image.
  * </p>
  * 
  * <p>
@@ -39,15 +39,11 @@ public class EmbossClasses {
 
         /**
          * <p>
-         * Apply a Soft blur filter to an image.
-         * </p>
-         * 
-         * <p>
-         * As with many filters, the Soft blur filter is implemented via convolution.
+         * Apply an Emboss filter to an image.
          * </p>
          * 
          * @param input The image to apply the Soft blur filter to.
-         * @return The resulting (blurred) image.
+         * @return The resulting Embossed image.
          */
 
         public class Emboss1 implements ImageOperation, java.io.Serializable {
