@@ -158,7 +158,11 @@ public class Andie {
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
         FilterActions filterActions = new FilterActions();
-        menuBar.add(filterActions.createMenu());
+        JMenu filterMenu = new JMenu(bundle.getString("filter"));
+        EmbossActions embossActions = new EmbossActions();
+        filterMenu.add(filterActions.createMenu());
+        filterMenu.add(embossActions.createMenu());
+        menuBar.add(filterMenu);
 
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();

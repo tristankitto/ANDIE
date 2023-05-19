@@ -20,6 +20,7 @@ Ctrl + S = Save
 Ctrl + Shift + S = Save As
 Ctrl + Alt + Shift + S = Save Macro
 Ctrl + T = Soft Blur
+Ctrl + Shift + T = Text
 Ctrl + V = Vertical Flip
 Ctrl + Y = Redo
 Ctrl + Z = Undo
