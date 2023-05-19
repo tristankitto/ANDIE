@@ -37,26 +37,26 @@ public class EmbossActions {
      */
     public EmbossActions() {
         actions = new ArrayList<Action>();
-        actions.add(new Emboss1Action(bundle.getString("emboss1"), null, bundle.getString("emboss1"),
-                Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(new Emboss2Action(bundle.getString("emboss2"), null, bundle.getString("emboss2"),
-                Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new Emboss3Action(bundle.getString("emboss3"), null, bundle.getString("emboss3"),
-                Integer.valueOf(KeyEvent.VK_E)));
+                Integer.valueOf(KeyEvent.VK_N)));
         actions.add(new Emboss4Action(bundle.getString("emboss4"), null, bundle.getString("emboss4"),
-                Integer.valueOf(KeyEvent.VK_E)));
+                Integer.valueOf(KeyEvent.VK_N)));
         actions.add(new Emboss5Action(bundle.getString("emboss5"), null, bundle.getString("emboss5"),
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new Emboss6Action(bundle.getString("emboss6"), null, bundle.getString("emboss6"),
-                Integer.valueOf(KeyEvent.VK_E)));
+                Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new Emboss7Action(bundle.getString("emboss7"), null, bundle.getString("emboss7"),
-                Integer.valueOf(KeyEvent.VK_E)));
+                Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new Emboss8Action(bundle.getString("emboss8"), null, bundle.getString("emboss8"),
-                Integer.valueOf(KeyEvent.VK_E)));
+                Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new Emboss1Action(bundle.getString("emboss1"), null, bundle.getString("emboss1"),
+                Integer.valueOf(KeyEvent.VK_W)));
+        actions.add(new Emboss2Action(bundle.getString("emboss2"), null, bundle.getString("emboss2"),
+                Integer.valueOf(KeyEvent.VK_N)));
         actions.add(new SobelHorizontalAction(bundle.getString("sobelHorizontal"), null,
-                bundle.getString("sobelHorizontal"), Integer.valueOf(KeyEvent.VK_E)));
+                bundle.getString("sobelHorizontal"), Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new SobelVerticalAction(bundle.getString("sobelVertical"), null,
-                bundle.getString("sobelVertical"), Integer.valueOf(KeyEvent.VK_E)));
+                bundle.getString("sobelVertical"), Integer.valueOf(KeyEvent.VK_V)));
 
     }
 
@@ -71,7 +71,13 @@ public class EmbossActions {
         JMenu fileMenu = new JMenu("Emboss");
 
         for (Action action : actions) {
-            JMenuItem item = Tools.createMenuItem(action, false, false);
+            JMenuItem item;
+            if (action instanceof Emboss2Action || action instanceof Emboss4Action || action instanceof Emboss6Action
+                    || action instanceof Emboss8Action) {
+                item = new JMenuItem(action);
+            } else {
+                item = Tools.createMenuItem(action, false, true);
+            }
             fileMenu.add(item);
         }
 
