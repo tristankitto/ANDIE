@@ -30,16 +30,17 @@ public class NegativeFilter {
 
         int midValue = 128;
         BufferedImage filteredImage = new BufferedImage(input.getWidth(), input.getHeight(),
-                BufferedImage.TYPE_INT_RGB);
+                BufferedImage.TYPE_INT_ARGB);
         float[] kernelData = kernel.getKernelData(null);
 
         // Shift the output so that zero becomes the mid-value
         for (int x = 0; x < input.getWidth(); x++) {
             for (int y = 0; y < input.getHeight(); y++) {
-                int rgb = input.getRGB(x, y);
-                int r = (rgb >> 16) & 0xFF;
-                int g = (rgb >> 8) & 0xFF;
-                int b = rgb & 0xFF;
+                int rgba = input.getRGB(x, y);
+                int r = (rgba >> 16) & 0xFF;
+                int g = (rgba >> 8) & 0xFF;
+                int b = rgba & 0xFF;
+                int a = (rgba >> 24) & 0xFF;
 
                 float sumR = 0, sumG = 0, sumB = 0;
                 int kernelSize = kernelData.length;
@@ -65,8 +66,8 @@ public class NegativeFilter {
                 r = Math.min(Math.max((int) sumR, 0), 255);
                 g = Math.min(Math.max((int) sumG, 0), 255);
                 b = Math.min(Math.max((int) sumB, 0), 255);
-                rgb = new Color(r, g, b).getRGB();
-                filteredImage.setRGB(x, y, rgb);
+                rgba = new Color(r, g, b, a).getRGB();
+                filteredImage.setRGB(x, y, rgba);
             }
         }
 
