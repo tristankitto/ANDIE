@@ -6,14 +6,12 @@ import javax.swing.*;
 
 /**
  * <p>
- * Actions provided by the Filter menu.
+ * Actions provided by the Emboss Filter menu.
  * </p>
  * 
  * <p>
- * The Filter menu contains actions that update each pixel in an image based on
- * some small local neighbourhood.
- * This includes a mean filter (a simple blur), Soft blur filter, Sharpen
- * filter, and more.
+ * The Filter menu contains am emboss menu with each of the emboss and sobel
+ * filters.
  * </p>
  * 
  * <p>
@@ -21,12 +19,12 @@ import javax.swing.*;
  * 4.0</a>
  * </p>
  * 
- * @author Steven Mills
+ * @author Ada Mazengarb
  * @version 1.0
  */
 public class EmbossActions {
 
-    /** A list of actions for the Filter menu. */
+    /** A list of actions for the Emboss Filter menu. */
     protected ArrayList<Action> actions;
 
     /** ResourceBundle for multilingual support */
@@ -34,7 +32,7 @@ public class EmbossActions {
 
     /**
      * <p>
-     * Create a set of Filter menu actions.
+     * Create a set of Emboss menu actions.
      * </p>
      */
     public EmbossActions() {
@@ -55,7 +53,7 @@ public class EmbossActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of Filter actions.
+     * Create a menu contianing the list of Emboss actions.
      * </p>
      * 
      * @return The filter menu UI element.
@@ -74,7 +72,7 @@ public class EmbossActions {
     public class Emboss1Action extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new Emboss1 action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -89,12 +87,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the Emboss1 action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the Emboss1Action is triggered.
+         * It applys a {@link Emboss1}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -110,7 +108,7 @@ public class EmbossActions {
     public class Emboss2Action extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new Emboss2 action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -125,12 +123,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the Emboss2 action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the Emboss2Action is triggered.
+         * It applys a {@link Emboss2}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -146,7 +144,7 @@ public class EmbossActions {
     public class Emboss3Action extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new Emboss3 action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -161,12 +159,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the Emboss3 action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the Emboss3Action is triggered.
+         * It applys a {@link Emboss3}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -182,7 +180,7 @@ public class EmbossActions {
     public class Emboss4Action extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new Emboss4 action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -197,12 +195,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the Emboss4 action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the Emboss4Action is triggered.
+         * It applys a {@link Emboss4}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -218,7 +216,7 @@ public class EmbossActions {
     public class Emboss5Action extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new Emboss5 action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -233,12 +231,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the Emboss5 action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the Emboss5Action is triggered.
+         * It applys a {@link Emboss5}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -254,7 +252,7 @@ public class EmbossActions {
     public class Emboss6Action extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new Emboss6 action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -269,12 +267,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the Emboss6 action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the Emboss6Action is triggered.
+         * It applys a {@link Emboss6}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -290,7 +288,7 @@ public class EmbossActions {
     public class Emboss7Action extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new Emboss7 action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -305,12 +303,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the Emboss7 action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the Emboss7Action is triggered.
+         * It applys a {@link Emboss7}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -326,7 +324,7 @@ public class EmbossActions {
     public class Emboss8Action extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new Emboss8 action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -341,12 +339,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the Emboss8 action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the Emboss8Action is triggered.
+         * It applys a {@link Emboss8}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -362,7 +360,7 @@ public class EmbossActions {
     public class SobelHorizontalAction extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new SobelHorizontal action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -377,12 +375,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the SobelHorizontal action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the SobelHorizontalAction is triggered.
+         * It applys a {@link SobelHorizontal}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -398,7 +396,7 @@ public class EmbossActions {
     public class SobelVerticalAction extends ImageAction {
         /**
          * <p>
-         * Create a new soft blur action.
+         * Create a new SobelVertical action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -413,12 +411,12 @@ public class EmbossActions {
 
         /**
          * <p>
-         * Callback for when the soft blur action is triggered.
+         * Callback for when the SobelVertical action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the SoftBlurAction is triggered.
-         * It applys a {@link SoftBlur}.
+         * This method is called whenever the SobelVerticalAction is triggered.
+         * It applys a {@link SobelVertical}.
          * </p>
          * 
          * @param e The event triggering this callback.
