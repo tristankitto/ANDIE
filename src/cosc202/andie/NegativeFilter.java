@@ -1,7 +1,7 @@
 package cosc202.andie;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 
 /**
@@ -26,39 +26,50 @@ import java.awt.image.Kernel;
  */
 
 public class NegativeFilter {
-    public static BufferedImage apply(BufferedImage input, Kernel kernel, int offset) {
-        ConvolveOp convolveOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-        BufferedImage output = convolveOp.filter(input, null);
+    public static BufferedImage apply(BufferedImage input, Kernel kernel) {
 
         int midValue = 128;
+        BufferedImage filteredImage = new BufferedImage(input.getWidth(), input.getHeight(),
+                BufferedImage.TYPE_INT_RGB);
+        float[] kernelData = kernel.getKernelData(null);
 
         // Shift the output so that zero becomes the mid-value
-        for (int x = 0; x < output.getWidth(); x++) {
-            for (int y = 0; y < output.getHeight(); y++) {
-                int rgb = output.getRGB(x, y);
+        for (int x = 0; x < input.getWidth(); x++) {
+            for (int y = 0; y < input.getHeight(); y++) {
+                int rgb = input.getRGB(x, y);
                 int r = (rgb >> 16) & 0xFF;
                 int g = (rgb >> 8) & 0xFF;
                 int b = rgb & 0xFF;
 
+                float sumR = 0, sumG = 0, sumB = 0;
+                int kernelSize = kernelData.length;
+                int halfKernelSize = kernelSize / 2;
+
+                for (int kx = 0; kx < kernelSize; kx++) {
+                    int pixelX = x + kx - halfKernelSize;
+                    if (pixelX >= 0 && pixelX < input.getWidth()) {
+                        Color pixelColor = new Color(input.getRGB(pixelX, y));
+                        float kernelValue = kernelData[kx];
+                        sumR += kernelValue * pixelColor.getRed();
+                        sumG += kernelValue * pixelColor.getGreen();
+                        sumB += kernelValue * pixelColor.getBlue();
+                    }
+                }
+
                 // adds the mid value
-                r += midValue;
-                g += midValue;
-                b += midValue;
+                sumR += midValue;
+                sumG += midValue;
+                sumB += midValue;
 
-                // Add the offset to the shifted result (if we want user to input an offset)
-                r += offset;
-                g += offset;
-                b += offset;
-
-                // Clip the result to [0, 255]
-                r = Math.max(0, Math.min(255, r));
-                g = Math.max(0, Math.min(255, g));
-                b = Math.max(0, Math.min(255, b));
-
-                output.setRGB(x, y, (r << 16) | (g << 8) | b);
+                // Update the pixel value in the filtered image
+                r = Math.min(Math.max((int) sumR, 0), 255);
+                g = Math.min(Math.max((int) sumG, 0), 255);
+                b = Math.min(Math.max((int) sumB, 0), 255);
+                rgb = new Color(r, g, b).getRGB();
+                filteredImage.setRGB(x, y, rgb);
             }
         }
 
-        return output;
+        return filteredImage;
     }
 }
