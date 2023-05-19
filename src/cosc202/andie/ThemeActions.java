@@ -88,10 +88,12 @@ public class ThemeActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-
-            try {
+            
+            try {  
                 UIManager.setLookAndFeel(new FlatDarkLaf());
                 SwingUtilities.updateComponentTreeUI(Andie.frame);
+                Andie.removeToolBar();
+                Andie.createToolBar();
             } catch (Exception ex) {
                 System.err.println("Failed to initialize FlatLaf");
             }
@@ -118,6 +120,8 @@ public class ThemeActions {
             try {
                 UIManager.setLookAndFeel(new FlatLightLaf());
                 SwingUtilities.updateComponentTreeUI(Andie.frame);
+                Andie.removeToolBar();
+                Andie.createToolBar();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

@@ -478,11 +478,21 @@ class EditableImage {
     public void recordMacro() {
         isMacroRecording = !isMacroRecording;
 
-        ImageIcon recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
+        ImageIcon recordIcon;
+        recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
         recordLabel = new JLabel(recordIcon);
-
+        LookAndFeel currentTheme = UIManager.getLookAndFeel();
+        /** 
+        if(currentTheme.getName().equals("FlatLaf Light")) {
+            recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
+        } else {
+            recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("recordINVERT.png"));
+        }
+        */
         if (isMacroRecording) {
             // add recording icon to tool bar
+            Andie.toolBar.add(Box.createHorizontalGlue());
+           // Andie.toolBar.add(new JLabel(recordIcon));
             Andie.toolBar.add(recordLabel);
             Andie.frame.setVisible(true);
         } else {
