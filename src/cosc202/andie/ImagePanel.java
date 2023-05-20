@@ -165,6 +165,15 @@ public class ImagePanel extends JPanel {
                 g2d.setColor(new Color(255, 255, 255, 128));
                 g2d.fillRect(startX, startY, width, height);
             }
+            if (ViewActions.DrawRectangleAction.drawRectangle) {
+                int width = Math.abs(ViewActions.DrawRectangleAction.endX - ViewActions.DrawRectangleAction.startX);
+                int height = Math.abs(ViewActions.DrawRectangleAction.endY - ViewActions.DrawRectangleAction.startY);
+                int startX = Math.min(ViewActions.DrawRectangleAction.startX, ViewActions.DrawRectangleAction.endX);
+                int startY = Math.min(ViewActions.DrawRectangleAction.startY, ViewActions.DrawRectangleAction.endY);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setColor(new Color(255, 255, 255, 128));
+                g2d.drawRect(startX, startY, width, height);
+            }
 
             if (EditActions.TextAction.text) {
                 int width = Math.abs(EditActions.TextAction.endX - EditActions.TextAction.startX);
