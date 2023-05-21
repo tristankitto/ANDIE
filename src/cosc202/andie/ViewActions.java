@@ -63,8 +63,8 @@ public class ViewActions {
                 Integer.valueOf(KeyEvent.VK_R)));
         actions.add(new CropAction(bundle.getString("crop"), null, bundle.getString("cropImage"),
                 Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new DrawRectangleAction(("Rectangle"), null, ("drawRectangle"),
-                Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new DrawShapesAction(bundle.getString("drawShapes"), null, bundle.getString("drawShapes"),
+                Integer.valueOf(KeyEvent.VK_D)));
     }
 
     /**
@@ -79,7 +79,7 @@ public class ViewActions {
 
         for (Action action : actions) {
             JMenuItem item = new JMenuItem();
-            if (action instanceof ZoomAction || action instanceof CropAction) {
+            if (action instanceof ZoomAction || action instanceof CropAction || action instanceof DrawShapesAction) {
                 item = Tools.createMenuItem(action, true, false);
             } else {
                 item = Tools.createMenuItem(action, false, false);
@@ -654,10 +654,10 @@ public class ViewActions {
 
     /**
      * <p>
-     * Action to draw a rectangle with an area given by the user.
+     * Action to draw shapes or a line over a region seleted by the user.
      * </p>
      */
-    public class DrawRectangleAction extends ImageAction {
+    public class DrawShapesAction extends ImageAction {
 
         static int startX = 0;
         static int startY = 0;
@@ -665,13 +665,16 @@ public class ViewActions {
         static int y = 0;
         static int endX = target.getWidth();
         static int endY = target.getHeight();
-        static boolean drawRectangle = false;
-        static boolean isDrawingRectangle = false;
+        static boolean drawShape = false;
+        static boolean isDrawing = false;
         EditableImage image = target.getImage();
+        public static String shape;
+        public static Color colour;
+        public static BasicStroke strokeSize;
 
         /**
          * <p>
-         * Create a new draw rectangle action.
+         * Create a new draw shapes action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -679,27 +682,27 @@ public class ViewActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        DrawRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        DrawShapesAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         /**
          * <p>
-         * Callback for when the draw rectangle action is triggered.
+         * Callback for when the draw shapes action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the DrawRectangleAction is triggered.
-         * It prompts the user for a draw area, then draws the rectangle.
+         * This method is called whenever the DrawShapesAction is triggered.
+         * It prompts the user for a draw area, then draws the shape.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if (isDrawingRectangle || image.getCurrentImage() == null) {
+            if (isDrawing || image.getCurrentImage() == null) {
                 return;
             }
-            isDrawingRectangle = true;
+            isDrawing = true;
             EditableImage imageCopy = EditableImage.copyImage(image);
 
             double scale = target.getZoom() / 100;
@@ -707,6 +710,152 @@ public class ViewActions {
             target.setImage(imageCopy);
 
             target.repaint();
+
+            shape = "filledRectangle";
+            colour = Color.BLACK;
+            strokeSize = new BasicStroke(1);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(2, 1));
+            JPanel topPanel = new JPanel(new FlowLayout());
+            JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            JDialog popupDialog = new JDialog(Andie.frame, bundle.getString("drawOptions"), true);
+            popupDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+            ImageIcon rectangleIcon = new ImageIcon(
+                    ViewActions.class.getClassLoader().getResource("icons/rectangle_icon.png"));
+            ImageIcon filledRectangleIcon = new ImageIcon(
+                    ViewActions.class.getClassLoader().getResource("icons/filledRectangle_icon.png"));
+            ImageIcon ovalIcon = new ImageIcon(ViewActions.class.getClassLoader().getResource("icons/oval_icon.png"));
+            ImageIcon filledOvalIcon = new ImageIcon(
+                    ViewActions.class.getClassLoader().getResource("icons/filledOval_icon.png"));
+            ImageIcon lineIcon = new ImageIcon(ViewActions.class.getClassLoader().getResource("icons/line_icon.png"));
+            ImageIcon lineWidthIcon = new ImageIcon(
+                    ViewActions.class.getClassLoader().getResource("icons/lineWidth_icon.png"));
+            ImageIcon colourChooseIcon = new ImageIcon(
+                    ViewActions.class.getClassLoader().getResource("icons/colourChoose_icon.png"));
+
+            JButton colourButton = new JButton(bundle.getString("colour"));
+            colourButton.setIcon(colourChooseIcon);
+            colourButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    colour = JColorChooser.showDialog(Andie.frame, bundle.getString("selectColour"), Color.BLACK);
+                }
+            });
+
+            JMenuItem rectangle = new JMenuItem(bundle.getString("rectangle"));
+            rectangle.setIcon(rectangleIcon);
+            rectangle.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    shape = "Rectangle";
+                }
+            });
+            JMenuItem filledRectangle = new JMenuItem(bundle.getString("filledRectangle"));
+            filledRectangle.setIcon(filledRectangleIcon);
+            filledRectangle.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    shape = "filledRectangle";
+                }
+            });
+
+            JButton rectangleButton = new JButton(bundle.getString("rectangle"));
+            rectangleButton.setIcon(rectangleIcon);
+            rectangleButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    JPopupMenu rectangleMenu = new JPopupMenu();
+                    rectangleMenu.add(rectangle);
+                    rectangleMenu.add(filledRectangle);
+                    rectangleMenu.show(rectangleButton, 0, rectangleButton.getHeight());
+                }
+            });
+
+            JMenuItem oval = new JMenuItem(bundle.getString("oval"));
+            oval.setIcon(ovalIcon);
+            oval.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    shape = "Oval";
+                }
+            });
+            JMenuItem filledOval = new JMenuItem(bundle.getString("filledOval"));
+            filledOval.setIcon(filledOvalIcon);
+            filledOval.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    shape = "filledOval";
+                }
+            });
+
+            JButton ovalButton = new JButton(bundle.getString("oval"));
+            ovalButton.setIcon(ovalIcon);
+            ovalButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    JPopupMenu ovalMenu = new JPopupMenu();
+                    ovalMenu.add(oval);
+                    ovalMenu.add(filledOval);
+                    ovalMenu.show(ovalButton, 0, ovalButton.getHeight());
+                }
+            });
+
+            JButton lineButton = new JButton(bundle.getString("line"));
+            lineButton.setIcon(lineIcon);
+            lineButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    shape = "Line";
+                }
+            });
+
+            JButton strokeSizeButton = new JButton(bundle.getString("lineWidth"));
+            strokeSizeButton.setIcon(lineWidthIcon);
+            strokeSizeButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Integer[] sizes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                    JComboBox<Integer> comboBox = new JComboBox<>(sizes);
+
+                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("lineWidth"),
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if (option == JOptionPane.OK_OPTION) {
+                        Integer size = (Integer) comboBox.getSelectedItem();
+                        strokeSize = new BasicStroke(size);
+                    }
+                }
+            });
+
+            JButton okButton = new JButton(bundle.getString("ok"));
+            okButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    popupDialog.dispose();
+                }
+            });
+
+            topPanel.add(rectangleButton);
+            topPanel.add(ovalButton);
+            topPanel.add(lineButton);
+            topPanel.add(colourButton);
+            topPanel.add(strokeSizeButton);
+            bottomPanel.add(okButton);
+            panel.add(topPanel);
+            panel.add(bottomPanel);
+            popupDialog.getContentPane().add(panel);
+            popupDialog.pack();
+            popupDialog.setLocationRelativeTo(Andie.frame);
+            popupDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+            popupDialog.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    popupDialog.dispose();
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    target.setCursor(Cursor.getDefaultCursor());
+                    isDrawing = false;
+                }
+            });
+            popupDialog.setVisible(true);
+
+            if (!isDrawing)
+                return;
 
             startX = 0;
             startY = 0;
@@ -716,7 +865,7 @@ public class ViewActions {
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
             MouseListener mouseListener = new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    drawRectangle = true;
+                    drawShape = true;
                     startX = e.getX();
                     startY = e.getY();
                 }
@@ -724,15 +873,17 @@ public class ViewActions {
                 public void mouseReleased(MouseEvent e) {
                     endX = e.getX();
                     endY = e.getY();
-                    drawRectangle = false;
-                    isDrawingRectangle = false;
-
+                    drawShape = false;
+                    isDrawing = false;
+                    image.apply(
+                            new DrawShapes((int) (startX / scale), (int) (startY / scale), (int) (endX / scale),
+                                    (int) (endY / scale), shape, colour, strokeSize));
                     // Perform the Rectangle operation
-                    image.apply(new DrawRectangle((int) (startX / scale), (int) (startY / scale), (int) (endX / scale), (int) (endY / scale)));
+
                     target.setImage(image);
                     target.repaint();
                     target.getParent().revalidate();
-                    
+
                     // Remove the mouse listeners after the Drawing is done
                     target.removeMouseListener(this);
                     target.setCursor(Cursor.getDefaultCursor());
@@ -761,7 +912,7 @@ public class ViewActions {
                     target.removeMouseListener(mouseListener);
                     target.removeMouseMotionListener(mouseMotionListener);
                     target.setCursor(Cursor.getDefaultCursor());
-                    isDrawingRectangle = false;
+                    isDrawing = false;
                     return;
                 }
             };
