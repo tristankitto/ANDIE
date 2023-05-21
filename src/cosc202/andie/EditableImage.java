@@ -352,6 +352,7 @@ class EditableImage {
             if (!redo) {
                 redoOps.clear();
             }
+            redo = false;
             Andie.frame.setCursor(Cursor.getDefaultCursor());
         } catch (Exception e) {
             Andie.frame.setCursor(Cursor.getDefaultCursor());
