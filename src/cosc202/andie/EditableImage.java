@@ -75,6 +75,8 @@ class EditableImage {
     private static JLabel recordLabel;
     /** The last performed operation */
     private static ImageOperation lastOp;
+    /** Boolean to check if an apply is because of the redo operation */
+    Boolean redo = false;
 
     /**
      * <p>
@@ -347,7 +349,9 @@ class EditableImage {
                 macro.add(op);
             }
             Andie.saved = false;
-            redoOps.clear();
+            if (!redo) {
+                redoOps.clear();
+            }
             Andie.frame.setCursor(Cursor.getDefaultCursor());
         } catch (Exception e) {
             Andie.frame.setCursor(Cursor.getDefaultCursor());
@@ -411,6 +415,7 @@ class EditableImage {
      */
     public void redo() {
         try {
+            redo = true;
             apply(redoOps.pop());
         } catch (EmptyStackException e) {
             System.out.println("Failed to redo or nothing to redo: " + e);
