@@ -26,6 +26,15 @@ import java.awt.image.Kernel;
  */
 
 public class NegativeFilter {
+
+    /**
+     * <p>
+     * Apply a convolution to an image that accounts for negative RGB values.
+     * </p>
+     * 
+     * @param input The image to apply the Negative filter to.
+     * @return The resulting image.
+     */
     public static BufferedImage apply(BufferedImage input, Kernel kernel) {
 
         int midValue = 128;

@@ -59,7 +59,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(bundle.getString("colour"));
+        JMenu colourMenu = new JMenu(bundle.getString("colour"));
 
         for (Action action : actions) {
             JMenuItem item = new JMenuItem();
@@ -68,10 +68,10 @@ public class ColourActions {
             } else {
                 item = Tools.createMenuItem(action, false, false);
             }
-            fileMenu.add(item);
+            colourMenu.add(item);
         }
 
-        return fileMenu;
+        return colourMenu;
     }
 
     /**

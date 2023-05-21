@@ -64,14 +64,14 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(bundle.getString("filter"));
+        JMenu filterMenu = new JMenu(bundle.getString("filter"));
 
         for (Action action : actions) {
             JMenuItem item = Tools.createMenuItem(action, false, false);
-            fileMenu.add(item);
+            filterMenu.add(item);
         }
 
-        return fileMenu;
+        return filterMenu;
     }
 
     /**
@@ -394,7 +394,7 @@ public class FilterActions {
          * 
          * <p>
          * This method is called whenever the MedianFilterAction is triggered.
-         * It prompts the user for a filter radius, then applys an appropriately sized
+         * It prompts the user for a filter radius, then applies an appropriately sized
          * {@link MedianFilter}.
          * </p>
          * 

@@ -31,7 +31,7 @@ import javax.swing.JFrame;
  * Andie uses FlatLaf version 3.1.1 by FormDev Software GmbH
  * https://www.formdev.com/flatlaf/
  * 
- * @author Steven Mills and Tristan Kitto
+ * @author Steven Mills
  * @version 1.0
  */
 public class Andie {
@@ -46,6 +46,7 @@ public class Andie {
     /** String to store the file path of an image when it is first opened */
     public static String imageFilepath;
 
+    // TODO remove these before due date
     public static int x;
     public static int y;
     public static int x2;
@@ -97,6 +98,8 @@ public class Andie {
         createMenuBar();
         createToolBar();
         frame.pack();
+
+        // TODO remove this before due date
         imagePanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 x = me.getX() - 10;
@@ -189,7 +192,7 @@ public class Andie {
      * Open, save,
      * exit, etc.
      * These operations are implemented {@link ImageOperation}s and triggerd via
-     * {@code ImageAction}s grouped by their general purpose into menus.
+     * {@code ImageAction}s.
      * </p>
      * 
      * @see FileActions
@@ -292,6 +295,14 @@ public class Andie {
         frame.setVisible(true);
     }
 
+    /**
+     * <p>
+     * Creates a popup menu for the language options so they can be displayed beside
+     * their toolbar button.
+     * </p>
+     * 
+     * @param button The toolbar button that will display the popup menu.
+     */
     private static void languagePopupMenu(JButton button) {
         JPopupMenu popupMenu = new JPopupMenu();
         LanguageActions languageAction = new LanguageActions();

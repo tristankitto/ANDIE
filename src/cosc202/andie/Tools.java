@@ -8,14 +8,14 @@ import javax.swing.*;
 
 /**
  * <p>
- * Class for generating pop-up boxes to display to the user.
+ * Class for generating error messages to display to the user and setting
+ * keyboard shortcuts to menu items.
  * </p>
  * 
  * <p>
- * This class has methods that are used as templates for pop-up boxes to be
- * displayed to the user for uses such as error handling or getting an input
- * from
- * the user.
+ * This class has methods that are used as templates for error messages to be
+ * displayed to the user as well as creating JMenuItems and assigning them
+ * keyboard shortcuts.
  * </p>
  * 
  * <p>

@@ -73,7 +73,7 @@ class EditableImage {
     private static Stack<ImageOperation> macro = new Stack<ImageOperation>();
     /** The label containing the recording icon for macros */
     private static JLabel recordLabel;
-    /** */
+    /** The last performed operation */
     private static ImageOperation lastOp;
 
     /**
@@ -100,7 +100,7 @@ class EditableImage {
      * Creates a copy of an EditableImage object.
      * </p>
      * 
-     * @param image
+     * @param image The original input image.
      * @return The copy of the input image.
      */
     public static EditableImage copyImage(EditableImage image) {
@@ -312,15 +312,13 @@ class EditableImage {
 
     /**
      * <p>
-     * Save an image to a speficied file.
+     * Save an image's operations to a speficied file.
      * </p>
      * 
      * <p>
-     * Saves an image to the file provided as a parameter.
-     * Also saves a set of operations from the file with <code>.ops</code> added.
+     * Saves a set of operations from the file with <code>.ops</code> added.
      * So if you save to <code>some/path/to/image.png</code>, this method will also
-     * save
-     * the current operations to <code>some/path/to/image.png.ops</code>.
+     * save the current operations to <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
      * @param imageFilename The file location to save the image to.
@@ -377,6 +375,11 @@ class EditableImage {
         Andie.frame.setCursor(Cursor.getDefaultCursor());
     }
 
+    /**
+     * Adds the last performed {@link ImageOperation} to the ops stack. This is used
+     * to make a temporary apply into a permanent one without reapplying the whole
+     * operation.
+     */
     public void addLastOp() {
         ops.add(lastOp);
     }
@@ -468,11 +471,7 @@ class EditableImage {
 
     /**
      * <p>
-     * Records a macro.
-     * <p>
-     * 
-     * <p>
-     * 
+     * Records and stops recording a macro.
      * <p>
      */
     public void recordMacro() {
@@ -482,17 +481,19 @@ class EditableImage {
         recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
         recordLabel = new JLabel(recordIcon);
         LookAndFeel currentTheme = UIManager.getLookAndFeel();
-        /** 
-        if(currentTheme.getName().equals("FlatLaf Light")) {
-            recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
-        } else {
-            recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("recordINVERT.png"));
-        }
-        */
+        /**
+         * if(currentTheme.getName().equals("FlatLaf Light")) {
+         * recordIcon = new
+         * ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
+         * } else {
+         * recordIcon = new
+         * ImageIcon(Andie.class.getClassLoader().getResource("recordINVERT.png"));
+         * }
+         */
         if (isMacroRecording) {
             // add recording icon to tool bar
             Andie.toolBar.add(Box.createHorizontalGlue());
-           // Andie.toolBar.add(new JLabel(recordIcon));
+            // Andie.toolBar.add(new JLabel(recordIcon));
             Andie.toolBar.add(recordLabel);
             Andie.frame.setVisible(true);
         } else {
@@ -550,6 +551,9 @@ class EditableImage {
         }
     }
 
+    /**
+     * Resets macro stack so the macros can be recorded from scratch.
+     */
     public void resetMacro() {
         try {
 

@@ -68,7 +68,7 @@ public class EmbossActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Emboss");
+        JMenu embossMenu = new JMenu("Emboss");
 
         for (Action action : actions) {
             JMenuItem item;
@@ -78,12 +78,18 @@ public class EmbossActions {
             } else {
                 item = Tools.createMenuItem(action, false, true);
             }
-            fileMenu.add(item);
+            embossMenu.add(item);
         }
 
-        return fileMenu;
+        return embossMenu;
     }
 
+    /**
+     * <p>
+     * Action to apply a west emboss filter.
+     * </p>
+     * 
+     */
     public class Emboss1Action extends ImageAction {
         /**
          * <p>
@@ -120,6 +126,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a north west emboss filter.
+     * </p>
+     * 
+     */
     public class Emboss2Action extends ImageAction {
         /**
          * <p>
@@ -156,6 +168,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a north emboss filter.
+     * </p>
+     * 
+     */
     public class Emboss3Action extends ImageAction {
         /**
          * <p>
@@ -192,6 +210,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a north east emboss filter.
+     * </p>
+     * 
+     */
     public class Emboss4Action extends ImageAction {
         /**
          * <p>
@@ -228,6 +252,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a east emboss filter.
+     * </p>
+     * 
+     */
     public class Emboss5Action extends ImageAction {
         /**
          * <p>
@@ -264,6 +294,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a south east emboss filter.
+     * </p>
+     * 
+     */
     public class Emboss6Action extends ImageAction {
         /**
          * <p>
@@ -300,6 +336,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a south emboss filter.
+     * </p>
+     * 
+     */
     public class Emboss7Action extends ImageAction {
         /**
          * <p>
@@ -336,6 +378,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a south west emboss filter.
+     * </p>
+     * 
+     */
     public class Emboss8Action extends ImageAction {
         /**
          * <p>
@@ -372,6 +420,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a horizontal sobel filter.
+     * </p>
+     * 
+     */
     public class SobelHorizontalAction extends ImageAction {
         /**
          * <p>
@@ -408,6 +462,12 @@ public class EmbossActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a vertical sobel filter.
+     * </p>
+     * 
+     */
     public class SobelVerticalAction extends ImageAction {
         /**
          * <p>

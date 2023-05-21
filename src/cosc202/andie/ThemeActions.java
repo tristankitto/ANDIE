@@ -8,7 +8,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 /**
  * <p>
- * Actions proided by the theme menu
+ * Actions provided by the theme menu
  * </p>
  * 
  * The Theme menu contains actions that change the 'theme' of Andie from light
@@ -74,7 +74,7 @@ public class ThemeActions {
      * <p>
      * Action to change theme to dark mode
      * </p>
-     *  </p>
+     * </p>
      * 
      * @param name     The name of the action (ignored if null).
      * @param icon     An icon to use to represent the action (ignored if null).
@@ -88,8 +88,8 @@ public class ThemeActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            
-            try {  
+
+            try {
                 UIManager.setLookAndFeel(new FlatDarkLaf());
                 SwingUtilities.updateComponentTreeUI(Andie.frame);
                 Andie.removeToolBar();
