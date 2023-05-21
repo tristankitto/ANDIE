@@ -7,7 +7,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
  A list of functions and their uses can be found below:
 
 ## File
-<img src=./file_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/file_screenshot.png width = "300" height = "300" align = "top">
 
 - Open
     - The open option brings up a menu for a user to select an image to be opened and edited in **ANDIE**. Any image that is invalid (such as corrupt images), or any non-image file, will display an error to the user and prompt them to choose a different file instead. 
@@ -21,7 +21,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - Exit will exit **ANDIE**. If the user's image is unsaved then they will be prompted to save before closing, but have the option to decline.
 
 ## Edit
-<img src=./edit_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/edit_screenshot.png width = "300" height = "300" align = "top">
 
 - Undo
     - The undo function allows the user to undo their most recent change to the current image. If there is nothing to undo then the user will be made aware of this with an informative pop-up box.
@@ -29,7 +29,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - The redo function allows the user to redo their most recently undone change to the current image. If there is nothing to redo then the user will be made aware of this with an informative pop-up box.
 
 ## View
-<img src=./view_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/view_screenshot.png width = "300" height = "300" align = "top">
 
 - Zoom In
     - This function will zoom in the user's image by 10%. This does not make permanent changes to the image, it only changes the way the image is displayed inside of **ANDIE**.
@@ -51,7 +51,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This function will change the size of the image. This, unlike zooming, will make a permanent change to the image (once exported or saved). This function uses an input taken from the user. The minimum value allowed is 0% and the maximum is 200%.
 
 ## Filter
-<img src=./filter_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/filter_screenshot.png width = "300" height = "300" align = "top">
 
 - Mean Filter
     - This filter will apply a blur to the image based on the average colour of each pixel's neighbouring pixels. This filter depends on a radius input. The minimum value for the radius is 1 and the maximum is 10.
@@ -65,7 +65,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This filter will apply a blur to the image based on the median colour of each pixel's neighbouring pixels. This filter depends on a radius input. The minimum value for the radius is 1 and the maximum is 10.
 
 ## Colour
-<img src=./colour_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/colour_screenshot.png width = "300" height = "300" align = "top">
 
 - Greyscale
     - This filter will change the image's colours to be in greyscale instead of full colour.
@@ -75,8 +75,8 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This filter will change the brightness and contrast of the image. The user will be prompted to input a percentage change for the brightness and then a percentage change for the contrast. The minimum percentage for both brightness and contrast is -100% and the maximum for both is 100%. 0% brightness or contrast will leave the image unchanged.
 
 ## Language
-<img src=./language_screenshot.png width = "300" height = "300" align = "top"> 
-<img src=./maori_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/language_screenshot.png width = "300" height = "300" align = "top"> 
+<img src=README_screenshots/maori_screenshot.png width = "300" height = "300" align = "top">
 
 
 - Languages
@@ -132,14 +132,14 @@ Cross-platform testing was performed on Windows and Mac. Testing was done concur
 Every team member was involved with testing to some degree. Team members tested their own code as it was written and after it was completed to confirm it was robust and satisfied the specifications. Team members also tested each other's code to double check integrity. After the bulk of the developing was completed, the team worked together to devise test cases and methods for a wide-scale approach.
 
 ## Test image
-<img src=./pixilart-drawing.png width = "300" height = "300">
+<img src=Test_images/pixilart-drawing.png width = "300" height = "300">
 
 A white 100x100 pixels image was created, then black pixels were dotted around sporadically with sections of varying density of black pixels. This was used to test the following filters:
 - Mean filter: the output should have the black pixels "bleeding" outwards, expanding in a small cloud of grey as the mean of black and white pixels is grey. The expected output was observed.
 - Median filter: the output should have sparse black pixels being "outvoted" and turned white, while larger clumps of black pixels remain black. The expected output was observed.
 
 ## Image flip bug
-![Penguin Image](./transparentPenguin_test.png)
+![Penguin Image](Test_images/transparentPenguin_test.png)
 
 Image flip and rotation operations were tested with square and rectangular images and worked without any issues, however a bug was encountered when vertically flipping the penguin image where a horizontal white line was created, bisecting the output image. It was found that this bug occurred because the image had an odd number of pixels in its height.
 
@@ -151,7 +151,7 @@ This bug was patched with additional code that runs if width or height is odd an
 Gaussian Blur on opaque images creates a black border and on transparent images, it cuts off that border. This is because the operation looks at a pixel's neighbours to determine the output colour, and pixels on the borders will not have enough of these neighbours. This bug will be handled in part 2 of this assignment. 
 
 ## 4k Images
-![Cosmic Cat](./cosmic_cat.jpg)
+![Cosmic Cat](Test_images/cosmic_cat.jpg)
 This 3840 x 2160 image was used to test some of the more process intensive filters like Median Filter. Although they took a while to run, no issues were encountered.
 
 ## Corrupt Images

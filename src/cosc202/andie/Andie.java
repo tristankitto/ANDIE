@@ -77,7 +77,7 @@ public class Andie {
         FlatLightLaf.setup();
         frame = new JFrame("ANDIE");
 
-        Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+        Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icons/icon.png"));
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
@@ -219,21 +219,21 @@ public class Andie {
         ImageIcon exitIcon;
 
         if (currentTheme.getName().equals("FlatLaf Light")) {
-            openIcon = new ImageIcon(Andie.class.getClassLoader().getResource("folder-open.png"));
-            saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("disk.png"));
-            undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("undo-alt.png"));
-            redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("redo-alt.png"));
-            zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("search.png"));
-            languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("language_icon.png"));
-            exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("exit.png"));
+            openIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/folder-open.png"));
+            saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/disk.png"));
+            undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/undo-alt.png"));
+            redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/redo-alt.png"));
+            zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/search.png"));
+            languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/language_icon.png"));
+            exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/exit.png"));
         } else {
-            openIcon = new ImageIcon(Andie.class.getClassLoader().getResource("folder-openINVERT.png"));
-            saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("diskINVERT.png"));
-            undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("undo-altINVERT.png"));
-            redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("redo-altINVERT.png"));
-            zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("searchINVERT.png"));
-            languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("language_iconINVERT.png"));
-            exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("exitINVERT.png"));
+            openIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/folder-openINVERT.png"));
+            saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/diskINVERT.png"));
+            undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/undo-altINVERT.png"));
+            redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/redo-altINVERT.png"));
+            zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/searchINVERT.png"));
+            languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/language_iconINVERT.png"));
+            exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/exitINVERT.png"));
         }
 
         JButton button1 = new JButton();

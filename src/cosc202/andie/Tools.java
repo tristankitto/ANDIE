@@ -47,7 +47,7 @@ public class Tools {
                 bundle.getString(errorType + "Message"),
                 bundle.getString(errorType), JOptionPane.OK_OPTION,
                 JOptionPane.QUESTION_MESSAGE, new ImageIcon(Tools.class.getClassLoader().getResource(
-                        "error_icon.png")),
+                        "icons/error_icon.png")),
                 options, options[0]);
         if (n == 0) {
             return;
