@@ -4,6 +4,10 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 /**
  * <p>
  * Actions provided by the Edit menu.
@@ -144,6 +148,190 @@ public class EditActions {
             target.getImage().redo();
             target.repaint();
             target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to add text.
+     * </p>
+     * 
+     * @see Text#apply()
+     */
+    public class TextAction extends ImageAction {
+
+        static int startX = target.getWidth()/2;
+        static int startY = target.getHeight()/2;
+        static int x = 0;
+        static int y = 0;
+        static int endX = target.getWidth();
+        static int endY = target.getHeight();
+        static boolean text = false;
+        static boolean isTexting = false;
+        EditableImage image = target.getImage();
+        public static Color colour;
+        public static String font;
+        public static int fontSize;
+        public static Font fontFull;
+
+        /**
+         * <p>
+         * Create a new text action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        TextAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the text action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the TextAction is triggered.
+         * It adds a text box.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            if (isTexting || image.getCurrentImage() == null) {
+                return;
+            }
+            
+            isTexting = true;
+
+            EditableImage imageCopy = EditableImage.copyImage(image);
+
+            target.setImage(imageCopy);
+
+            colour = Color.BLACK;
+            font = "Impact";
+            fontSize = 24;
+
+            double scale = target.getZoom() / 100;
+
+            // Copy from Commit 5f3c56a3 View Actions 
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(350, 100));
+            panel.setLayout (new GridLayout(1, 3));
+
+            JButton colourButton = new JButton(bundle.getString("colour"));
+            colourButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    colour = JColorChooser.showDialog(Andie.frame, bundle.getString("selectColour"), Color.BLACK);
+                }
+            });
+
+            JButton fontButton = new JButton(bundle.getString("font"));
+            fontButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String[] fonts = {"Comic Sans", "Impact", "Times New Roman"};
+                    JComboBox<String> comboBox = new JComboBox(fonts);
+
+                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("font"), 
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+                    if (option == JOptionPane.OK_OPTION) {
+                        font = (String) comboBox.getSelectedItem();
+                    }
+                }
+            });
+
+            JButton fontSizeButton = new JButton(bundle.getString("fontSize"));
+            fontSizeButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Integer[] fontSizes = {8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 72, 96};
+                    JComboBox<Integer> comboBox = new JComboBox<>(fontSizes);
+
+                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("fontSize"), 
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    fontSize = (int) comboBox.getSelectedItem();
+                }
+                }
+            });
+
+            if (!isTexting)
+                return;
+
+            startX = 0;
+            startY = 0;
+            endX = target.getWidth();
+            endY = target.getHeight();
+
+            target.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+            MouseListener mouseListener = new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    text = true;
+                    startX = e.getX();
+                    startY = e.getY();
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    text = false;
+                    isTexting = false;
+
+                    // Draw the text box
+                    image.apply(new DrawShapes((int) (startX / scale), (int) (startY / scale), (int) (endX / scale), (int) (endY / scale),
+                     "Rectangle", Color.BLACK, new BasicStroke(1)));
+
+                    // Add text
+                    image.apply(new Text(startX, startY, endX, endY, colour, font, fontSize));
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+
+                    // Remove the mouse listeners after the text adding is done
+                    target.removeMouseListener(this);
+                    target.setCursor(Cursor.getDefaultCursor());
+
+                }
+            };
+
+            target.addMouseListener(mouseListener);
+
+            MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
+                public void mouseDragged(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    target.repaint();
+                }
+            };
+
+            target.addMouseMotionListener(mouseMotionListener);
+
+            Action keyAction = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    target.removeMouseListener(mouseListener);
+                    target.removeMouseMotionListener(mouseMotionListener);
+                    target.setCursor(Cursor.getDefaultCursor());
+                    return;
+                }
+            };
+            KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
+            Andie.imagePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "keyAction");
+            Andie.imagePanel.getActionMap().put("keyAction", keyAction);
+        
+            panel.add(colourButton);
+            panel.add(fontButton);
+            panel.add(fontSizeButton);
+            // Andie.removeToolBar();
+            // Andie.frame.add(panel, BorderLayout.PAGE_START);
+            // Andie.frame.setVisible(true);
         }
     }
 
