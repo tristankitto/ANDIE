@@ -221,3 +221,6 @@ In the `Andie` class parts of the `createAndShowGUI` method have been moved out 
  https://www.formdev.com/flatlaf/
 
  'Andie' uses free icons from https://www.flaticon.com/free-icons/free 
+
+## Attributions
+ 'Andie' uses a 'record icon' attributed to: <a href="https://www.flaticon.com/free-icons/record" title="record icons">Record icons created by Andrean Prabowo - Flaticon</a>
