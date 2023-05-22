@@ -60,7 +60,7 @@ public class ThemeActions {
         for (Action action : actions) {
             JMenuItem item;
             if (action instanceof LightModeAction || action instanceof DarkModeAction) {
-                item = Tools.createMenuItem(action, true, false);
+                item = Tools.createMenuItem(action, false, true);
             } else {
                 item = Tools.createMenuItem(action, false, false);
             }
@@ -88,6 +88,12 @@ public class ThemeActions {
         }
 
         public void actionPerformed(ActionEvent e) {
+            if (ViewActions.CropAction.isCropping) {
+                ViewActions.CropAction.stopCropping();
+            }
+            if (InsertActions.DrawShapesAction.isDrawing) {
+                InsertActions.DrawShapesAction.stopDrawing();
+            }
 
             try {
                 UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -117,6 +123,12 @@ public class ThemeActions {
         }
 
         public void actionPerformed(ActionEvent e) {
+            if (ViewActions.CropAction.isCropping) {
+                ViewActions.CropAction.stopCropping();
+            }
+            if (InsertActions.DrawShapesAction.isDrawing) {
+                InsertActions.DrawShapesAction.stopDrawing();
+            }
             try {
                 UIManager.setLookAndFeel(new FlatLightLaf());
                 SwingUtilities.updateComponentTreeUI(Andie.frame);

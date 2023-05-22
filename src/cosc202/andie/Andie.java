@@ -46,13 +46,6 @@ public class Andie {
     /** String to store the file path of an image when it is first opened */
     public static String imageFilepath;
 
-    // TODO remove these before due date
-    public static int x;
-    public static int y;
-    public static int x2;
-    public static int y2;
-    public static boolean repaint;
-
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -99,22 +92,6 @@ public class Andie {
         createToolBar();
         frame.pack();
 
-        // TODO remove this before due date
-        imagePanel.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent me) {
-                x = me.getX() - 10;
-                y = me.getY() - 10;
-                System.out.println(x + " " + y);
-            }
-
-            public void mouseReleased(MouseEvent me) {
-                x2 = me.getX() - 10;
-                y2 = me.getY() - 10;
-                System.out.println(x2 + " " + y2);
-                imagePanel.repaint();
-            }
-        });
-
     }
 
     /**
@@ -153,6 +130,9 @@ public class Andie {
         EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
+        InsertActions insertActions = new InsertActions();
+        menuBar.add(insertActions.createMenu());
+
         // View actions control how the image is displayed, but do not alter its actual
         // content
         ViewActions viewActions = new ViewActions();
@@ -177,6 +157,33 @@ public class Andie {
         settingsMenu.add(themeActions.createMenu());
         settingsMenu.add(languageActions.createMenu());
         menuBar.add(settingsMenu);
+
+        ActionListener menuItemListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ViewActions.CropAction.isCropping) {
+                    ViewActions.CropAction.stopCropping();
+                }
+                if (InsertActions.DrawShapesAction.isDrawing) {
+                    InsertActions.DrawShapesAction.stopDrawing();
+                }
+            }
+        };
+
+        for (int i = 0; i < menuBar.getMenuCount(); i++) {
+            for (Component component : menuBar.getMenu(i).getMenuComponents()) {
+                if (component instanceof JMenuItem) {
+                    JMenuItem item = (JMenuItem) component;
+                    item.addActionListener(menuItemListener);
+                } else if (component instanceof JMenu) {
+                    JMenu menu = (JMenu) component;
+                    for (Component menuComponent : menu.getMenuComponents()) {
+                        JMenuItem menuItem = (JMenuItem) menuComponent;
+                        menuItem.addActionListener(menuItemListener);
+                    }
+                }
+            }
+        }
 
         frame.setJMenuBar(menuBar);
         frame.setVisible(true);
@@ -214,7 +221,9 @@ public class Andie {
         ImageIcon saveIcon;
         ImageIcon undoIcon;
         ImageIcon redoIcon;
+        ImageIcon cropIcon;
         ImageIcon zoomIcon;
+        ImageIcon macroIcon;
         ImageIcon languageIcon;
         ImageIcon exitIcon;
 
@@ -223,7 +232,9 @@ public class Andie {
             saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/disk.png"));
             undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/undo-alt.png"));
             redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/redo-alt.png"));
+            cropIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/tool-crop.png"));
             zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/search.png"));
+            macroIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/circle-video.png"));
             languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/language_icon.png"));
             exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/exit.png"));
         } else {
@@ -231,7 +242,9 @@ public class Andie {
             saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/diskINVERT.png"));
             undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/undo-altINVERT.png"));
             redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/redo-altINVERT.png"));
+            cropIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/tool-cropINVERT.png"));
             zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/searchINVERT.png"));
+            macroIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/circle-videoINVERT.png"));
             languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/language_iconINVERT.png"));
             exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/exitINVERT.png"));
         }
@@ -260,11 +273,28 @@ public class Andie {
         button4.setToolTipText(bundle.getString("redo"));
         toolBar.add(button4);
 
+        JButton button9 = new JButton();
+        button9.setIcon(cropIcon);
+        button9.addActionListener(viewActions.createMenu().getItem(8).getAction());
+        button9.setToolTipText(bundle.getString("crop"));
+        toolBar.add(button9);
+
         JButton button5 = new JButton();
         button5.setIcon(zoomIcon);
         button5.addActionListener(viewActions.createMenu().getItem(0).getAction());
         button5.setToolTipText(bundle.getString("changeZoom"));
         toolBar.add(button5);
+
+        JButton button8 = new JButton();
+        button8.setIcon(macroIcon);
+        button8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                macroPopupMenu(button8);
+            }
+        });
+        button8.setToolTipText(bundle.getString("language"));
+        toolBar.add(button8);
 
         JButton button7 = new JButton();
         button7.setIcon(languageIcon);
@@ -282,14 +312,31 @@ public class Andie {
         button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
         button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
-        /**
-         * ImageIcon crop= new
-         * ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
-         * JButton button7 = new JButton();
-         * button7.setIcon(crop);
-         * button7.addActionListener(///.createMenu().getItem(4).getAction());
-         * toolBar.add(button7);
-         */
+
+        ActionListener toolbarItemListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ViewActions.CropAction.isCropping) {
+                    ViewActions.CropAction.stopCropping();
+                }
+                if (InsertActions.DrawShapesAction.isDrawing) {
+                    InsertActions.DrawShapesAction.stopDrawing();
+                }
+            }
+        };
+
+        for (Component component : toolBar.getComponents()) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                button.addActionListener(toolbarItemListener);
+            } else if (component instanceof JMenu) {
+                JMenu menu = (JMenu) component;
+                for (Component menuComponent : menu.getMenuComponents()) {
+                    JMenuItem menuItem = (JMenuItem) menuComponent;
+                    menuItem.addActionListener(toolbarItemListener);
+                }
+            }
+        }
 
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.setVisible(true);
@@ -309,6 +356,25 @@ public class Andie {
         for (Action language : languageAction.actions) {
             popupMenu.add(language);
         }
+        // Show the popup menu relative to the button
+        popupMenu.show(button, 0, button.getHeight());
+    }
+
+    /**
+     * <p>
+     * Creates a popup menu for the macri options so they can be displayed beside
+     * their toolbar button.
+     * </p>
+     * 
+     * @param button The toolbar button that will display the popup menu.
+     */
+    private static void macroPopupMenu(JButton button) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        FileActions macroActions = new FileActions();
+        popupMenu.add(macroActions.createMenu().getItem(4).getAction());
+        popupMenu.add(macroActions.createMenu().getItem(5).getAction());
+        popupMenu.add(macroActions.createMenu().getItem(6).getAction());
+        popupMenu.add(macroActions.createMenu().getItem(7).getAction());
         // Show the popup menu relative to the button
         popupMenu.show(button, 0, button.getHeight());
     }

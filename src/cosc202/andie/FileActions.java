@@ -132,6 +132,7 @@ public class FileActions {
                         Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                         EditableImage.clearStacks(target.getImage());
                         target.getImage().open(Andie.imageFilepath);
+                        target.setZoom(100);
                     } catch (Exception ex) {
                         Tools.errorMessage(ex, "fileOpenError");
                     }
@@ -163,6 +164,7 @@ public class FileActions {
                             Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                             EditableImage.clearStacks(target.getImage());
                             target.getImage().open(Andie.imageFilepath);
+                            target.setZoom(100);
                         } catch (Exception ex) {
                             Tools.errorMessage(ex, "fileOpenError");
                         }
@@ -179,6 +181,7 @@ public class FileActions {
                             Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                             EditableImage.clearStacks(target.getImage());
                             target.getImage().open(Andie.imageFilepath);
+                            target.setZoom(100);
                         } catch (Exception ex) {
                             Tools.errorMessage(ex, "fileOpenError");
                         }
@@ -412,6 +415,9 @@ public class FileActions {
                                 JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
                         if (n == 0) {
                             if (extensionCheck) {
+                                if (!extension.toLowerCase().equals("png")) {
+                                    target.getImage().apply(new RemoveTransparency());
+                                }
                                 target.getImage().exportImage(imageFilepath, extension);
                             } else {
                                 target.getImage().exportImage(imageFilepath);
@@ -419,6 +425,9 @@ public class FileActions {
                         }
                     } else {
                         if (extensionCheck) {
+                            if (!extension.toLowerCase().equals("png")) {
+                                target.getImage().apply(new RemoveTransparency());
+                            }
                             target.getImage().exportImage(imageFilepath, extension);
                         } else {
                             target.getImage().exportImage(imageFilepath);
@@ -472,7 +481,6 @@ public class FileActions {
                 target.getImage().recordMacro();
             } catch (Exception ex) {
                 Tools.errorMessage(ex, "fileRecordMacroError");
-                ex.printStackTrace();
             }
         }
     }

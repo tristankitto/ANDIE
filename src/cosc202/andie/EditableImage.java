@@ -396,7 +396,13 @@ class EditableImage {
      */
     public void undo() {
         try {
-            redoOps.push(ops.pop());
+            while (!ops.isEmpty()) {
+                ImageOperation op = ops.pop();
+                redoOps.push(op);
+                if (!(op instanceof FreeDraw)) {
+                    break;
+                }
+            }
             refresh();
             Andie.saved = false;
             if (isMacroRecording) {
@@ -417,7 +423,14 @@ class EditableImage {
     public void redo() {
         try {
             redo = true;
-            apply(redoOps.pop());
+            while (!redoOps.isEmpty()) {
+                ImageOperation op = redoOps.pop();
+                ops.push(op);
+                if (!(op instanceof FreeDraw)) {
+                    break;
+                }
+            }
+            refresh();
         } catch (EmptyStackException e) {
             System.out.println("Failed to redo or nothing to redo: " + e);
         } catch (Exception ex) {
@@ -486,26 +499,16 @@ class EditableImage {
         ImageIcon recordIcon;
         recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/record.png"));
         recordLabel = new JLabel(recordIcon);
-        LookAndFeel currentTheme = UIManager.getLookAndFeel();
-        /**
-         * if(currentTheme.getName().equals("FlatLaf Light")) {
-         * recordIcon = new
-         * ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
-         * } else {
-         * recordIcon = new
-         * ImageIcon(Andie.class.getClassLoader().getResource("recordINVERT.png"));
-         * }
-         */
+
         if (isMacroRecording) {
             // add recording icon to tool bar
-            Andie.toolBar.add(Box.createHorizontalGlue());
-            // Andie.toolBar.add(new JLabel(recordIcon));
-            Andie.toolBar.add(recordLabel);
+            Andie.menuBar.add(Box.createHorizontalGlue());
+            Andie.menuBar.add(recordLabel);
             Andie.frame.setVisible(true);
         } else {
             // remove recording icon from tool bar
-            Andie.toolBar.remove(recordLabel);
-            Andie.createToolBar();
+            Andie.menuBar.remove(recordLabel);
+            Andie.createMenuBar();
             Andie.frame.setVisible(true);
         }
 

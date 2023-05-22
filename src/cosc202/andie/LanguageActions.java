@@ -114,6 +114,12 @@ public class LanguageActions {
                  * @param e The event triggering this callback.
                  */
                 public void actionPerformed(ActionEvent e) {
+                        if (ViewActions.CropAction.isCropping) {
+                                ViewActions.CropAction.stopCropping();
+                        }
+                        if (InsertActions.DrawShapesAction.isDrawing) {
+                                InsertActions.DrawShapesAction.stopDrawing();
+                        }
                         Locale.setDefault(new Locale(language));
                         try (BufferedWriter writer = new BufferedWriter(
                                         new FileWriter("src/cosc202/andie/LanguageResources/language_pref.txt"))) {

@@ -7,7 +7,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
  A list of functions and their uses can be found below:
 
 ## File
-<img src=README_screenshots/file_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/file_screenshot.PNG width = "300" height = "300" align = "top">
 
 - Open
     - The open option brings up a menu for a user to select an image to be opened and edited in **ANDIE**. Any image that is invalid (such as corrupt images), or any non-image file, will display an error to the user and prompt them to choose a different file instead. 
@@ -21,7 +21,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - Exit will exit **ANDIE**. If the user's image is unsaved then they will be prompted to save before closing, but have the option to decline.
 
 ## Edit
-<img src=README_screenshots/edit_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/edit_screenshot.PNG width = "300" height = "300" align = "top">
 
 - Undo
     - The undo function allows the user to undo their most recent change to the current image. If there is nothing to undo then the user will be made aware of this with an informative pop-up box.
@@ -29,7 +29,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - The redo function allows the user to redo their most recently undone change to the current image. If there is nothing to redo then the user will be made aware of this with an informative pop-up box.
 
 ## View
-<img src=README_screenshots/view_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/view_screenshot.PNG width = "300" height = "300" align = "top">
 
 - Zoom In
     - This function will zoom in the user's image by 10%. This does not make permanent changes to the image, it only changes the way the image is displayed inside of **ANDIE**.
@@ -51,7 +51,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This function will change the size of the image. This, unlike zooming, will make a permanent change to the image (once exported or saved). This function uses an input taken from the user. The minimum value allowed is 0% and the maximum is 200%.
 
 ## Filter
-<img src=README_screenshots/filter_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/filter_screenshot.PNG width = "300" height = "300" align = "top">
 
 - Mean Filter
     - This filter will apply a blur to the image based on the average colour of each pixel's neighbouring pixels. This filter depends on a radius input. The minimum value for the radius is 1 and the maximum is 10.
@@ -65,7 +65,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This filter will apply a blur to the image based on the median colour of each pixel's neighbouring pixels. This filter depends on a radius input. The minimum value for the radius is 1 and the maximum is 10.
 
 ## Colour
-<img src=README_screenshots/colour_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/colour_screenshot.PNG width = "300" height = "300" align = "top">
 
 - Greyscale
     - This filter will change the image's colours to be in greyscale instead of full colour.
@@ -75,8 +75,8 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This filter will change the brightness and contrast of the image. The user will be prompted to input a percentage change for the brightness and then a percentage change for the contrast. The minimum percentage for both brightness and contrast is -100% and the maximum for both is 100%. 0% brightness or contrast will leave the image unchanged.
 
 ## Language
-<img src=README_screenshots/language_screenshot.png width = "300" height = "300" align = "top"> 
-<img src=README_screenshots/maori_screenshot.png width = "300" height = "300" align = "top">
+<img src=README_screenshots/language_screenshot.PNG width = "300" height = "300" align = "top"> 
+<img src=README_screenshots/maori_screenshot.PNG width = "300" height = "300" align = "top">
 
 
 - Languages
@@ -112,6 +112,7 @@ More information on this software and what it does can be found in the [COSC 202
 - Contrast Adjustment
 - Image Export
 - Toolbar for common operations
+- Theme 
 
 ## Tristan - Toolsmith
 - Soft Blur Filter
@@ -218,3 +219,8 @@ In the `Andie` class parts of the `createAndShowGUI` method have been moved out 
 ## Acknowlegements 
 'Andie'  uses open source code library FlatLaf version 3.1.1 by FormDev Software GmbH
  https://www.formdev.com/flatlaf/
+
+ 'Andie' uses free icons from https://www.flaticon.com/free-icons/free 
+
+## Attributions
+ 'Andie' uses a 'record icon' attributed to: <a href="https://www.flaticon.com/free-icons/record" title="record icons">Record icons created by Andrean Prabowo - Flaticon</a>
