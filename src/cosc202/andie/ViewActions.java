@@ -65,6 +65,10 @@ public class ViewActions {
                 Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new DrawRectangleAction(("Rectangle"), null, ("drawRectangle"),
                 Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new DrawOvalAction(("Oval"), null, ("drawOval"),
+                Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new DrawLineAction(("Line"), null, ("drawLine"),
+                Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -762,6 +766,246 @@ public class ViewActions {
                     target.removeMouseMotionListener(mouseMotionListener);
                     target.setCursor(Cursor.getDefaultCursor());
                     isDrawingRectangle = false;
+                    return;
+                }
+            };
+            KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
+            Andie.imagePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "keyAction");
+            Andie.imagePanel.getActionMap().put("keyAction", keyAction);
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to draw a oval with an area given by the user.
+     * </p>
+     */
+    public class DrawOvalAction extends ImageAction {
+
+        static int startX = 0;
+        static int startY = 0;
+        static int x = 0;
+        static int y = 0;
+        static int endX = target.getWidth();
+        static int endY = target.getHeight();
+        static boolean drawOval = false;
+        static boolean isDrawingOval = false;
+        EditableImage image = target.getImage();
+
+        /**
+         * <p>
+         * Create a new draw oval action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        DrawOvalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the draw oval action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the DrawOvalAction is triggered.
+         * It prompts the user for a draw area, then draws the oval.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            if (isDrawingOval || image.getCurrentImage() == null) {
+                return;
+            }
+            isDrawingOval = true;
+            EditableImage imageCopy = EditableImage.copyImage(image);
+
+            double scale = target.getZoom() / 100;
+
+            target.setImage(imageCopy);
+
+            target.repaint();
+
+            startX = 0;
+            startY = 0;
+            endX = target.getWidth();
+            endY = target.getHeight();
+
+            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            MouseListener mouseListener = new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    drawOval = true;
+                    startX = e.getX();
+                    startY = e.getY();
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    drawOval = false;
+                    isDrawingOval = false;
+
+                    // Perform the Oval operation
+                    image.apply(new DrawOval((int) (startX / scale), (int) (startY / scale), (int) (endX / scale), (int) (endY / scale)));
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    
+                    // Remove the mouse listeners after the Drawing is done
+                    target.removeMouseListener(this);
+                    target.setCursor(Cursor.getDefaultCursor());
+
+                }
+            };
+
+            target.addMouseListener(mouseListener);
+
+            MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
+                public void mouseDragged(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    target.repaint();
+                }
+            };
+
+            target.addMouseMotionListener(mouseMotionListener);
+
+            Action keyAction = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    target.removeMouseListener(mouseListener);
+                    target.removeMouseMotionListener(mouseMotionListener);
+                    target.setCursor(Cursor.getDefaultCursor());
+                    isDrawingOval = false;
+                    return;
+                }
+            };
+            KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
+            Andie.imagePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "keyAction");
+            Andie.imagePanel.getActionMap().put("keyAction", keyAction);
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to draw a Line with coordinants given by the user.
+     * </p>
+     */
+    public class DrawLineAction extends ImageAction {
+
+        static int startX = 0;
+        static int startY = 0;
+        static int x = 0;
+        static int y = 0;
+        static int endX = target.getWidth();
+        static int endY = target.getHeight();
+        static boolean drawLine = false;
+        static boolean isDrawingLine = false;
+        EditableImage image = target.getImage();
+
+        /**
+         * <p>
+         * Create a new draw Line action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        DrawLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the draw Line action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the DrawLineAction is triggered.
+         * It prompts the user for a draw area, then draws the Line.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            if (isDrawingLine || image.getCurrentImage() == null) {
+                return;
+            }
+            isDrawingLine = true;
+            EditableImage imageCopy = EditableImage.copyImage(image);
+
+            double scale = target.getZoom() / 100;
+
+            target.setImage(imageCopy);
+
+            target.repaint();
+
+            startX = 0;
+            startY = 0;
+            endX = target.getWidth();
+            endY = target.getHeight();
+
+            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            MouseListener mouseListener = new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    drawLine = true;
+                    startX = e.getX();
+                    startY = e.getY();
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    drawLine = false;
+                    isDrawingLine = false;
+
+                    // Perform the Line operation
+                    image.apply(new DrawLine((int) (startX / scale), (int) (startY / scale), (int) (endX / scale), (int) (endY / scale)));
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    
+                    // Remove the mouse listeners after the Drawing is done
+                    target.removeMouseListener(this);
+                    target.setCursor(Cursor.getDefaultCursor());
+
+                }
+            };
+
+            target.addMouseListener(mouseListener);
+
+            MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
+                public void mouseDragged(MouseEvent e) {
+                    endX = e.getX();
+                    endY = e.getY();
+                    target.repaint();
+                }
+            };
+
+            target.addMouseMotionListener(mouseMotionListener);
+
+            Action keyAction = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    target.removeMouseListener(mouseListener);
+                    target.removeMouseMotionListener(mouseMotionListener);
+                    target.setCursor(Cursor.getDefaultCursor());
+                    isDrawingLine = false;
                     return;
                 }
             };
