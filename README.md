@@ -112,6 +112,7 @@ More information on this software and what it does can be found in the [COSC 202
 - Contrast Adjustment
 - Image Export
 - Toolbar for common operations
+- Theme 
 
 ## Tristan - Toolsmith
 - Soft Blur Filter
@@ -218,3 +219,5 @@ In the `Andie` class parts of the `createAndShowGUI` method have been moved out 
 ## Acknowlegements 
 'Andie'  uses open source code library FlatLaf version 3.1.1 by FormDev Software GmbH
  https://www.formdev.com/flatlaf/
+
+ 'Andie' uses free icons from https://www.flaticon.com/free-icons/free 
