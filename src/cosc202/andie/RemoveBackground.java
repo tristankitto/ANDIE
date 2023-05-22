@@ -39,7 +39,6 @@ public class RemoveBackground implements ImageOperation, java.io.Serializable {
 
         BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        // Count the occurrence of each color
         Map<Integer, Integer> colorCount = new HashMap<>();
 
         for (int y = 0; y < height; ++y) {
@@ -55,7 +54,6 @@ public class RemoveBackground implements ImageOperation, java.io.Serializable {
             }
         }
 
-        // Find the most frequent color (background color)
         int backgroundColor = 0;
         int maxCount = 0;
 
@@ -69,17 +67,14 @@ public class RemoveBackground implements ImageOperation, java.io.Serializable {
             }
         }
 
-        // Calculate the threshold for color similarity
-        int threshold = 100; // Adjust this value as needed
+        int threshold = 150;
 
-        // Remove the background based on the most frequent color and surrounding pixels
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
                 int argb = input.getRGB(x, y);
 
                 if (isSimilarColor(argb, backgroundColor, threshold)
                         && hasSimilarSurroundingPixels(input, x, y, backgroundColor, threshold)) {
-                    // Set the pixel as fully transparent
                     argb &= 0x00FFFFFF;
                 }
 
