@@ -55,7 +55,7 @@ public class Text implements ImageOperation, java.io.Serializable {
      * Add a text box to the image.
      * </p>
      * 
-     * @param input The image to add the text bo to.
+     * @param input The image to add the text box to.
      * @return The resulting (blurred) image.
      */
     // public BufferedImage apply(BufferedImage input) {
@@ -69,7 +69,10 @@ public class Text implements ImageOperation, java.io.Serializable {
 
     public BufferedImage apply(BufferedImage input) {
         // JTextField textField = new JTextField("This is a test. Please remain calm and head to the nearest exit.");
-        // textField.setBounds(startX, startY, endX, endY);
+        // JPanel panel = new JPanel();
+        // panel.setLayout(null);
+        // panel.setBounds(startX, startY, endX, endY);
+        // panel.add(textField);
         // Andie.frame.add(textField);
         // Andie.frame.setVisible(true);
 
@@ -88,11 +91,28 @@ public class Text implements ImageOperation, java.io.Serializable {
             }
         }
         );
+        
 
-        Graphics g = input.getGraphics();
-        g.setFont(font);
+        // Graphics g = input.getGraphics();
+        // g.setFont(font);
+        // g.setColor(Color.BLACK);
+        // g.drawString("Test", startX, startY);
+
+        // return input;
+        String userText = JOptionPane.showInputDialog("Enter text:");
+        if (userText == null || userText.isEmpty()) {
+            return input;
+        }
+
+        Graphics2D g = input.createGraphics();
         g.setColor(Color.BLACK);
-        g.drawString("Test", startX, startY);
+        g.setFont(fontSelection.getFont());
+
+        FontMetrics fontM = g.getFontMetrics();
+        int textHeight = fontM.getHeight();
+
+        g.drawString(userText, startX, startY + textHeight);
+        g.dispose();
 
         return input;
     }
