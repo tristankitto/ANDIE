@@ -194,6 +194,7 @@ public class Andie {
         ImageIcon undoIcon;
         ImageIcon redoIcon;
         ImageIcon zoomIcon;
+        ImageIcon macroIcon;
         ImageIcon languageIcon;
         ImageIcon exitIcon;
 
@@ -203,6 +204,7 @@ public class Andie {
             undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/undo-alt.png"));
             redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/redo-alt.png"));
             zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/search.png"));
+            macroIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/circle-video.png"));
             languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/language_icon.png"));
             exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/exit.png"));
         } else {
@@ -211,6 +213,7 @@ public class Andie {
             undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/undo-altINVERT.png"));
             redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/redo-altINVERT.png"));
             zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/searchINVERT.png"));
+            macroIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/circle-videoINVERT.png"));
             languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/language_iconINVERT.png"));
             exitIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/exitINVERT.png"));
         }
@@ -244,6 +247,17 @@ public class Andie {
         button5.addActionListener(viewActions.createMenu().getItem(0).getAction());
         button5.setToolTipText(bundle.getString("changeZoom"));
         toolBar.add(button5);
+        
+        JButton button8 = new JButton();
+        button8.setIcon(macroIcon);
+        button8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                macroPopupMenu(button8);
+            }
+        });
+        button8.setToolTipText(bundle.getString("language"));
+        toolBar.add(button8);
 
         JButton button7 = new JButton();
         button7.setIcon(languageIcon);
@@ -291,7 +305,24 @@ public class Andie {
         // Show the popup menu relative to the button
         popupMenu.show(button, 0, button.getHeight());
     }
-
+ /**
+     * <p>
+     * Creates a popup menu for the macri options so they can be displayed beside
+     * their toolbar button.
+     * </p>
+     * 
+     * @param button The toolbar button that will display the popup menu.
+     */
+    private static void macroPopupMenu(JButton button) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        FileActions macroActions = new FileActions();
+        popupMenu.add(macroActions.createMenu().getItem(4).getAction());
+        popupMenu.add(macroActions.createMenu().getItem(5).getAction());
+        popupMenu.add(macroActions.createMenu().getItem(6).getAction());
+        popupMenu.add(macroActions.createMenu().getItem(7).getAction());
+        // Show the popup menu relative to the button
+        popupMenu.show(button, 0, button.getHeight());
+    }
     /**
      * <p>
      * Removes a tool bar from the JFrame.
