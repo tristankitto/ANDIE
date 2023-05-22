@@ -35,19 +35,31 @@ public class Text implements ImageOperation, java.io.Serializable {
     private int startY;
     private int endX;
     private int endY;
+    private Color colour;
+    private String font;
+    private int fontSize;
 
     /**
      * <p>
-     * Add a text box to the image.
+     * Create a new add text operation
      * </p>
      * 
-     * @param radius The radius of the newly constructed MedianFilter
+     * @param startX Starting pixel for the text box on the x axis
+     * @param startY Starting pixel for the text box on the y axis
+     * @param endX   Ending pixel for the text box on the x axis
+     * @param endY   Ending pixel for the text box on the y axis
+     * @param colour The colour of the text
+     * @param font The font of the text
+     * @param fontSize The font size of the text
      */
-    Text(int startX, int startY, int endX, int endY) {
+    Text(int startX, int startY, int endX, int endY, Color colour, String font, int fontSize) {
         this.startX = startX;
         this.startY = startY;
         this.endX = endX;
         this.endY = endY;
+        this.colour = colour;
+        this.font = font;
+        this.fontSize = fontSize;
     }
 
     /**
@@ -75,24 +87,13 @@ public class Text implements ImageOperation, java.io.Serializable {
 
         // All fonts
         //String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-
-        // Some fonts
-        // Move this stuff to EditActions, use Filter Actions as template
-
-        String[] fonts = {"Comic Sans", "Impact", "Times New Roman"};
-        Font font = new Font ("Arial", Font.BOLD, 24);
-        JComboBox fontSelection = new JComboBox(fonts);
-        fontSelection.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Font font = new Font((String) fontSelection.getItemAt(fontSelection.getSelectedIndex()), Font.BOLD, 24);
-            }
-        }
-        );
+        
+        Font fontFull = new Font (font, 0, fontSize);
 
         Graphics g = input.getGraphics();
-        g.setFont(font);
-        g.setColor(Color.BLACK);
-        g.drawString("Test", startX, startY);
+        g.setFont(fontFull);
+        g.setColor(colour);
+        g.drawString("Test", startX, startY + fontSize);
 
         return input;
     }

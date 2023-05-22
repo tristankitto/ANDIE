@@ -293,7 +293,7 @@ public class FilterActions {
          * 
          * <p>
          * This method is called whenever the GaussianBlurAction is triggered.
-         * It prompts the user for a filter radius, then applys an appropriately sized
+         * It prompts the user for a filter radius, then applies an appropriately sized
          * {@link GaussianBlur}.
          * </p>
          * 

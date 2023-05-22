@@ -4,9 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import java.util.*;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -173,6 +171,10 @@ public class EditActions {
         static boolean text = false;
         static boolean isTexting = false;
         EditableImage image = target.getImage();
+        public static Color colour;
+        public static String font;
+        public static int fontSize;
+        public static Font fontFull;
 
         /**
          * <p>
@@ -207,12 +209,67 @@ public class EditActions {
             
             isTexting = true;
 
+            EditableImage imageCopy = EditableImage.copyImage(image);
+
+            target.setImage(imageCopy);
+
+            colour = Color.BLACK;
+            font = "Impact";
+            fontSize = 24;
+
+            double scale = target.getZoom() / 100;
+
+            // Copy from Commit 5f3c56a3 View Actions 
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(350, 100));
+            panel.setLayout (new GridLayout(1, 3));
+
+            JButton colourButton = new JButton(bundle.getString("colour"));
+            colourButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    colour = JColorChooser.showDialog(Andie.frame, bundle.getString("selectColour"), Color.BLACK);
+                }
+            });
+
+            JButton fontButton = new JButton(bundle.getString("font"));
+            fontButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String[] fonts = {"Comic Sans", "Impact", "Times New Roman"};
+                    JComboBox<String> comboBox = new JComboBox(fonts);
+
+                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("font"), 
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+                    if (option == JOptionPane.OK_OPTION) {
+                        font = (String) comboBox.getSelectedItem();
+                    }
+                }
+            });
+
+            JButton fontSizeButton = new JButton(bundle.getString("fontSize"));
+            fontSizeButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Integer[] fontSizes = {8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 72, 96};
+                    JComboBox<Integer> comboBox = new JComboBox<>(fontSizes);
+
+                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("fontSize"), 
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    fontSize = (int) comboBox.getSelectedItem();
+                }
+                }
+            });
+
+            if (!isTexting)
+                return;
+
             startX = 0;
             startY = 0;
             endX = target.getWidth();
             endY = target.getHeight();
 
-            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            target.setCursor(new Cursor(Cursor.TEXT_CURSOR));
             MouseListener mouseListener = new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     text = true;
@@ -226,13 +283,17 @@ public class EditActions {
                     text = false;
                     isTexting = false;
 
-                    // Perform the crop operation
-                    image.apply(new Text(startX, startY, endX, endY));
+                    // Draw the text box
+                    image.apply(new DrawShapes((int) (startX / scale), (int) (startY / scale), (int) (endX / scale), (int) (endY / scale),
+                     "Rectangle", Color.BLACK, new BasicStroke(1)));
+
+                    // Add text
+                    image.apply(new Text(startX, startY, endX, endY, colour, font, fontSize));
                     target.setImage(image);
                     target.repaint();
                     target.getParent().revalidate();
 
-                    // Remove the mouse listeners after the crop is done
+                    // Remove the mouse listeners after the text adding is done
                     target.removeMouseListener(this);
                     target.setCursor(Cursor.getDefaultCursor());
 
@@ -266,6 +327,13 @@ public class EditActions {
             KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
             Andie.imagePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "keyAction");
             Andie.imagePanel.getActionMap().put("keyAction", keyAction);
+        
+            panel.add(colourButton);
+            panel.add(fontButton);
+            panel.add(fontSizeButton);
+            // Andie.removeToolBar();
+            // Andie.frame.add(panel, BorderLayout.PAGE_START);
+            // Andie.frame.setVisible(true);
         }
     }
 
