@@ -93,6 +93,7 @@ public class Andie {
         frame.pack();
 
     }
+
     /**
      * <p>
      * Creates the Menu bar and menu items in the GUI for the ANDIE program.
@@ -156,6 +157,27 @@ public class Andie {
         settingsMenu.add(themeActions.createMenu());
         settingsMenu.add(languageActions.createMenu());
         menuBar.add(settingsMenu);
+
+        ActionListener menuItemListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ViewActions.CropAction.isCropping) {
+                    ViewActions.CropAction.stopCropping();
+                }
+                if (InsertActions.DrawShapesAction.isDrawing) {
+                    InsertActions.DrawShapesAction.stopDrawing();
+                }
+            }
+        };
+
+        for (int i = 0; i < menuBar.getMenuCount(); i++) {
+            for (Component component : menuBar.getMenu(i).getMenuComponents()) {
+                if (component instanceof JMenuItem) {
+                    JMenuItem item = (JMenuItem) component;
+                    item.addActionListener(menuItemListener);
+                }
+            }
+        }
 
         frame.setJMenuBar(menuBar);
         frame.setVisible(true);

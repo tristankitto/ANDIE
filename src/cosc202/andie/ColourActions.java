@@ -49,10 +49,10 @@ public class ColourActions {
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new BrightnessContrastAction(bundle.getString("brightness/Contrast"), null,
                 bundle.getString("adjustBrightness/Contrast"), Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new RemoveBackgroundAction("Remove background", null,
-                "Remove background", Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new RemoveTransparencyAction("Remove transparency", null,
-                "Remove transparency", Integer.valueOf(KeyEvent.VK_T)));
+        actions.add(new RemoveBackgroundAction(bundle.getString("removeBackground"), null,
+                bundle.getString("removeBackground"), Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RemoveTransparencyAction(bundle.getString("removeTransparency"), null,
+                bundle.getString("removeTransparency"), Integer.valueOf(KeyEvent.VK_T)));
     }
 
     /**

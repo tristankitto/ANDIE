@@ -67,7 +67,7 @@ public class RemoveBackground implements ImageOperation, java.io.Serializable {
             }
         }
 
-        int threshold = 150;
+        int threshold = 100;
 
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
