@@ -113,6 +113,7 @@ More information on this software and what it does can be found in the [COSC 202
 - Image Export
 - Toolbar for common operations
 - Theme 
+- README acknowlegements 
 
 ## Tristan - Toolsmith
 - Soft Blur Filter
