@@ -195,22 +195,6 @@ public class ImagePanel extends JPanel {
                 }
             }
 
-            if (ViewActions.DrawOvalAction.drawOval) {
-                int width = Math.abs(ViewActions.DrawOvalAction.endX - ViewActions.DrawOvalAction.startX);
-                int height = Math.abs(ViewActions.DrawOvalAction.endY - ViewActions.DrawOvalAction.startY);
-                int startX = Math.min(ViewActions.DrawOvalAction.startX, ViewActions.DrawOvalAction.endX);
-                int startY = Math.min(ViewActions.DrawOvalAction.startY, ViewActions.DrawOvalAction.endY);
-                Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(new Color(255, 255, 255, 128));
-                g2d.drawOval(startX, startY, width, height);
-            }
-
-            if (ViewActions.DrawLineAction.drawLine) {
-                Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(new Color(255, 255, 255, 128));
-                g2d.drawLine(ViewActions.DrawLineAction.startX, ViewActions.DrawLineAction.startY, ViewActions.DrawLineAction.endX, ViewActions.DrawLineAction.endY);
-            }
-
             if (EditActions.TextAction.text) {
                 int width = Math.abs(EditActions.TextAction.endX - EditActions.TextAction.startX);
                 int height = Math.abs(EditActions.TextAction.endY - EditActions.TextAction.startY);
