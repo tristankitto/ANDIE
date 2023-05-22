@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 import java.awt.image.Kernel;
 
+//TODO remove this class if it is unneeded
 /**
  * <p>
  * ImageOperation to apply a Emboss and Edge Detection filters.
