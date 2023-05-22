@@ -543,7 +543,9 @@ public class ViewActions {
         static int endY = target.getHeight();
         static boolean crop = false;
         static boolean isCropping = false;
-        EditableImage image = target.getImage();
+        static EditableImage image = target.getImage();
+        static MouseListener mouseListener;
+        static MouseMotionListener mouseMotionListener;
 
         /**
          * <p>
@@ -591,7 +593,7 @@ public class ViewActions {
             endY = target.getHeight();
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-            MouseListener mouseListener = new MouseAdapter() {
+            mouseListener = new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     crop = true;
                     startX = e.getX();
@@ -602,25 +604,18 @@ public class ViewActions {
                     endX = e.getX();
                     endY = e.getY();
                     crop = false;
-                    isCropping = false;
 
                     // Perform the crop operation
                     image.apply(new Crop((int) (startX / scale), (int) (startY / scale),
                             (int) (endX / scale), (int) (endY / scale)));
-                    target.setImage(image);
-                    target.repaint();
-                    target.getParent().revalidate();
-
-                    // Remove the mouse listeners after the crop is done
-                    target.removeMouseListener(this);
-                    target.setCursor(Cursor.getDefaultCursor());
+                    stopCropping();
 
                 }
             };
 
             target.addMouseListener(mouseListener);
 
-            MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
+            mouseMotionListener = new MouseMotionAdapter() {
                 public void mouseDragged(MouseEvent e) {
                     endX = e.getX();
                     endY = e.getY();
@@ -633,19 +628,22 @@ public class ViewActions {
             Action keyAction = new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    target.setImage(image);
-                    target.repaint();
-                    target.getParent().revalidate();
-                    target.removeMouseListener(mouseListener);
-                    target.removeMouseMotionListener(mouseMotionListener);
-                    target.setCursor(Cursor.getDefaultCursor());
-                    isCropping = false;
-                    return;
+                    stopCropping();
                 }
             };
             KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
             Andie.imagePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "keyAction");
             Andie.imagePanel.getActionMap().put("keyAction", keyAction);
+        }
+
+        public static void stopCropping() {
+            target.setImage(image);
+            target.repaint();
+            target.getParent().revalidate();
+            target.removeMouseListener(mouseListener);
+            target.removeMouseMotionListener(mouseMotionListener);
+            target.setCursor(Cursor.getDefaultCursor());
+            isCropping = false;
         }
 
     }

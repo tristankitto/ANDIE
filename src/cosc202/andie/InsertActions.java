@@ -81,10 +81,13 @@ public class InsertActions {
         static int endY = target.getHeight();
         static boolean drawShape = false;
         static boolean isDrawing = false;
-        EditableImage image = target.getImage();
+        static EditableImage image = target.getImage();
         public static String shape;
         public static Color colour;
         public static BasicStroke strokeSize;
+        static JToolBar toolbar;
+        static MouseMotionListener mouseMotionListener;
+        static MouseListener mouseListener;
 
         /**
          * <p>
@@ -129,7 +132,7 @@ public class InsertActions {
             colour = Color.BLACK;
             strokeSize = new BasicStroke(1);
 
-            JToolBar toolbar = new JToolBar();
+            toolbar = new JToolBar();
 
             ImageIcon rectangleIcon = new ImageIcon(
                     ViewActions.class.getClassLoader().getResource("icons/rectangle_icon.png"));
@@ -241,7 +244,7 @@ public class InsertActions {
             endY = target.getHeight();
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-            MouseListener mouseListener = new MouseAdapter() {
+            mouseListener = new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     drawShape = true;
                     startX = e.getX();
@@ -263,7 +266,7 @@ public class InsertActions {
 
             target.addMouseListener(mouseListener);
 
-            MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
+            mouseMotionListener = new MouseMotionAdapter() {
                 public void mouseDragged(MouseEvent e) {
                     endX = e.getX();
                     endY = e.getY();
@@ -276,16 +279,7 @@ public class InsertActions {
             Action keyAction = new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Andie.frame.remove(toolbar);
-                    Andie.createToolBar();
-                    target.setImage(image);
-                    target.repaint();
-                    target.getParent().revalidate();
-                    target.removeMouseListener(mouseListener);
-                    target.removeMouseMotionListener(mouseMotionListener);
-                    target.setCursor(Cursor.getDefaultCursor());
-                    isDrawing = false;
-                    return;
+                    stopDrawing();
                 }
             };
             KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
@@ -295,16 +289,7 @@ public class InsertActions {
             JButton cancelButton = new JButton(bundle.getString("cancel"));
             cancelButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    Andie.frame.remove(toolbar);
-                    Andie.createToolBar();
-                    target.setImage(image);
-                    target.repaint();
-                    target.getParent().revalidate();
-                    target.removeMouseListener(mouseListener);
-                    target.removeMouseMotionListener(mouseMotionListener);
-                    target.setCursor(Cursor.getDefaultCursor());
-                    isDrawing = false;
-                    return;
+                    stopDrawing();
                 }
             });
 
@@ -317,6 +302,18 @@ public class InsertActions {
             Andie.removeToolBar();
             Andie.frame.add(toolbar, BorderLayout.PAGE_START);
             Andie.frame.setVisible(true);
+        }
+
+        public static void stopDrawing() {
+            Andie.frame.remove(toolbar);
+            Andie.createToolBar();
+            target.setImage(image);
+            target.repaint();
+            target.getParent().revalidate();
+            target.removeMouseListener(mouseListener);
+            target.removeMouseMotionListener(mouseMotionListener);
+            target.setCursor(Cursor.getDefaultCursor());
+            isDrawing = false;
         }
 
     }
