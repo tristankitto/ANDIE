@@ -93,7 +93,6 @@ public class Andie {
         frame.pack();
 
     }
-
     /**
      * <p>
      * Creates the Menu bar and menu items in the GUI for the ANDIE program.
