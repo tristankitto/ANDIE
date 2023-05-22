@@ -132,6 +132,7 @@ public class FileActions {
                         Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                         EditableImage.clearStacks(target.getImage());
                         target.getImage().open(Andie.imageFilepath);
+                        target.setZoom(100);
                     } catch (Exception ex) {
                         Tools.errorMessage(ex, "fileOpenError");
                     }
@@ -163,6 +164,7 @@ public class FileActions {
                             Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                             EditableImage.clearStacks(target.getImage());
                             target.getImage().open(Andie.imageFilepath);
+                            target.setZoom(100);
                         } catch (Exception ex) {
                             Tools.errorMessage(ex, "fileOpenError");
                         }
@@ -179,6 +181,7 @@ public class FileActions {
                             Andie.imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                             EditableImage.clearStacks(target.getImage());
                             target.getImage().open(Andie.imageFilepath);
+                            target.setZoom(100);
                         } catch (Exception ex) {
                             Tools.errorMessage(ex, "fileOpenError");
                         }
