@@ -484,7 +484,7 @@ class EditableImage {
         isMacroRecording = !isMacroRecording;
 
         ImageIcon recordIcon;
-        recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("record.png"));
+        recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/record.png"));
         recordLabel = new JLabel(recordIcon);
         LookAndFeel currentTheme = UIManager.getLookAndFeel();
         /**
