@@ -268,17 +268,17 @@ public class Andie {
         toolBar.add(button4);
 
         JButton button9 = new JButton();
-         button9.setIcon(cropIcon);
-         button9.addActionListener(viewActions.createMenu().getItem(8).getAction());
-         button9.setToolTipText(bundle.getString("crop"));
-         toolBar.add(button9);
+        button9.setIcon(cropIcon);
+        button9.addActionListener(viewActions.createMenu().getItem(8).getAction());
+        button9.setToolTipText(bundle.getString("crop"));
+        toolBar.add(button9);
 
         JButton button5 = new JButton();
         button5.setIcon(zoomIcon);
         button5.addActionListener(viewActions.createMenu().getItem(0).getAction());
         button5.setToolTipText(bundle.getString("changeZoom"));
         toolBar.add(button5);
-        
+
         JButton button8 = new JButton();
         button8.setIcon(macroIcon);
         button8.addActionListener(new ActionListener() {
@@ -306,7 +306,31 @@ public class Andie {
         button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
         button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
-         
+
+        ActionListener toolbarItemListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ViewActions.CropAction.isCropping) {
+                    ViewActions.CropAction.stopCropping();
+                }
+                if (InsertActions.DrawShapesAction.isDrawing) {
+                    InsertActions.DrawShapesAction.stopDrawing();
+                }
+            }
+        };
+
+        for (Component component : toolBar.getComponents()) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                button.addActionListener(toolbarItemListener);
+            } else if (component instanceof JMenu) {
+                JMenu menu = (JMenu) component;
+                for (Component menuComponent : menu.getMenuComponents()) {
+                    JMenuItem menuItem = (JMenuItem) menuComponent;
+                    menuItem.addActionListener(toolbarItemListener);
+                }
+            }
+        }
 
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.setVisible(true);
@@ -329,7 +353,8 @@ public class Andie {
         // Show the popup menu relative to the button
         popupMenu.show(button, 0, button.getHeight());
     }
- /**
+
+    /**
      * <p>
      * Creates a popup menu for the macri options so they can be displayed beside
      * their toolbar button.
@@ -347,6 +372,7 @@ public class Andie {
         // Show the popup menu relative to the button
         popupMenu.show(button, 0, button.getHeight());
     }
+
     /**
      * <p>
      * Removes a tool bar from the JFrame.
