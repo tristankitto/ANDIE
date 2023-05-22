@@ -165,17 +165,17 @@ public class ImagePanel extends JPanel {
                 g2d.setColor(new Color(255, 255, 255, 128));
                 g2d.fillRect(startX, startY, width, height);
             }
-            if (ViewActions.DrawShapesAction.drawShape) {
-                int width = Math.abs(ViewActions.DrawShapesAction.endX - ViewActions.DrawShapesAction.startX);
-                int height = Math.abs(ViewActions.DrawShapesAction.endY - ViewActions.DrawShapesAction.startY);
-                int startX = Math.min(ViewActions.DrawShapesAction.startX, ViewActions.DrawShapesAction.endX);
-                int startY = Math.min(ViewActions.DrawShapesAction.startY, ViewActions.DrawShapesAction.endY);
-                int endX = ViewActions.DrawShapesAction.endX;
-                int endY = ViewActions.DrawShapesAction.endY;
+            if (InsertActions.DrawShapesAction.drawShape) {
+                int width = Math.abs(InsertActions.DrawShapesAction.endX - InsertActions.DrawShapesAction.startX);
+                int height = Math.abs(InsertActions.DrawShapesAction.endY - InsertActions.DrawShapesAction.startY);
+                int startX = Math.min(InsertActions.DrawShapesAction.startX, InsertActions.DrawShapesAction.endX);
+                int startY = Math.min(InsertActions.DrawShapesAction.startY, InsertActions.DrawShapesAction.endY);
+                int endX = InsertActions.DrawShapesAction.endX;
+                int endY = InsertActions.DrawShapesAction.endY;
                 Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(ViewActions.DrawShapesAction.colour);
-                g2d.setStroke(ViewActions.DrawShapesAction.strokeSize);
-                switch (ViewActions.DrawShapesAction.shape) {
+                g2d.setColor(InsertActions.DrawShapesAction.colour);
+                g2d.setStroke(InsertActions.DrawShapesAction.strokeSize);
+                switch (InsertActions.DrawShapesAction.shape) {
                     case "Rectangle":
                         g2d.drawRect(startX, startY, width, height);
                         break;
@@ -189,17 +189,18 @@ public class ImagePanel extends JPanel {
                         g2d.fillOval(startX, startY, width, height);
                         break;
                     case "Line":
-                        g2d.drawLine(ViewActions.DrawShapesAction.startX,
-                                ViewActions.DrawShapesAction.startY, endX, endY);
+                        g2d.drawLine(
+                                InsertActions.DrawShapesAction.startX,
+                                InsertActions.DrawShapesAction.startY, endX, endY);
                         break;
                 }
             }
 
-            if (EditActions.TextAction.text) {
-                int width = Math.abs(EditActions.TextAction.endX - EditActions.TextAction.startX);
-                int height = Math.abs(EditActions.TextAction.endY - EditActions.TextAction.startY);
-                int startX = Math.min(EditActions.TextAction.startX, EditActions.TextAction.endX);
-                int startY = Math.min(EditActions.TextAction.startY, EditActions.TextAction.endY);
+            if (InsertActions.TextAction.text) {
+                int width = Math.abs(InsertActions.TextAction.endX - InsertActions.TextAction.startX);
+                int height = Math.abs(InsertActions.TextAction.endY - InsertActions.TextAction.startY);
+                int startX = Math.min(InsertActions.TextAction.startX, InsertActions.TextAction.endX);
+                int startY = Math.min(InsertActions.TextAction.startY, InsertActions.TextAction.endY);
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.setColor(new Color(255, 255, 255, 128));
                 g2d.fillRect(startX, startY, width, height);
