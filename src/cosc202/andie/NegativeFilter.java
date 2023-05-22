@@ -6,9 +6,10 @@ import java.awt.image.Kernel;
 
 /**
  * <p>
- * ImageOperations for optionally applying an offset to account for both
- * positive and negative numbers
- * in the result of a convolution.
+ * ImageOperations for applying a mid value to negative pixel values so that
+ * Emboss/sobel
+ * filters can account for both positive and negative values in the result of a
+ * convolution.
  * </p>
  * 
  * <p>
@@ -29,10 +30,10 @@ public class NegativeFilter {
 
     /**
      * <p>
-     * Apply a convolution to an image that accounts for negative RGB values.
+     * Adjust pixel values to account for negative RGB values.
      * </p>
      * 
-     * @param input The image to apply the Negative filter to.
+     * @param input The image to apply the changes to.
      * @return The resulting image.
      */
     public static BufferedImage apply(BufferedImage input, Kernel kernel) {

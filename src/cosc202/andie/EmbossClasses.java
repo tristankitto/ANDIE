@@ -5,15 +5,17 @@ import java.awt.image.Kernel;
 
 /**
  * <p>
- * ImageOperation to apply a Emboss and Edge Detection filters.
+ * ImageOperation to apply the Emboss and sobel filters.
  * </p>
  * 
  * <p>
  * Emboss filters work by using kernels dependant on the direction of embossing.
- * They detect edges
- * using sobel filter which have kernels for vertical and horizontal edge
- * detection. These kernels are
- * used to apply the emboss filters to an image.
+ * sobel filters are another type of edge detection filter which have kernels
+ * for vertical
+ * and horizontal edge detection.
+ * There are 10 deifferent kernels in this class that are used to apply these
+ * filters
+ * to an image, each kernel relating to a different emboss/ sobel filter.
  * </p>
  * 
  * <p>
@@ -28,7 +30,7 @@ import java.awt.image.Kernel;
 public class EmbossClasses {
         /**
          * <p>
-         * Construct a Soft blur filter.
+         * Construct the EmbossClasses filter.
          * </p>
          * 
          */
