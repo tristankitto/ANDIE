@@ -49,6 +49,10 @@ public class ColourActions {
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new BrightnessContrastAction(bundle.getString("brightness/Contrast"), null,
                 bundle.getString("adjustBrightness/Contrast"), Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new RemoveBackgroundAction("Remove background", null,
+                "Remove background", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RemoveTransparencyAction("Remove transparency", null,
+                "Remove transparency", Integer.valueOf(KeyEvent.VK_T)));
     }
 
     /**
@@ -63,8 +67,10 @@ public class ColourActions {
 
         for (Action action : actions) {
             JMenuItem item = new JMenuItem();
-            if (action instanceof ConvertToGreyAction) {
+            if (action instanceof ConvertToGreyAction || action instanceof RemoveBackgroundAction) {
                 item = Tools.createMenuItem(action, true, false);
+            } else if (action instanceof RemoveTransparencyAction) {
+                item = Tools.createMenuItem(action, false, true);
             } else {
                 item = Tools.createMenuItem(action, false, false);
             }
@@ -264,6 +270,92 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             }
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to remove background from an image.
+     * </p>
+     * 
+     * @see RemoveBackground
+     */
+    public class RemoveBackgroundAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new remove background action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        RemoveBackgroundAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the remove background action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RemoveBackgroundAction is triggered.
+         * It attempts to remove the images background.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new RemoveBackground());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to remove transparency from an image.
+     * </p>
+     * 
+     * @see RemoveTransparency
+     */
+    public class RemoveTransparencyAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new remove transparency action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        RemoveTransparencyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the remove transparency action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RemoveTransparencyAction is triggered.
+         * It removes the images transparent pixels.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new RemoveTransparency());
+            target.repaint();
+            target.getParent().revalidate();
         }
 
     }
