@@ -396,7 +396,13 @@ class EditableImage {
      */
     public void undo() {
         try {
-            redoOps.push(ops.pop());
+            while (!ops.isEmpty()) {
+                ImageOperation op = ops.pop();
+                redoOps.push(op);
+                if (!(op instanceof FreeDraw)) {
+                    break;
+                }
+            }
             refresh();
             Andie.saved = false;
             if (isMacroRecording) {
@@ -417,7 +423,14 @@ class EditableImage {
     public void redo() {
         try {
             redo = true;
-            apply(redoOps.pop());
+            while (!redoOps.isEmpty()) {
+                ImageOperation op = redoOps.pop();
+                ops.push(op);
+                if (!(op instanceof FreeDraw)) {
+                    break;
+                }
+            }
+            refresh();
         } catch (EmptyStackException e) {
             System.out.println("Failed to redo or nothing to redo: " + e);
         } catch (Exception ex) {
@@ -486,7 +499,6 @@ class EditableImage {
         ImageIcon recordIcon;
         recordIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/record.png"));
         recordLabel = new JLabel(recordIcon);
-
 
         if (isMacroRecording) {
             // add recording icon to tool bar

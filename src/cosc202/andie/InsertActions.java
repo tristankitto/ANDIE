@@ -37,7 +37,7 @@ public class InsertActions {
      */
     public InsertActions() {
         actions = new ArrayList<Action>();
-        actions.add(new DrawShapesAction(bundle.getString("drawShapes"), null, bundle.getString("drawShapes"),
+        actions.add(new DrawShapesAction(bundle.getString("draw"), null, bundle.getString("draw"),
                 Integer.valueOf(KeyEvent.VK_D)));
         actions.add(new TextAction(bundle.getString("text"), null, bundle.getString("text"),
                 Integer.valueOf(KeyEvent.VK_T)));
@@ -128,7 +128,7 @@ public class InsertActions {
 
             target.repaint();
 
-            shape = "filledRectangle";
+            shape = "freeDraw";
             colour = Color.BLACK;
             strokeSize = new BasicStroke(1);
 
@@ -146,6 +146,8 @@ public class InsertActions {
                     ViewActions.class.getClassLoader().getResource("icons/lineWidth_icon.png"));
             ImageIcon colourChooseIcon = new ImageIcon(
                     ViewActions.class.getClassLoader().getResource("icons/colourChoose_icon.png"));
+            ImageIcon freeDrawIcon = new ImageIcon(
+                    ViewActions.class.getClassLoader().getResource("icons/freeDraw_icon.png"));
 
             JButton colourButton = new JButton(bundle.getString("colour"));
             colourButton.setIcon(colourChooseIcon);
@@ -219,6 +221,14 @@ public class InsertActions {
                 }
             });
 
+            JButton freeDrawButton = new JButton(bundle.getString("freeDraw"));
+            freeDrawButton.setIcon(freeDrawIcon);
+            freeDrawButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    shape = "freeDraw";
+                }
+            });
+
             JButton strokeSizeButton = new JButton(bundle.getString("lineWidth"));
             strokeSizeButton.setIcon(lineWidthIcon);
             strokeSizeButton.addActionListener(new ActionListener() {
@@ -270,6 +280,13 @@ public class InsertActions {
                 public void mouseDragged(MouseEvent e) {
                     endX = e.getX();
                     endY = e.getY();
+                    if (shape.equals("freeDraw")) {
+                        image.apply(
+                                new FreeDraw((int) (startX / scale), (int) (startY / scale), (int) (endX / scale),
+                                        (int) (endY / scale), colour, strokeSize));
+                        startX = endX;
+                        startY = endY;
+                    }
                     target.repaint();
                 }
             };
@@ -297,6 +314,7 @@ public class InsertActions {
             toolbar.add(ovalButton);
             toolbar.add(lineButton);
             toolbar.add(colourButton);
+            toolbar.add(freeDrawButton);
             toolbar.add(strokeSizeButton);
             toolbar.add(cancelButton);
             Andie.removeToolBar();
