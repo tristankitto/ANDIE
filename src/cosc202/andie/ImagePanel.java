@@ -165,30 +165,34 @@ public class ImagePanel extends JPanel {
                 g2d.setColor(new Color(255, 255, 255, 128));
                 g2d.fillRect(startX, startY, width, height);
             }
-            if (ViewActions.DrawRectangleAction.drawRectangle) {
-                int width = Math.abs(ViewActions.DrawRectangleAction.endX - ViewActions.DrawRectangleAction.startX);
-                int height = Math.abs(ViewActions.DrawRectangleAction.endY - ViewActions.DrawRectangleAction.startY);
-                int startX = Math.min(ViewActions.DrawRectangleAction.startX, ViewActions.DrawRectangleAction.endX);
-                int startY = Math.min(ViewActions.DrawRectangleAction.startY, ViewActions.DrawRectangleAction.endY);
+            if (ViewActions.DrawShapesAction.drawShape) {
+                int width = Math.abs(ViewActions.DrawShapesAction.endX - ViewActions.DrawShapesAction.startX);
+                int height = Math.abs(ViewActions.DrawShapesAction.endY - ViewActions.DrawShapesAction.startY);
+                int startX = Math.min(ViewActions.DrawShapesAction.startX, ViewActions.DrawShapesAction.endX);
+                int startY = Math.min(ViewActions.DrawShapesAction.startY, ViewActions.DrawShapesAction.endY);
+                int endX = ViewActions.DrawShapesAction.endX;
+                int endY = ViewActions.DrawShapesAction.endY;
                 Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(new Color(255, 255, 255, 128));
-                g2d.drawRect(startX, startY, width, height);
-            }
-
-            if (ViewActions.DrawOvalAction.drawOval) {
-                int width = Math.abs(ViewActions.DrawOvalAction.endX - ViewActions.DrawOvalAction.startX);
-                int height = Math.abs(ViewActions.DrawOvalAction.endY - ViewActions.DrawOvalAction.startY);
-                int startX = Math.min(ViewActions.DrawOvalAction.startX, ViewActions.DrawOvalAction.endX);
-                int startY = Math.min(ViewActions.DrawOvalAction.startY, ViewActions.DrawOvalAction.endY);
-                Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(new Color(255, 255, 255, 128));
-                g2d.drawOval(startX, startY, width, height);
-            }
-
-            if (ViewActions.DrawLineAction.drawLine) {
-                Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(new Color(255, 255, 255, 128));
-                g2d.drawLine(ViewActions.DrawLineAction.startX, ViewActions.DrawLineAction.startY, ViewActions.DrawLineAction.endX, ViewActions.DrawLineAction.endY);
+                g2d.setColor(ViewActions.DrawShapesAction.colour);
+                g2d.setStroke(ViewActions.DrawShapesAction.strokeSize);
+                switch (ViewActions.DrawShapesAction.shape) {
+                    case "Rectangle":
+                        g2d.drawRect(startX, startY, width, height);
+                        break;
+                    case "filledRectangle":
+                        g2d.fillRect(startX, startY, width, height);
+                        break;
+                    case "Oval":
+                        g2d.drawOval(startX, startY, width, height);
+                        break;
+                    case "filledOval":
+                        g2d.fillOval(startX, startY, width, height);
+                        break;
+                    case "Line":
+                        g2d.drawLine(ViewActions.DrawShapesAction.startX,
+                                ViewActions.DrawShapesAction.startY, endX, endY);
+                        break;
+                }
             }
 
             if (EditActions.TextAction.text) {
@@ -200,22 +204,6 @@ public class ImagePanel extends JPanel {
                 g2d.setColor(new Color(255, 255, 255, 128));
                 g2d.fillRect(startX, startY, width, height);
             }
-
-            // int x = Andie.x;
-            // int y = Andie.y;
-            // int x2 = Andie.x2;
-            // int y2 = Andie.y2;
-            // if (x > x2 && y > y2) {
-            // g.drawRect(x2 + 10, y2 + 10, x - x2, y - y2);
-            // }
-            // if (x < x2 && y > y2) {
-            // g.drawRect(x + 10, y2 + 10, x2 - x, y - y2);
-            // }
-            // if (x > x2 && y < y2) {
-            // g.drawRect(x2 + 10, y + 10, x - x2, y2 - y);
-            // }
-            // g.drawRect(x + 10, y + 10, x2 - x, y2 - y);
-
         }
 
     }

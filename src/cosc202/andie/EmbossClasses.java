@@ -334,7 +334,6 @@ public class EmbossClasses {
          */
         public class SobelHorizontal implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
-                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 
@@ -370,7 +369,6 @@ public class EmbossClasses {
          */
         public class SobelVertical implements ImageOperation, java.io.Serializable {
                 public BufferedImage apply(BufferedImage input) {
-                        Andie.imagePanel.getImage().tempApply(new ConvertToGrey());
 
                         int radius = 1;
 

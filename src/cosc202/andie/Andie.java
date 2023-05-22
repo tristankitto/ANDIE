@@ -46,13 +46,6 @@ public class Andie {
     /** String to store the file path of an image when it is first opened */
     public static String imageFilepath;
 
-    // TODO remove these before due date
-    public static int x;
-    public static int y;
-    public static int x2;
-    public static int y2;
-    public static boolean repaint;
-
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -98,22 +91,6 @@ public class Andie {
         createMenuBar();
         createToolBar();
         frame.pack();
-
-        // TODO remove this before due date
-        imagePanel.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent me) {
-                x = me.getX() - 10;
-                y = me.getY() - 10;
-                System.out.println(x + " " + y);
-            }
-
-            public void mouseReleased(MouseEvent me) {
-                x2 = me.getX() - 10;
-                y2 = me.getY() - 10;
-                System.out.println(x2 + " " + y2);
-                imagePanel.repaint();
-            }
-        });
 
     }
 
