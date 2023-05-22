@@ -412,6 +412,9 @@ public class FileActions {
                                 JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
                         if (n == 0) {
                             if (extensionCheck) {
+                                if (!extension.toLowerCase().equals("png")) {
+                                    target.getImage().apply(new RemoveTransparency());
+                                }
                                 target.getImage().exportImage(imageFilepath, extension);
                             } else {
                                 target.getImage().exportImage(imageFilepath);
@@ -419,6 +422,9 @@ public class FileActions {
                         }
                     } else {
                         if (extensionCheck) {
+                            if (!extension.toLowerCase().equals("png")) {
+                                target.getImage().apply(new RemoveTransparency());
+                            }
                             target.getImage().exportImage(imageFilepath, extension);
                         } else {
                             target.getImage().exportImage(imageFilepath);
