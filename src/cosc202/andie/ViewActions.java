@@ -715,12 +715,7 @@ public class ViewActions {
             colour = Color.BLACK;
             strokeSize = new BasicStroke(1);
 
-            JPanel panel = new JPanel();
-            panel.setLayout(new GridLayout(2, 1));
-            JPanel topPanel = new JPanel(new FlowLayout());
-            JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            JDialog popupDialog = new JDialog(Andie.frame, bundle.getString("drawOptions"), true);
-            popupDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            JToolBar toolbar = new JToolBar();
 
             ImageIcon rectangleIcon = new ImageIcon(
                     ViewActions.class.getClassLoader().getResource("icons/rectangle_icon.png"));
@@ -814,7 +809,7 @@ public class ViewActions {
                     Integer[] sizes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
                     JComboBox<Integer> comboBox = new JComboBox<>(sizes);
 
-                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("lineWidth"),
+                    int option = JOptionPane.showOptionDialog(toolbar, comboBox, bundle.getString("lineWidth"),
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                     if (option == JOptionPane.OK_OPTION) {
                         Integer size = (Integer) comboBox.getSelectedItem();
@@ -822,37 +817,6 @@ public class ViewActions {
                     }
                 }
             });
-
-            JButton okButton = new JButton(bundle.getString("ok"));
-            okButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    popupDialog.dispose();
-                }
-            });
-
-            topPanel.add(rectangleButton);
-            topPanel.add(ovalButton);
-            topPanel.add(lineButton);
-            topPanel.add(colourButton);
-            topPanel.add(strokeSizeButton);
-            bottomPanel.add(okButton);
-            panel.add(topPanel);
-            panel.add(bottomPanel);
-            popupDialog.getContentPane().add(panel);
-            popupDialog.pack();
-            popupDialog.setLocationRelativeTo(Andie.frame);
-            popupDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-            popupDialog.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
-                    popupDialog.dispose();
-                    target.setImage(image);
-                    target.repaint();
-                    target.getParent().revalidate();
-                    target.setCursor(Cursor.getDefaultCursor());
-                    isDrawing = false;
-                }
-            });
-            popupDialog.setVisible(true);
 
             if (!isDrawing)
                 return;
@@ -874,19 +838,11 @@ public class ViewActions {
                     endX = e.getX();
                     endY = e.getY();
                     drawShape = false;
-                    isDrawing = false;
                     image.apply(
                             new DrawShapes((int) (startX / scale), (int) (startY / scale), (int) (endX / scale),
                                     (int) (endY / scale), shape, colour, strokeSize));
-                    // Perform the Rectangle operation
 
-                    target.setImage(image);
                     target.repaint();
-                    target.getParent().revalidate();
-
-                    // Remove the mouse listeners after the Drawing is done
-                    target.removeMouseListener(this);
-                    target.setCursor(Cursor.getDefaultCursor());
 
                 }
             };
@@ -906,6 +862,8 @@ public class ViewActions {
             Action keyAction = new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    Andie.frame.remove(toolbar);
+                    Andie.createToolBar();
                     target.setImage(image);
                     target.repaint();
                     target.getParent().revalidate();
@@ -919,6 +877,32 @@ public class ViewActions {
             KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
             Andie.imagePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "keyAction");
             Andie.imagePanel.getActionMap().put("keyAction", keyAction);
+
+            JButton cancelButton = new JButton(bundle.getString("cancel"));
+            cancelButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Andie.frame.remove(toolbar);
+                    Andie.createToolBar();
+                    target.setImage(image);
+                    target.repaint();
+                    target.getParent().revalidate();
+                    target.removeMouseListener(mouseListener);
+                    target.removeMouseMotionListener(mouseMotionListener);
+                    target.setCursor(Cursor.getDefaultCursor());
+                    isDrawing = false;
+                    return;
+                }
+            });
+
+            toolbar.add(rectangleButton);
+            toolbar.add(ovalButton);
+            toolbar.add(lineButton);
+            toolbar.add(colourButton);
+            toolbar.add(strokeSizeButton);
+            toolbar.add(cancelButton);
+            Andie.removeToolBar();
+            Andie.frame.add(toolbar, BorderLayout.PAGE_START);
+            Andie.frame.setVisible(true);
         }
 
     }

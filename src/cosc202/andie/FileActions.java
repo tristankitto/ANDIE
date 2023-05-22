@@ -472,6 +472,7 @@ public class FileActions {
                 target.getImage().recordMacro();
             } catch (Exception ex) {
                 Tools.errorMessage(ex, "fileRecordMacroError");
+                ex.printStackTrace();
             }
         }
     }
