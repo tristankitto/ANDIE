@@ -215,6 +215,7 @@ public class Andie {
         ImageIcon saveIcon;
         ImageIcon undoIcon;
         ImageIcon redoIcon;
+        ImageIcon cropIcon;
         ImageIcon zoomIcon;
         ImageIcon macroIcon;
         ImageIcon languageIcon;
@@ -225,6 +226,7 @@ public class Andie {
             saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/disk.png"));
             undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/undo-alt.png"));
             redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/redo-alt.png"));
+            cropIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/tool-crop.png"));
             zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/search.png"));
             macroIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/circle-video.png"));
             languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/language_icon.png"));
@@ -234,6 +236,7 @@ public class Andie {
             saveIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/diskINVERT.png"));
             undoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/undo-altINVERT.png"));
             redoIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/redo-altINVERT.png"));
+            cropIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/tool-cropINVERT.png"));
             zoomIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/searchINVERT.png"));
             macroIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/circle-videoINVERT.png"));
             languageIcon = new ImageIcon(Andie.class.getClassLoader().getResource("icons/language_iconINVERT.png"));
@@ -263,6 +266,12 @@ public class Andie {
         button4.addActionListener(editActions.createMenu().getItem(1).getAction());
         button4.setToolTipText(bundle.getString("redo"));
         toolBar.add(button4);
+
+        JButton button9 = new JButton();
+         button9.setIcon(cropIcon);
+         button9.addActionListener(viewActions.createMenu().getItem(8).getAction());
+         button9.setToolTipText(bundle.getString("crop"));
+         toolBar.add(button9);
 
         JButton button5 = new JButton();
         button5.setIcon(zoomIcon);
@@ -297,14 +306,7 @@ public class Andie {
         button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
         button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
-        /**
-         * ImageIcon crop= new
-         * ImageIcon(Andie.class.getClassLoader().getResource("crop.png"));
-         * JButton button7 = new JButton();
-         * button7.setIcon(crop);
-         * button7.addActionListener(///.createMenu().getItem(4).getAction());
-         * toolBar.add(button7);
-         */
+         
 
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.setVisible(true);
