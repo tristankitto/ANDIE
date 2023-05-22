@@ -175,6 +175,12 @@ public class Andie {
                 if (component instanceof JMenuItem) {
                     JMenuItem item = (JMenuItem) component;
                     item.addActionListener(menuItemListener);
+                } else if (component instanceof JMenu) {
+                    JMenu menu = (JMenu) component;
+                    for (Component menuComponent : menu.getMenuComponents()) {
+                        JMenuItem menuItem = (JMenuItem) menuComponent;
+                        menuItem.addActionListener(menuItemListener);
+                    }
                 }
             }
         }
