@@ -54,6 +54,10 @@ public class Crop implements ImageOperation, java.io.Serializable {
      * @return The resulting cropped subimage.
      */
     public BufferedImage apply(BufferedImage input) {
+        endX = Math.min(endX, input.getWidth());
+        endY = Math.min(endY, input.getHeight());
+        startX = Math.min(startX, input.getWidth());
+        startY = Math.min(startY, input.getHeight());
         int croppedWidth = Math.abs(endX - startX);
         int croppedHeight = Math.abs(endY - startY);
         startX = Math.min(startX, endX);
