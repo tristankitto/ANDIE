@@ -688,7 +688,7 @@ public class InsertActions {
             endY = target.getHeight();
 
             target.setCursor(new Cursor(Cursor.TEXT_CURSOR));
-            MouseListener mouseListener = new MouseAdapter() {
+            mouseListener = new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     text = true;
                     startX = e.getX();
@@ -720,7 +720,7 @@ public class InsertActions {
 
             target.addMouseListener(mouseListener);
 
-            MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
+            mouseMotionListener = new MouseMotionAdapter() {
                 public void mouseDragged(MouseEvent e) {
                     endX = e.getX();
                     endY = e.getY();
