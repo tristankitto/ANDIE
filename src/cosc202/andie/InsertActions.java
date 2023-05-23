@@ -136,21 +136,50 @@ public class InsertActions {
             strokeSize = new BasicStroke(size);
 
             toolbar = new JToolBar();
-
-            ImageIcon rectangleIcon = new ImageIcon(
-                    ViewActions.class.getClassLoader().getResource("icons/rectangle_icon.png"));
-            ImageIcon filledRectangleIcon = new ImageIcon(
-                    ViewActions.class.getClassLoader().getResource("icons/filledRectangle_icon.png"));
-            ImageIcon ovalIcon = new ImageIcon(ViewActions.class.getClassLoader().getResource("icons/oval_icon.png"));
-            ImageIcon filledOvalIcon = new ImageIcon(
-                    ViewActions.class.getClassLoader().getResource("icons/filledOval_icon.png"));
-            ImageIcon lineIcon = new ImageIcon(ViewActions.class.getClassLoader().getResource("icons/line_icon.png"));
-            ImageIcon lineWidthIcon = new ImageIcon(
-                    ViewActions.class.getClassLoader().getResource("icons/lineWidth_icon.png"));
-            ImageIcon colourChooseIcon = new ImageIcon(
-                    ViewActions.class.getClassLoader().getResource("icons/colourChoose_icon.png"));
-            ImageIcon freeDrawIcon = new ImageIcon(
-                    ViewActions.class.getClassLoader().getResource("icons/freeDraw_icon.png"));
+            ImageIcon rectangleIcon;
+            ImageIcon filledRectangleIcon;
+            ImageIcon ovalIcon;
+            ImageIcon filledOvalIcon;
+            ImageIcon lineIcon;
+            ImageIcon lineWidthIcon;
+            ImageIcon colourChooseIcon;
+            ImageIcon freeDrawIcon;
+            LookAndFeel currentTheme = UIManager.getLookAndFeel();
+            if (currentTheme.getName().equals("FlatLaf Light")) {
+                rectangleIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/rectangle_icon.png"));
+                filledRectangleIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/filledRectangle_icon.png"));
+                ovalIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/oval_icon.png"));
+                filledOvalIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/filledOval_icon.png"));
+                lineIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/line_icon.png"));
+                lineWidthIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/lineWidth_icon.png"));
+                colourChooseIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/colourChoose_icon.png"));
+                freeDrawIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/freeDraw_icon.png"));
+            } else {
+                rectangleIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/rectangle_iconINVERT.png"));
+                filledRectangleIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/filledRectangle_iconINVERT.png"));
+                ovalIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/oval_iconINVERT.png"));
+                filledOvalIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/filledOval_iconINVERT.png"));
+                lineIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/line_iconINVERT.png"));
+                lineWidthIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/lineWidth_iconINVERT.png"));
+                colourChooseIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/colourChoose_iconINVERT.png"));
+                freeDrawIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/freeDraw_iconINVERT.png"));
+            }
 
             JButton colourButton = new JButton(bundle.getString("colour"));
             colourButton.setIcon(colourChooseIcon);
