@@ -2,6 +2,9 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 import javax.swing.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -100,6 +103,10 @@ public class ThemeActions {
                 SwingUtilities.updateComponentTreeUI(Andie.frame);
                 Andie.removeToolBar();
                 Andie.createToolBar();
+                BufferedWriter writer = new BufferedWriter(
+                        new FileWriter("src/cosc202/andie/theme_pref.txt"));
+                writer.write("dark");
+                writer.close();
             } catch (Exception ex) {
                 System.err.println("Failed to initialize FlatLaf");
             }
@@ -134,6 +141,10 @@ public class ThemeActions {
                 SwingUtilities.updateComponentTreeUI(Andie.frame);
                 Andie.removeToolBar();
                 Andie.createToolBar();
+                BufferedWriter writer = new BufferedWriter(
+                        new FileWriter("src/cosc202/andie/theme_pref.txt"));
+                writer.write("light");
+                writer.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

@@ -104,7 +104,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
 <img src=README_screenshots/settings_screenshot.PNG width = "300" height = "325" align = "top">
 
 - Theme
-    - **ANDIE** has 2 theme options, light mode and dark mode. By default **ANDIE** is set to light mode. Changing the theme will make all GUI elements of **ANDIE** change into that selected theme.
+    - **ANDIE** has 2 theme options, light mode and dark mode. By default **ANDIE** is set to light mode. Changing the theme will make all GUI elements of **ANDIE** change into that selected theme and will then save that theme as the user's preference.
 - Language
     - Each option in the language menu changes the language of each UI element of **ANDIE**. For example, changing the language to Māori will display every menu name, menu item, and pop-up box (for errors or for user inputs) in Te Reo Māori. Each language option displays the language name in the current language, and beside that the name in the language itself. For example, if the current language is Spanish then the option to choose the English language will display as `Inglés (English)`, or if the current language is Japanese then the option to choose French will display as `フランス語 (Français)`. This allows people who only know one language to change **ANDIE** to their native language.
     - Language Preference
@@ -160,8 +160,9 @@ More information on this software and what it does can be found in the [COSC 202
 
 # Additional Features
 
-## Language Preferences
+## Preferences
 - Support for the user to save their language of choice has been implemented. This is done through writing to a text file each time a language is selected in the GUI, this file is then read every time the program is opened to check the last selected language and set the UI elements to that language by default. This allows a user to only have to change the language once upon first use of the program, as the default language is set to English on first run.
+- The same support has been added for themes. The user's theme choice is now saved upon use and will reapply every time **ANDIE** is opened, allowing the user to only have to choose their theme once.
 
 ## Changeable themes
 - **ANDIE** incorporates the FlatLaf library which provides the ability to change the theme of the GUI between light mode and dark mode.

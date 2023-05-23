@@ -6,6 +6,8 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.imageio.*;
+
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import cosc202.andie.FileActions.FileExitAction;
 
@@ -62,13 +64,21 @@ public class Andie {
      * @throws Exception if something goes wrong.
      */
     private static void createAndShowGUI() throws Exception {
-        File file = new File("src/cosc202/andie/LanguageResources/language_pref.txt");
-        Scanner scanner = new Scanner(file);
-        Locale.setDefault(new Locale(scanner.nextLine()));
-        scanner.close();
+        File languageFile = new File("src/cosc202/andie/LanguageResources/language_pref.txt");
+        Scanner scannerLanguage = new Scanner(languageFile);
+        Locale.setDefault(new Locale(scannerLanguage.nextLine()));
+        scannerLanguage.close();
         // Set up the main GUI frame
         FlatLightLaf.setup();
         frame = new JFrame("ANDIE");
+
+        File themeFile = new File("src/cosc202/andie/theme_pref.txt");
+        Scanner scannerTheme = new Scanner(themeFile);
+        if (scannerTheme.nextLine().equals("dark")) {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+            SwingUtilities.updateComponentTreeUI(Andie.frame);
+        }
+        scannerTheme.close();
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icons/icon.png"));
         frame.setIconImage(image);
