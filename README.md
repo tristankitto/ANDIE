@@ -7,7 +7,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
  A list of functions and their uses can be found below:
 
 ## File
-<img src=README_screenshots/file_screenshot.PNG width = "300" height = "325" align = "top">
+<img src=README_screenshots/file_screenshot.PNG height = "300" align = "top">
 
 - Open
     - The open option brings up a menu for a user to select an image to be opened and edited in **ANDIE**. Any image that is invalid (such as corrupt images), or any non-image file, will display an error to the user and prompt them to choose a different file instead. 
@@ -30,7 +30,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - Exit will exit **ANDIE**. If the user's image is unsaved then they will be prompted to save before closing, but have the option to decline.
 
 ## Edit
-<img src=README_screenshots/edit_screenshot.PNG width = "300" height = "325" align = "top">
+<img src=README_screenshots/edit_screenshot.PNG height = "300" align = "top">
 
 - Undo
     - The undo function allows the user to undo their most recent change to the current image. If there is nothing to undo then the user will be made aware of this with an informative pop-up box.
@@ -38,6 +38,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - The redo function allows the user to redo their most recently undone change to the current image. If there is nothing to redo then the user will be made aware of this with an informative pop-up box.
 
 ## Insert
+<img src=README_screenshots/insert_screenshot.png height = "300" align = "top">
 
 - Draw
     - The draw function gives the user the ability to draw different shapes as well as lines and free drawing. Starting this operation puts **ANDIE** into drawing mode, allowing the user to draw as much as they like and converting the Tool Bar items into options for drawing. Drawing allows the user to draw rectangles, filled rectangles, ovals, filled ovals, lines and free draw as well as changing the colour and line width of all of these options as well. Any image operation that the user performs while in drawing mode, or if the users presses the "ESCAPE" key, it will end drawing mode.
@@ -46,7 +47,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - Text allows the user to select an area of the image and then add text to that area. The text can have its font, font size and colour edited by the user.
 
 ## View
-<img src=README_screenshots/view_screenshot.PNG width = "300" height = "325" align = "top">
+<img src=README_screenshots/view_screenshot.PNG height = "300" align = "top">
 
 - Change Zoom
     - This function will change the zoom of the image. The user is prompted with a slider which they can then move to adjust the zoom of the image. The zoom updates automatically as the slider is moved allowing the user to see the zoom without having to accept first. This does not make permanent changes to the image, it only changes the way the image is displayed inside of **ANDIE**.
@@ -68,7 +69,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This function will put **ANDIE** into cropping mode. This dims the image and changes the cursor to a crosshair to make it easier for the user to see where they will be selecting on the image. The user can then click and drag their mouse over a section of their image which will then give them a subimage of the original with the same area as the one selected. Any image operation that the user performs while in cropping mode, or if the users presses the "ESCAPE" key, it will end cropping mode.
 
 ## Filter
-<img src=README_screenshots/filter_screenshot.PNG width = "300" height = "325" align = "top">
+<img src=README_screenshots/filter_screenshot.PNG height = "300" align = "top">
 
 - Mean Filter
     - This filter will apply a blur to the image based on the average colour of each pixel's neighbouring pixels. This filter depends on a radius input. The minimum value for the radius is 1 and the maximum is 10. The user selects the radius using a slider, once they have finished adjusting the slider the filter will apply to the image and then the user can either accept, continue adjusting, or cancel the action.
@@ -87,7 +88,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
         - Similar to the emboss filters the Sobel filters have a horizontal or vertical direction. These filters also apply a similar effect to emboss.
 
 ## Colour
-<img src=README_screenshots/colour_screenshot.PNG width = "300" height = "325" align = "top">
+<img src=README_screenshots/colour_screenshot.PNG height = "300" align = "top">
 
 - Greyscale
     - This filter will change the image's colours to be in greyscale instead of full colour.
@@ -101,7 +102,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This operation removes any transparent pixels in an image and replaces them with white pixels.
 
 ## Settings
-<img src=README_screenshots/settings_screenshot.PNG width = "300" height = "325" align = "top">
+<img src=README_screenshots/settings_screenshot.png height = "300" align = "top">
 
 - Theme
     - **ANDIE** has 2 theme options, light mode and dark mode. By default **ANDIE** is set to light mode. Changing the theme will make all GUI elements of **ANDIE** change into that selected theme and will then save that theme as the user's preference.
@@ -111,7 +112,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
         - Whenever a user selects a language that language is automatically saved as the user's new default language. Every time the user reopens **ANDIE** they will find the program in the last language they selected and it will stay as that language until a new language is selected.
 
 ## Tool Bar
-<img src=README_screenshots/toolbar_screenshot.PNG align = "top">
+<img src=README_screenshots/toolbar_screenshot.png align = "top">
 
 - The tool bar in **ANDIE** is used for multiple purposes. By default **ANDIE**'s Tool Bar displays with Open, Save, Undo, Redo, Crop, Change Zoom, Macros pop-up menu, Language pop-up menu and exit buttons. When entering drawing mode or text mode the tool bar will update to have new options more relevant to those modes, and then will revert back when those modes are exited.
 
