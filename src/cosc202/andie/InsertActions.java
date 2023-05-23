@@ -41,7 +41,7 @@ public class InsertActions {
                 Integer.valueOf(KeyEvent.VK_D)));
         actions.add(new TextAction(bundle.getString("text"), null, bundle.getString("text"),
                 Integer.valueOf(KeyEvent.VK_T)));
-                
+
     }
 
     /**
@@ -86,6 +86,7 @@ public class InsertActions {
         public static String shape;
         public static Color colour;
         public static BasicStroke strokeSize;
+        static int size;
         static JToolBar toolbar;
         static MouseMotionListener mouseMotionListener;
         static MouseListener mouseListener;
@@ -131,7 +132,8 @@ public class InsertActions {
 
             shape = "freeDraw";
             colour = Color.BLACK;
-            strokeSize = new BasicStroke(1);
+            size = 3;
+            strokeSize = new BasicStroke(size);
 
             toolbar = new JToolBar();
 
@@ -236,11 +238,12 @@ public class InsertActions {
                 public void actionPerformed(ActionEvent e) {
                     Integer[] sizes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
                     JComboBox<Integer> comboBox = new JComboBox<>(sizes);
+                    comboBox.setSelectedItem(size);
 
                     int option = JOptionPane.showOptionDialog(toolbar, comboBox, bundle.getString("lineWidth"),
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                     if (option == JOptionPane.OK_OPTION) {
-                        Integer size = (Integer) comboBox.getSelectedItem();
+                        size = (Integer) comboBox.getSelectedItem();
                         strokeSize = new BasicStroke(size);
                     }
                 }
@@ -337,7 +340,7 @@ public class InsertActions {
 
     }
 
-     /**
+    /**
      * <p>
      * Action to add text.
      * </p>
@@ -346,8 +349,8 @@ public class InsertActions {
      */
     public class TextAction extends ImageAction {
 
-        static int startX = target.getWidth()/2;
-        static int startY = target.getHeight()/2;
+        static int startX = target.getWidth() / 2;
+        static int startY = target.getHeight() / 2;
         static int x = 0;
         static int y = 0;
         static int endX = target.getWidth();
@@ -390,7 +393,7 @@ public class InsertActions {
             if (isTexting || image.getCurrentImage() == null) {
                 return;
             }
-            
+
             isTexting = true;
 
             EditableImage imageCopy = EditableImage.copyImage(image);
@@ -405,7 +408,7 @@ public class InsertActions {
 
             JPanel panel = new JPanel();
             panel.setPreferredSize(new Dimension(350, 50));
-            panel.setLayout (new GridLayout(1, 3));
+            panel.setLayout(new GridLayout(1, 3));
 
             JButton colourButton = new JButton(bundle.getString("colour"));
             colourButton.addActionListener(new ActionListener() {
@@ -421,8 +424,8 @@ public class InsertActions {
                     String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
                     JComboBox<String> comboBox = new JComboBox<String>(fonts);
 
-                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("font"), 
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("font"),
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
                     if (option == JOptionPane.OK_OPTION) {
                         font = (String) comboBox.getSelectedItem();
@@ -434,11 +437,11 @@ public class InsertActions {
             JButton fontSizeButton = new JButton(bundle.getString("fontSize"));
             fontSizeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    Integer[] fontSizes = {8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 72, 96};
+                    Integer[] fontSizes = { 8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 72, 96 };
                     JComboBox<Integer> comboBox = new JComboBox<>(fontSizes);
 
-                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("fontSize"), 
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("fontSize"),
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
                     if (option == JOptionPane.OK_OPTION) {
                         fontSize = (int) comboBox.getSelectedItem();
@@ -470,8 +473,9 @@ public class InsertActions {
                     isTexting = false;
 
                     // Draw the text box
-                    image.apply(new DrawShapes((int) (startX / scale), (int) (startY / scale), (int) (endX / scale), (int) (endY / scale),
-                     "Rectangle", Color.BLACK, new BasicStroke(1)));
+                    image.apply(new DrawShapes((int) (startX / scale), (int) (startY / scale), (int) (endX / scale),
+                            (int) (endY / scale),
+                            "Rectangle", Color.BLACK, new BasicStroke(1)));
 
                     // Add text
                     image.apply(new Text(startX, startY, endX, endY, colour, font, fontSize));
@@ -513,7 +517,7 @@ public class InsertActions {
             KeyStroke keyStroke = KeyStroke.getKeyStroke("ESCAPE");
             Andie.imagePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, "keyAction");
             Andie.imagePanel.getActionMap().put("keyAction", keyAction);
-        
+
             panel.add(colourButton);
             panel.add(fontButton);
             panel.add(fontSizeButton);
