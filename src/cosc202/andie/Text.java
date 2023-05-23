@@ -106,7 +106,7 @@ public class Text implements ImageOperation, java.io.Serializable {
         }
 
         Graphics2D g = input.createGraphics();
-        g.setColor(Color.BLACK);
+        g.setColor(colour);
         g.setFont(fontFull);
 
         FontMetrics fontM = g.getFontMetrics();
@@ -114,6 +114,9 @@ public class Text implements ImageOperation, java.io.Serializable {
 
         g.drawString(userText, startX, startY + textHeight);
         g.dispose();
+
+        //Might be helpful with text wrapping in bounds
+        //https://stackoverflow.com/questions/41111870/swing-drawstring-text-bounds-and-line-wrapping
 
         return input;
     }

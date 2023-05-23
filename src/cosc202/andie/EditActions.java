@@ -4,10 +4,6 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 /**
  * <p>
  * Actions provided by the Edit menu.

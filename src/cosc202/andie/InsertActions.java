@@ -337,40 +337,7 @@ public class InsertActions {
 
     }
 
-    // /**
-    //  * <p>
-    //  * Action to add text.
-    //  * </p>
-    //  * 
-    //  * @see Text#apply()
-    //  */
-    // public class TextAction extends ImageAction {
-
-    //     static int startX = target.getWidth() / 2;
-    //     static int startY = target.getHeight() / 2;
-    //     static int x = 0;
-    //     static int y = 0;
-    //     static int endX = target.getWidth();
-    //     static int endY = target.getHeight();
-    //     static boolean text = false;
-    //     static boolean isTexting = false;
-    //     EditableImage image = target.getImage();
-
-    //     /**
-    //      * <p>
-    //      * Create a new text action.
-    //      * </p>
-    //      * 
-    //      * @param name     The name of the action (ignored if null).
-    //      * @param icon     An icon to use to represent the action (ignored if null).
-    //      * @param desc     A brief description of the action (ignored if null).
-    //      * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-    //      */
-    //     TextAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-    //         super(name, icon, desc, mnemonic);
-    //     }
-
-            /**
+     /**
      * <p>
      * Action to add text.
      * </p>
@@ -436,23 +403,23 @@ public class InsertActions {
 
             double scale = target.getZoom() / 100;
 
-            // Copy from Commit 5f3c56a3 View Actions 
             JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension(350, 100));
+            panel.setPreferredSize(new Dimension(350, 50));
             panel.setLayout (new GridLayout(1, 3));
 
             JButton colourButton = new JButton(bundle.getString("colour"));
             colourButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     colour = JColorChooser.showDialog(Andie.frame, bundle.getString("selectColour"), Color.BLACK);
+                    target.repaint();
                 }
             });
 
             JButton fontButton = new JButton(bundle.getString("font"));
             fontButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    String[] fonts = {"Comic Sans", "Impact", "Times New Roman"};
-                    JComboBox<String> comboBox = new JComboBox(fonts);
+                    String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+                    JComboBox<String> comboBox = new JComboBox<String>(fonts);
 
                     int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("font"), 
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -460,6 +427,7 @@ public class InsertActions {
                     if (option == JOptionPane.OK_OPTION) {
                         font = (String) comboBox.getSelectedItem();
                     }
+                    target.repaint();
                 }
             });
 
@@ -472,9 +440,10 @@ public class InsertActions {
                     int option = JOptionPane.showOptionDialog(panel, comboBox, bundle.getString("fontSize"), 
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-                if (option == JOptionPane.OK_OPTION) {
-                    fontSize = (int) comboBox.getSelectedItem();
-                }
+                    if (option == JOptionPane.OK_OPTION) {
+                        fontSize = (int) comboBox.getSelectedItem();
+                    }
+                    target.repaint();
                 }
             });
 
@@ -548,9 +517,8 @@ public class InsertActions {
             panel.add(colourButton);
             panel.add(fontButton);
             panel.add(fontSizeButton);
-            // Andie.removeToolBar();
-            // Andie.frame.add(panel, BorderLayout.PAGE_START);
-            // Andie.frame.setVisible(true);
+            Andie.frame.add(panel, BorderLayout.PAGE_START);
+            Andie.frame.setVisible(true);
         }
     }
 
