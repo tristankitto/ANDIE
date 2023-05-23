@@ -82,6 +82,18 @@ public class Andie {
             }
         });
 
+        // Maximize the frame
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // Get the screen dimensions
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        int screenWidth = gd.getDisplayMode().getWidth();
+        int screenHeight = gd.getDisplayMode().getHeight();
+
+        // Set the size of the frame to match the screen dimensions
+        frame.setSize(screenWidth, screenHeight);
+
         // The main content area is an ImagePanel
         imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
@@ -90,7 +102,6 @@ public class Andie {
 
         createMenuBar();
         createToolBar();
-        frame.pack();
 
     }
 
