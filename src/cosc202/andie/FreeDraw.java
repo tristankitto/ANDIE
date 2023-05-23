@@ -65,17 +65,10 @@ public class FreeDraw implements ImageOperation, java.io.Serializable {
         Graphics2D g2d = input.createGraphics();
         g2d.setColor(colour);
         g2d.setStroke(strokeSize);
-        int startXOriginal = startX;
-        int startYOriginal = startY;
-        startX = Math.min(startX, endX);
-        startY = Math.min(startY, endY);
 
         g2d.drawLine(startX, startY, endX, endY);
 
         g2d.dispose();
-
-        startX = startXOriginal;
-        startY = startYOriginal;
         return input;
     }
 }
