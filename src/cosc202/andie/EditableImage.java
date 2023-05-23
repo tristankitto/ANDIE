@@ -425,9 +425,11 @@ class EditableImage {
             redo = true;
             while (!redoOps.isEmpty()) {
                 ImageOperation op = redoOps.pop();
-                ops.push(op);
                 if (!(op instanceof FreeDraw)) {
+                    apply(op);
                     break;
+                } else {
+                    ops.push(op);
                 }
             }
             refresh();
@@ -531,8 +533,8 @@ class EditableImage {
 
             // stop recording macros
             isMacroRecording = false;
-            Andie.toolBar.remove(recordLabel);
-            Andie.createToolBar();
+            Andie.menuBar.remove(recordLabel);
+            Andie.createMenuBar();
             Andie.frame.setVisible(true);
         } catch (Exception e) {
             Tools.errorMessage(e, "fileMacroExportError");
@@ -555,6 +557,10 @@ class EditableImage {
             refresh();
             objIn.close();
             fileIn.close();
+            isMacroRecording = false;
+            Andie.menuBar.remove(recordLabel);
+            Andie.createMenuBar();
+            Andie.frame.setVisible(true);
         } catch (Exception e) {
             Tools.errorMessage(e, "fileMacroApplyError");
         }
@@ -565,7 +571,6 @@ class EditableImage {
      */
     public void resetMacro() {
         try {
-
             macro.clear();
         } catch (Exception e) {
             Tools.errorMessage(e, "resetMacroError");
