@@ -97,6 +97,9 @@ public class ThemeActions {
             if (InsertActions.DrawShapesAction.isDrawing) {
                 InsertActions.DrawShapesAction.stopDrawing();
             }
+            if (InsertActions.TextAction.isTexting) {
+                InsertActions.TextAction.stopTexting();
+            }
 
             try {
                 UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -136,6 +139,10 @@ public class ThemeActions {
             if (InsertActions.DrawShapesAction.isDrawing) {
                 InsertActions.DrawShapesAction.stopDrawing();
             }
+            if (InsertActions.TextAction.isTexting) {
+                InsertActions.TextAction.stopTexting();
+            }
+
             try {
                 UIManager.setLookAndFeel(new FlatLightLaf());
                 SwingUtilities.updateComponentTreeUI(Andie.frame);

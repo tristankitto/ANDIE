@@ -188,6 +188,9 @@ public class Andie {
                 if (InsertActions.DrawShapesAction.isDrawing) {
                     InsertActions.DrawShapesAction.stopDrawing();
                 }
+                if (InsertActions.TextAction.isTexting) {
+                    InsertActions.TextAction.stopTexting();
+                }
             }
         };
 
@@ -342,6 +345,9 @@ public class Andie {
                 }
                 if (InsertActions.DrawShapesAction.isDrawing) {
                     InsertActions.DrawShapesAction.stopDrawing();
+                }
+                if (InsertActions.TextAction.isTexting) {
+                    InsertActions.TextAction.stopTexting();
                 }
             }
         };

@@ -120,6 +120,9 @@ public class LanguageActions {
                         if (InsertActions.DrawShapesAction.isDrawing) {
                                 InsertActions.DrawShapesAction.stopDrawing();
                         }
+                        if (InsertActions.TextAction.isTexting) {
+                                InsertActions.TextAction.stopTexting();
+                        }
                         Locale.setDefault(new Locale(language));
                         try (BufferedWriter writer = new BufferedWriter(
                                         new FileWriter("src/cosc202/andie/LanguageResources/language_pref.txt"))) {
