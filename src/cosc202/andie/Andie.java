@@ -293,7 +293,7 @@ public class Andie {
                 macroPopupMenu(button8);
             }
         });
-        button8.setToolTipText(bundle.getString("language"));
+        button8.setToolTipText(bundle.getString("macro"));
         toolBar.add(button8);
 
         JButton button7 = new JButton();
@@ -309,7 +309,7 @@ public class Andie {
 
         JButton button6 = new JButton();
         button6.setIcon(exitIcon);
-        button6.addActionListener(fileActions.createMenu().getItem(8).getAction());
+        button6.addActionListener(fileActions.createMenu().getItem(5).getAction());
         button6.setToolTipText(bundle.getString("exit"));
         toolBar.add(button6);
 
@@ -370,11 +370,10 @@ public class Andie {
      */
     private static void macroPopupMenu(JButton button) {
         JPopupMenu popupMenu = new JPopupMenu();
-        FileActions macroActions = new FileActions();
-        popupMenu.add(macroActions.createMenu().getItem(4).getAction());
-        popupMenu.add(macroActions.createMenu().getItem(5).getAction());
-        popupMenu.add(macroActions.createMenu().getItem(6).getAction());
-        popupMenu.add(macroActions.createMenu().getItem(7).getAction());
+        MacroActions macroActions = new MacroActions();
+        for (Action macro : macroActions.actions) {
+            popupMenu.add(macro);
+        }
         // Show the popup menu relative to the button
         popupMenu.show(button, 0, button.getHeight());
     }
