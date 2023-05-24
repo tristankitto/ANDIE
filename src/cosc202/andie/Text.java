@@ -54,45 +54,8 @@ public class Text implements ImageOperation, java.io.Serializable {
         this.userText = userText;
     }
 
-    /**
-     * <p>
-     * Add a text box to the image.
-     * </p>
-     * 
-     * @param input The image to add the text box to.
-     * @return The resulting (blurred) image.
-     */
-    // public BufferedImage apply(BufferedImage input) {
-    // Font font = new Font("Arial", Font.BOLD, 36);
-    // Graphics g = input.getGraphics();
-    // g.setFont(font);
-    // g.setColor(Color.BLACK);
-    // g.drawString("Test", 10, 10);
-    // return input;
-    // }
-
     public BufferedImage apply(BufferedImage input) {
-        // JTextField textField = new JTextField("This is a test. Please remain calm and
-        // head to the nearest exit.");
-        // JPanel panel = new JPanel();
-        // panel.setLayout(null);
-        // panel.setBounds(startX, startY, endX, endY);
-        // panel.add(textField);
-        // Andie.frame.add(textField);
-        // Andie.frame.setVisible(true);
-
-        // All fonts
-        // String[] fonts =
-        // GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-
         Font fontFull = new Font(font, 0, fontSize);
-
-        // Graphics g = input.getGraphics();
-        // g.setFont(fontFull);
-        // g.setColor(Color.BLACK);
-        // g.drawString("Test", startX, startY);
-
-        // return input;
 
         Graphics2D g = input.createGraphics();
         g.setColor(colour);
@@ -101,11 +64,8 @@ public class Text implements ImageOperation, java.io.Serializable {
         FontMetrics fontM = g.getFontMetrics();
         int textHeight = fontM.getHeight();
 
-        g.drawString(userText, startX, startY + textHeight);
+        g.drawString(userText, startX, startY);
         g.dispose();
-
-        // Might be helpful with text wrapping in bounds
-        // https://stackoverflow.com/questions/41111870/swing-drawstring-text-bounds-and-line-wrapping
 
         return input;
     }
