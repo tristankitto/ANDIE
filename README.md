@@ -180,6 +180,7 @@ More information on this software and what it does can be found in the [COSC 202
 - This will remove all transparency in an image, making any transparent pixels into opaque, white pixels. This is effectively equivalent to converting an image from PNG to a different image format and is used mainly for exporting PNG images to non-PNG images within **ANDIE**.
 
 ## Text
+![Cosmic Cat](README_screenshots/cosmic_cat_meme.jpg)
 - The text function brings up a new toolbar where colour, font, and font size can be customised. The user can then click where they want the text to go and a pop-up box will prompt them with what text they want to add to the image.
 
 # Individual member contributions
@@ -212,6 +213,7 @@ More information on this software and what it does can be found in the [COSC 202
 - Toolbar for common operations
 - Theme 
 - README acknowlegements 
+- Adding text to an image
 
 ## Tristan - Toolsmith
 - Soft Blur Filter
