@@ -432,9 +432,9 @@ public class InsertActions {
 
             target.setImage(imageCopy);
 
-            colour = Color.BLACK;
-            font = "Impact";
-            fontSize = 24;
+            // colour = Color.BLACK;
+            // font = "Impact";
+            // fontSize = 24;
 
             double scale = target.getZoom() / 100;
             toolbar = new JToolBar();
