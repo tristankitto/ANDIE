@@ -705,20 +705,12 @@ public class InsertActions {
                         stopTexting();
                     }
 
-                    // Draw the text box
-                    image.apply(new DrawShapes((int) (startX / scale), (int) (startY / scale), (int) (endX / scale),
-                            (int) (endY / scale),
-                            "Rectangle", Color.BLACK, new BasicStroke(1)));
-
                     // Add text
-                    image.apply(new Text(startX, startY, endX, endY, colour, font, fontSize, userText));
+                    image.apply(new Text((int) (startX / scale), (int) (startY / scale), colour, font,
+                            fontSize, userText));
                     target.setImage(image);
                     target.repaint();
                     target.getParent().revalidate();
-
-                    // Remove the mouse listeners after the text adding is done
-                    target.removeMouseListener(this);
-                    target.setCursor(Cursor.getDefaultCursor());
 
                 }
             };
