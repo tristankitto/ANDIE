@@ -64,7 +64,7 @@ public class Text implements ImageOperation, java.io.Serializable {
         FontMetrics fontM = g.getFontMetrics();
         int textHeight = fontM.getHeight();
 
-        g.drawString(userText, startX, startY + textHeight);
+        g.drawString(userText, startX, startY + textHeight / 2);
         g.dispose();
 
         return input;

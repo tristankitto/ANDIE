@@ -30,6 +30,12 @@ public class InsertActions {
     /** ResourceBundle for multilingual support */
     ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.LanguageResources.LanguageBundle");
 
+    /** Sets default font for text input and stores changed font */
+    public static String font = "Impact";
+
+    /** Sets default font size for text input and stores changed font size */
+    public static int fontSize = 24;
+
     /**
      * <p>
      * Create a set of Insert menu actions.
@@ -388,8 +394,6 @@ public class InsertActions {
         static boolean isTexting = false;
         static EditableImage image = target.getImage();
         public static Color colour;
-        public static String font;
-        public static int fontSize;
         public static Font fontFull;
         static JToolBar toolbar;
         static MouseMotionListener mouseMotionListener;
@@ -432,10 +436,6 @@ public class InsertActions {
 
             target.setImage(imageCopy);
 
-            // colour = Color.BLACK;
-            // font = "Impact";
-            // fontSize = 24;
-
             double scale = target.getZoom() / 100;
             toolbar = new JToolBar();
 
@@ -474,13 +474,13 @@ public class InsertActions {
                 public void actionPerformed(ActionEvent e) {
                     String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
                     JComboBox<String> comboBox = new JComboBox<String>(fonts);
-                    comboBox.setSelectedItem(font);
+                    comboBox.setSelectedItem(InsertActions.font);
 
                     int option = JOptionPane.showOptionDialog(Andie.frame, comboBox, bundle.getString("font"),
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
                     if (option == JOptionPane.OK_OPTION) {
-                        font = (String) comboBox.getSelectedItem();
+                        InsertActions.font = (String) comboBox.getSelectedItem();
                     }
                     target.repaint();
                 }
@@ -492,13 +492,13 @@ public class InsertActions {
                 public void actionPerformed(ActionEvent e) {
                     Integer[] fontSizes = { 8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 72, 96 };
                     JComboBox<Integer> comboBox = new JComboBox<>(fontSizes);
-                    comboBox.setSelectedItem(fontSize);
+                    comboBox.setSelectedItem(InsertActions.fontSize);
 
                     int option = JOptionPane.showOptionDialog(Andie.frame, comboBox, bundle.getString("fontSize"),
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
                     if (option == JOptionPane.OK_OPTION) {
-                        fontSize = (int) comboBox.getSelectedItem();
+                        InsertActions.fontSize = (int) comboBox.getSelectedItem();
                     }
                     target.repaint();
                 }
@@ -534,8 +534,8 @@ public class InsertActions {
                     }
 
                     // Add text
-                    image.apply(new Text((int) (startX / scale), (int) (startY / scale), colour, font,
-                            fontSize, userText));
+                    image.apply(new Text((int) (startX / scale), (int) (startY / scale), colour, InsertActions.font,
+                            InsertActions.fontSize, userText));
                     target.setImage(image);
                     target.repaint();
                     target.getParent().revalidate();
