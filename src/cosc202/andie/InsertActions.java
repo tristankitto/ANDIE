@@ -634,7 +634,28 @@ public class InsertActions {
             double scale = target.getZoom() / 100;
             toolbar = new JToolBar();
 
+            ImageIcon colourChooseIcon;
+            ImageIcon fontIcon;
+            ImageIcon fontSizeIcon;
+            LookAndFeel currentTheme = UIManager.getLookAndFeel();
+            if (currentTheme.getName().equals("FlatLaf Light")) {
+                colourChooseIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/colourChoose_icon.png"));
+                fontIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/font_icon.png"));
+                fontSizeIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/fontSize_icon.png"));
+            } else {
+                colourChooseIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/colourChoose_iconINVERT.png"));
+                fontIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/font_iconINVERT.png"));
+                fontSizeIcon = new ImageIcon(
+                        ViewActions.class.getClassLoader().getResource("icons/fontSize_iconINVERT.png"));
+            }
+
             JButton colourButton = new JButton(bundle.getString("colour"));
+            colourButton.setIcon(colourChooseIcon);
             colourButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     colour = JColorChooser.showDialog(Andie.frame, bundle.getString("selectColour"), Color.BLACK);
@@ -643,6 +664,7 @@ public class InsertActions {
             });
 
             JButton fontButton = new JButton(bundle.getString("font"));
+            fontButton.setIcon(fontIcon);
             fontButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
@@ -660,6 +682,7 @@ public class InsertActions {
             });
 
             JButton fontSizeButton = new JButton(bundle.getString("fontSize"));
+            fontSizeButton.setIcon(fontSizeIcon);
             fontSizeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     Integer[] fontSizes = { 8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 72, 96 };
