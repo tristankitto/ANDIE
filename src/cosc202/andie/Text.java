@@ -38,21 +38,22 @@ public class Text implements ImageOperation, java.io.Serializable {
     private Color colour;
     private String font;
     private int fontSize;
+    private String userText;
 
     /**
      * <p>
      * Create a new add text operation
      * </p>
      * 
-     * @param startX Starting pixel for the text box on the x axis
-     * @param startY Starting pixel for the text box on the y axis
-     * @param endX   Ending pixel for the text box on the x axis
-     * @param endY   Ending pixel for the text box on the y axis
-     * @param colour The colour of the text
-     * @param font The font of the text
+     * @param startX   Starting pixel for the text box on the x axis
+     * @param startY   Starting pixel for the text box on the y axis
+     * @param endX     Ending pixel for the text box on the x axis
+     * @param endY     Ending pixel for the text box on the y axis
+     * @param colour   The colour of the text
+     * @param font     The font of the text
      * @param fontSize The font size of the text
      */
-    Text(int startX, int startY, int endX, int endY, Color colour, String font, int fontSize) {
+    Text(int startX, int startY, int endX, int endY, Color colour, String font, int fontSize, String userText) {
         this.startX = startX;
         this.startY = startY;
         this.endX = endX;
@@ -60,6 +61,7 @@ public class Text implements ImageOperation, java.io.Serializable {
         this.colour = colour;
         this.font = font;
         this.fontSize = fontSize;
+        this.userText = userText;
     }
 
     /**
@@ -71,16 +73,17 @@ public class Text implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred) image.
      */
     // public BufferedImage apply(BufferedImage input) {
-    //     Font font = new Font("Arial", Font.BOLD, 36);
-    //     Graphics g = input.getGraphics();
-    //     g.setFont(font);
-    //     g.setColor(Color.BLACK);
-    //     g.drawString("Test", 10, 10);
-    //     return input;
+    // Font font = new Font("Arial", Font.BOLD, 36);
+    // Graphics g = input.getGraphics();
+    // g.setFont(font);
+    // g.setColor(Color.BLACK);
+    // g.drawString("Test", 10, 10);
+    // return input;
     // }
 
     public BufferedImage apply(BufferedImage input) {
-        // JTextField textField = new JTextField("This is a test. Please remain calm and head to the nearest exit.");
+        // JTextField textField = new JTextField("This is a test. Please remain calm and
+        // head to the nearest exit.");
         // JPanel panel = new JPanel();
         // panel.setLayout(null);
         // panel.setBounds(startX, startY, endX, endY);
@@ -89,10 +92,10 @@ public class Text implements ImageOperation, java.io.Serializable {
         // Andie.frame.setVisible(true);
 
         // All fonts
-        //String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-        
-        Font fontFull = new Font (font, 0, fontSize);
-        
+        // String[] fonts =
+        // GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+
+        Font fontFull = new Font(font, 0, fontSize);
 
         // Graphics g = input.getGraphics();
         // g.setFont(fontFull);
@@ -100,10 +103,6 @@ public class Text implements ImageOperation, java.io.Serializable {
         // g.drawString("Test", startX, startY);
 
         // return input;
-        String userText = JOptionPane.showInputDialog("Enter text:");
-        if (userText == null || userText.isEmpty()) {
-            return input;
-        }
 
         Graphics2D g = input.createGraphics();
         g.setColor(colour);
@@ -115,8 +114,8 @@ public class Text implements ImageOperation, java.io.Serializable {
         g.drawString(userText, startX, startY + textHeight);
         g.dispose();
 
-        //Might be helpful with text wrapping in bounds
-        //https://stackoverflow.com/questions/41111870/swing-drawstring-text-bounds-and-line-wrapping
+        // Might be helpful with text wrapping in bounds
+        // https://stackoverflow.com/questions/41111870/swing-drawstring-text-bounds-and-line-wrapping
 
         return input;
     }

@@ -700,13 +700,18 @@ public class InsertActions {
                     endY = e.getY();
                     text = false;
 
+                    String userText = JOptionPane.showInputDialog("Enter text:");
+                    if (userText == null || userText.isEmpty()) {
+                        stopTexting();
+                    }
+
                     // Draw the text box
                     image.apply(new DrawShapes((int) (startX / scale), (int) (startY / scale), (int) (endX / scale),
                             (int) (endY / scale),
                             "Rectangle", Color.BLACK, new BasicStroke(1)));
 
                     // Add text
-                    image.apply(new Text(startX, startY, endX, endY, colour, font, fontSize));
+                    image.apply(new Text(startX, startY, endX, endY, colour, font, fontSize, userText));
                     target.setImage(image);
                     target.repaint();
                     target.getParent().revalidate();
