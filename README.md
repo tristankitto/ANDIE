@@ -12,9 +12,9 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
 - Open
     - The open option brings up a menu for a user to select an image to be opened and edited in **ANDIE**. Any image that is invalid (such as corrupt images), or any non-image file, will display an error to the user and prompt them to choose a different file instead. 
 - Save
-    - This function saves the edits made to an image in a new file (imagename.ops) alongside the original (unedited) image. Using the save function will not overwrite the original image with the new changes, it will only allow for the original image to be reopened inside **ANDIE** with its changes still showing and allowing the user to continue to remove or add more filters.
+    - This function saves the edits made to an image in a new file (imagename.ops) alongside the original (unedited) image. Using the save function will not overwrite the original image with the new changes, but rather reopen the original image in **ANDIE** with its changes still showing and allowing the user to continue to remove or add more filters.
 - Save As
-    - This function is the same as save but gives the user the option to save their image to a different directory with a different name. This function prompts the user to type a name for their file and choose where to save it. It will then create a copy of the original (unedited) image and give it the name inputted by the user. It will also create a .ops file with the new name entered by the user.
+    - This function is the same as save but gives the user the option to save their image to a different directory with a different name. It prompts the user to type a name for their file and choose where to save it. It will then create a copy of the original (unedited) image and give it the name inputted by the user. It will also create an .ops file with the new name entered by the user.
 - Export
     - Export allows the user to save the changes made to their image in a permanent manner. It will create a new image in a directory of the user's choice with a new name of the user's choice. This new image will have all of the filters applied in **ANDIE** showing and they will not be able to be removed. Using export does not destroy the original (unedited) image used before exporting so the user can still make changes and create a new exported image if they wish.
 - Macro
@@ -33,18 +33,17 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
 <img src=README_screenshots/edit_screenshot.PNG height = "300" align = "top">
 
 - Undo
-    - The undo function allows the user to undo their most recent change to the current image. If there is nothing to undo then the user will be made aware of this with an informative pop-up box.
+    - The undo function allows the user to undo their most recent change to the current image. In previous versions an informative pop-up box is displayed if there is nothing to undo but this feature has been removed to give a user experience more in line with other editing software.
 - Redo
-    - The redo function allows the user to redo their most recently undone change to the current image. If there is nothing to redo then the user will be made aware of this with an informative pop-up box.
+    - The redo function allows the user to redo their most recently undone change to the current image. In previous versions an informative pop-up box is displayed if there is nothing to redo but this feature has been removed to give a user experience more in line with other editing software.
 
 ## Insert
 <img src=README_screenshots/insert_screenshot.png height = "300" align = "top">
 
 - Draw
-    - The draw function gives the user the ability to draw different shapes as well as lines and free drawing. Starting this operation puts **ANDIE** into drawing mode, allowing the user to draw as much as they like and converting the Tool Bar items into options for drawing. Drawing allows the user to draw rectangles, filled rectangles, ovals, filled ovals, lines and free draw as well as changing the colour and line width of all of these options as well. Any image operation that the user performs while in drawing mode, or if the users presses the "ESCAPE" key, it will end drawing mode.
-
+    - The draw function gives the user the ability to draw different shapes as well as lines and free drawing. Starting this operation puts **ANDIE** into drawing mode, allowing the user to draw as much as they like and converting the Tool Bar items into options for drawing. Drawing allows the user to draw rectangles, filled rectangles, ovals, filled ovals, lines and free draw as well as changing the colour and line width of all of these options as well. Drawing mode is exited when any other non-drawing image operationis performed or if the users presses the "ESCAPE" key.
 - Text
-    - Text allows the user to select an area of the image and then add text to that area. The text can have its font, font size and colour edited by the user.
+    - The text function brings up a new toolbar where colour, font, and font size can be customised. The mouse cursor is changed to the text cursor and the user can then click where they want the text to go. A pop-up box will prompt them with what text they want to add to the image.
 
 ## View
 <img src=README_screenshots/view_screenshot.PNG height = "300" align = "top">
@@ -83,9 +82,9 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
     - This filter will apply a blur to the image based on the median colour of each pixel's neighbouring pixels. This filter depends on a radius input. The minimum value for the radius is 1 and the maximum is 10. The user selects the radius using a slider, once they have finished adjusting the slider the filter will apply to the image and then the user can either accept, continue adjusting, or cancel the action.
 - Emboss
     - Emboss
-        - There are 8 Emboss filters, each with a different direction (N, NE, E, etc.). Each filter applies an embossed effect to the image.
+        - There are eight Emboss filters, each with an evenly spaced cardinal direction (N, NE, E, etc.). These filters apply an embossed effect to the image.
     - Sobel
-        - Similar to the emboss filters the Sobel filters have a horizontal or vertical direction. These filters also apply a similar effect to emboss.
+        - Similar to the emboss filters, the Sobel filters have a horizontal or vertical direction. These filters also apply a similar effect to emboss.
 
 ## Colour
 <img src=README_screenshots/colour_screenshot.PNG height = "300" align = "top">
@@ -95,7 +94,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
 - Invert colours
     - This filter will invert the image's colours. This is done by taking the RGB value of each pixel and setting the new RGB value to 255 (the maximum value for RGB) minus the current RGB value.
 - Brightness/Contrast
-    - This filter will change the brightness and contrast of the image. The user selects the brightness and contrast using 2 sliders. These sliders will automatically update the images brightness and contrast as they are moved and then the user can either accept, continue adjusting, or cancel the action.
+    - This filter will change the brightness and contrast of the image. The user selects the brightness and contrast using two sliders. These sliders will automatically update the images brightness and contrast as they are moved and then the user can either accept, continue adjusting, or cancel the action.
 - Remove solid background
     - This operation attempts to remove the background of an image. It will set the pixels that it determines to be the background as transparent pixels. This operation works best for images with solid, mostly monochromatic backgrounds.
 - Remove transparency
@@ -105,7 +104,7 @@ __ANDIE__ loads images and edits them with operations such as colour filters, br
 <img src=README_screenshots/settings_screenshot.png height = "300" align = "top">
 
 - Theme
-    - **ANDIE** has 2 theme options, light mode and dark mode. By default **ANDIE** is set to light mode. Changing the theme will make all GUI elements of **ANDIE** change into that selected theme and will then save that theme as the user's preference.
+    - **ANDIE** has two theme options, light mode and dark mode. By default **ANDIE** is set to light mode. Changing the theme will make all GUI elements of **ANDIE** change into that selected theme and will then save that theme as the user's preference.
 - Language
     - Each option in the language menu changes the language of each UI element of **ANDIE**. For example, changing the language to Māori will display every menu name, menu item, and pop-up box (for errors or for user inputs) in Te Reo Māori. Each language option displays the language name in the current language, and beside that the name in the language itself. For example, if the current language is Spanish then the option to choose the English language will display as `Inglés (English)`, or if the current language is Japanese then the option to choose French will display as `フランス語 (Français)`. This allows people who only know one language to change **ANDIE** to their native language.
     - Language Preference
@@ -171,6 +170,9 @@ More information on this software and what it does can be found in the [COSC 202
 ## Free Draw
 - The drawing function in **ANDIE** includes an extra "Free Draw" mode which allows the user to draw a line freely, similar to using a pen or paint brush.
 
+## Waiting cursor
+- When a function takes some time to run, such as the filter operations, a loading cursor appears so the user knows the program is working on something.
+
 ## Remove Solid Background
 - The remove solid background function tries to remove the background of an image as best as it can. This function is intended to be used on images with solid, monochromatic background rather than multicoloured backgrounds or backgrounds that blend in with the foreground.
 
@@ -178,7 +180,7 @@ More information on this software and what it does can be found in the [COSC 202
 - This will remove all transparency in an image, making any transparent pixels into opaque, white pixels. This is effectively equivalent to converting an image from PNG to a different image format and is used mainly for exporting PNG images to non-PNG images within **ANDIE**.
 
 ## Text
-- The text function in **ANDIE** allows the user to select an area to write text on then prompts them to insert their text. This text can have its font, font size and colour changed before being inputted.
+- The text function brings up a new toolbar where colour, font, and font size can be customised. The user can then click where they want the text to go and a pop-up box will prompt them with what text they want to add to the image.
 
 # Individual member contributions
 
@@ -255,7 +257,7 @@ Gaussian Blur on opaque images creates a black border and on transparent images,
 
 ## 4k Images
 ![Cosmic Cat](Test_images/cosmic_cat.jpg)
-This 3840 x 2160 image was used to test some of the more process intensive filters like Median Filter. Although they took a while to run, no issues were encountered.
+This 3840 x 2160 image was used to test some of the more process intensive filters like Median Filter. Although they took a while to run, no issues were encountered. This was useful for testing different implementations that aid user experience when the run time for a particular operation is high.
 
 ## Corrupt Images
 Corrupt images fail to open in ANDIE. This has been fixed with exception handling, and an informative pop-up box will be prompted when it occurs.
@@ -271,18 +273,18 @@ Inanimate GIFs can be edited without issue.
 If an image has not yet been opened in **ANDIE** then a pop-up will be displayed if the user tries to do anything that would normally affect an image. This includes applying any filter or transformation, save, export, etc.
 
 ## Attempting to Undo or Redo with empty stacks
-This error was handled and a popup was shown to the user explaining that the undo or redo failed. After testing we decided that the popup was not user friendly and is not something that is commonly used when an undo or redo fails due to an empty stack. Because of this the popup was removed for empty stack exceptions while the error was still handled. A popup will still occur if undo or redo fails for reasons other than an empty stack.
+This error was handled and a pop-up was shown to the user explaining that the undo or redo failed. After testing, we decided that the pop-up was not user friendly and does not match precedent in other editing software. For these reasons, the pop-up for empty stack exceptions was removed while the error was still handled. A pop-up will still occur if undo or redo fails for reasons other than an empty stack.
 
 ## Opening non-supported files
 Attempting to open any file that is not supported by **ANDIE** will result in a pop-up displaying this exception to the user and prompting them to open a different file. This works for non-image files as well as corrupted image files.
 
 ## Miscellaneous Exceptions
-Any other exceptions such as a filter failing to apply or an image failing to export for an unknown or unpredictable reason are also handled. Pop-up boxes displaying what went wrong should appear to the user if an unforseen exception is to occur to inform them that their action has not worked correctly.
+Any other exceptions such as a filter failing to apply or an image failing to export for an unknown or unpredictable reason are also handled. Pop-up boxes displaying what went wrong should appear to the user if an unforeseen exception is to occur to inform them that their action has not worked correctly.
 
 # Some of the Errors Handled
 
 ## Opening and Exiting when an image is unsaved
-**ANDIE** now prompts the user to save their image before opening a new one or before exiting the program using the exit button in the file menu or the JFrame's exit button. The user can either save and continue, not save and continue, or cancel the action.
+**ANDIE** now prompts the user to save their image before opening a new one or before exiting the program using the exit button in the file menu or the JFrame's exit button. The user can either save and continue, continue without saving, or cancel the action.
 
 ## Filters applied to newly opened images
 When opening a new image, after already having an edited image open, the newly opened image would have the same filters now applied to it. This has been remedied and now any image that is opened will have no filters applied to it unless it has a **.ops** file.
