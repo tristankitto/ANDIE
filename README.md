@@ -265,7 +265,7 @@ This 3840 x 2160 image was used to test some of the more process intensive filte
 Corrupt images fail to open in ANDIE. This has been fixed with exception handling, and an informative pop-up box will be prompted when it occurs.
 
 ## GIFs
-Animated GIFs open up as mostly monochrome still images with pixels of one other colour in the top portion of the image. This image can be edited as normal, but exporting it will leave it as this strange still.
+Some animated GIFs open up as mostly monochrome still images with pixels of one other colour in the top portion of the image. This image can be edited as normal, but exporting it will leave it as this strange still.
 
 Inanimate GIFs can be edited without issue.
 
