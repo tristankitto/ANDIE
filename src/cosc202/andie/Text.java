@@ -1,13 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
 import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -33,8 +27,6 @@ public class Text implements ImageOperation, java.io.Serializable {
      */
     private int startX;
     private int startY;
-    private int endX;
-    private int endY;
     private Color colour;
     private String font;
     private int fontSize;
@@ -53,11 +45,9 @@ public class Text implements ImageOperation, java.io.Serializable {
      * @param font     The font of the text
      * @param fontSize The font size of the text
      */
-    Text(int startX, int startY, int endX, int endY, Color colour, String font, int fontSize, String userText) {
+    Text(int startX, int startY, Color colour, String font, int fontSize, String userText) {
         this.startX = startX;
         this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
         this.colour = colour;
         this.font = font;
         this.fontSize = fontSize;
